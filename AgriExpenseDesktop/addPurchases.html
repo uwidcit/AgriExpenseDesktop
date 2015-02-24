@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Default Page</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+    
+    <script src="/js/transactionMethods.js"></script>
+    <script src="/js/addPurchases.js"></script>
+    <script src="/js/globalStores.js"></script>
+    <!-- myPurchases references -->
+
+    <link href="/css/default.css" rel="stylesheet" />
+    <script src="/js/default.js"></script>
+</head>
+<body onload="onAddPurchasesPageLoad()">
+    
+    <div id="purchasesItemTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
+        <div class="item">
+            <div data-win-bind="textContent: type" class="item-title"></div>
+            <p>Name: <span data-win-bind="textContent: name" class="item-sub"></span></p>
+            <p>Quantity Remaining: <span data-win-bind="textContent: quantity" class="item-sub"></span>
+                <span data-win-bind="textContent: quantifier" class="item-sub"></span>
+            </p>
+            
+            
+
+        </div>
+    </div>
+    <div class="fragment toDo">
+        <header role="banner">
+            <h1 class="titlearea">Resources Used</h1>
+
+            <a href="default.html">Home</a>
+
+        </header>
+        <section role="main">
+            <aside>
+                <!-- display stats here i.e. filter by cycleid -->
+
+                
+
+                
+            </aside>
+            <div id="pList" class="pList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+        </section>
+    </div>
+    
+   
+    <div id="appBar" data-win-control="WinJS.UI.AppBar">
+       
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'addMaterialCommand', label:'Add Material', icon:'edit', section:'selection', hidden:'true', extraClass:'appBarSelection appBarSingleSelection'}">
+        </button>
+    </div>
+        
+    <div id="addMaterialFlyout" data-win-control="WinJS.UI.Flyout">
+        <form id="addMaterialForm">
+            <h2>Add Material to Cycle</h2>
+            <input type="hidden" class="id" data-win-bind="value:id" />
+            <input type="hidden" class="lvIndex" data-win-bind="value:lvIndex" />
+            <label>
+                Type
+            </label>
+            <input type="text" class="type input-block" data-win-bind="value:type" disabled />
+            <label>
+                Name
+            </label>
+            <textarea class="name input-block" data-win-bind="value:name" disabled></textarea>
+            <label>
+                Quantifier
+            </label>
+            <input type="text" class="quantifier input-block" data-win-bind="value:quantifier" disabled />
+            <label>
+                Quantity
+            </label>
+            <input type="number" class="quantity input-block" data-win-bind="value:quantity" disabled />
+            <label>
+                Cost
+            </label>
+            <input type="number" class="cost input-block" data-win-bind="value:cost" disabled />
+            <label>
+                Amount To Add
+            </label>
+            <input type="number" class="amountToAdd input-block" data-win-bind="value:amountToAdd" required />
+            <div>
+                <button type="submit">Add</button>
+                <button class="cancel">Cancel</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

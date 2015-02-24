@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Default Page</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+    
+    <script src="/js/transactionMethods.js"></script>
+    <script src="/js/purchaseDb.js"></script>
+    <script src="/js/globalStores.js"></script>
+    <!-- myPurchases references -->
+
+    <link href="/css/default.css" rel="stylesheet" />
+    <script src="/js/default.js"></script>
+    <script src="/js/dynamicoptionlist.js"></script>
+</head>
+<body onload="onPurchasesPageLoad()">
+    
+    <div id="purchasesItemTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
+        <div class="item">
+            <div data-win-bind="textContent: type" class="item-title"></div>
+            <p>Name: <span data-win-bind="textContent: name" class="item-sub"></span></p>
+            <p>Quantity Purchased: <span data-win-bind="textContent: quantity" class="item-sub"></span>
+                <span data-win-bind="textContent: quantifier" class="item-sub"></span>
+            </p>
+            <p>Cost: $ <span data-win-bind="textContent: cost" class="item-sub"></span></p>
+
+        </div>
+    </div>
+    <div class="fragment toDo">
+        <header role="banner">
+            <h1 class="titlearea">Add Purchase</h1>
+
+            <a href="default.html">Home</a>
+
+        </header>
+        <section role="main">
+            <aside>
+
+
+                <form id="addForm">
+                    <label>Type</label>
+                    <select class="type input-block">
+                    <option value="Fertilizer">Fertilizer</option>
+                    <option value="Chemical">Chemical</option>
+                    <option value="Planting Material">Planting Material</option>
+                    <option value="Soil Amendment">Soil Amendment</option>
+                    <option value="Other">Other</option>
+                    </select>
+
+                    <label>Name</label>
+                    <input type="text" class="name input-block" required />
+                    <label>Quantifier</label>
+                    <input type="text" class="quantifier input-block" required />
+                    <label>Quantity</label>
+                    <input type="number" class="quantity input-block" required />
+                    <label>Cost</label>
+                    <input type="number" class="cost input-block" required />
+                  
+                    <div>
+                        <button type="submit">Add</button>
+                    </div>
+                </form>
+                
+            </aside>
+            <div id="purchaseList" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+        </section>
+    </div>
+    <div id="appBar" data-win-control="WinJS.UI.AppBar">
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'deleteCommand', label:'Delete', icon:'remove', section:'selection', hidden:'true', extraClass:'appBarSelection'}">
+        </button>
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'editCommand', label:'Edit', icon:'edit', section:'selection', hidden:'true', extraClass:'appBarSelection appBarSingleSelection'}">
+        </button>
+    </div>
+    <div id="editFlyout" data-win-control="WinJS.UI.Flyout">
+        <form id="editForm">
+            <h2>Edit Purchase</h2>
+            <input type="hidden" class="id" data-win-bind="value:id" />
+            <input type="hidden" class="lvIndex" data-win-bind="value:lvIndex" />
+            <label>
+                Type
+            </label>
+            <input type="text" class="type input-block" data-win-bind="value:type" required />
+            <label>
+                Name
+            </label>
+            <textarea class="name input-block" data-win-bind="value:name"></textarea>
+            <label>
+                Quantifier
+            </label>
+            <input type="text" class="quantifier input-block" data-win-bind="value:quantifier" required />
+            <label>
+                Quantity
+            </label>
+            <input type="number" class="quantity input-block" data-win-bind="value:quantity" required />
+            <label>
+                Cost
+            </label>
+            <input type="number" class="cost input-block" data-win-bind="value:cost" required />
+            <div>
+                <button type="submit">Save</button>
+                <button class="cancel">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+
+
+
+
+</body>
+</html>
