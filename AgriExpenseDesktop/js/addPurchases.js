@@ -4,6 +4,12 @@ function onAddPurchasesPageLoad() {
         initializeDb().done(function () {
             initializePurchaseUI();
 
+            var cycleName = localStorage.getItem("cropCycleName");
+            var cycleCrop = localStorage.getItem("cropCycleCrop");
+            var cropCycleIdFromStorage = localStorage.getItem("cropCycleId");
+            document.getElementById("cycleNameID").innerHTML = "Cycle Name: "+cycleName;
+            document.getElementById("cycleCropID").innerHTML = "Crop: "+cycleCrop;
+
         });
     });
 }
@@ -30,10 +36,12 @@ function ViewModel()
 {
     var
         listView = document.getElementById("pList").winControl,
+        listView2 = document.getElementById("ruList").winControl,
         appBar = document.getElementById("appBar").winControl,
         addMaterialFlyout = document.getElementById("addMaterialFlyout").winControl,
         addMaterialForm = document.getElementById("addMaterialForm"),
         self = this,
+        dataListRU,
         dataList;
 
     this.init = function ()
@@ -44,6 +52,13 @@ function ViewModel()
 
             listView.itemDataSource = dataList.dataSource;
             listView.onselectionchanged = self.selectionChanged;
+        });
+
+        myDatabase.purchaseList.getCycleList(resourceUseageObjectStoreName, localStorage.getItem("cropCycleId"), function (e) {
+            dataListRU = new WinJS.Binding.List(e);
+            listView2.itemDataSource = dataListRU.dataSource;
+            //listView.itemDataSource = dataList.dataSource;
+            //listView.onselectionchanged = self.selectionChanged;
         });
     
     };
@@ -122,16 +137,15 @@ function ViewModel()
     };
 
 
-    this.submitEdit = function (e) {
+    this.submitEdit = function (e) {  //get data from form, add to resource use object store, edit quantity in purchase object store
         e.preventDefault();
 
-      
-
-        var cropCycleIdFromStorage = localStorage.getItem("cropCycleId");
+        var cropCycleIdFromStorage = localStorage.getItem("cropCycleId"); //get crop cycle selected
         var quantity = document.querySelector("#addMaterialForm .quantity").value;
         var cost = document.querySelector("#addMaterialForm .cost").value;
         var amountToAdd = document.querySelector("#addMaterialForm .amountToAdd").value;
-        var useCost = ((quantity / cost) * amountToAdd);
+        var useCost = ((quantity / cost) * amountToAdd).toFixed(2); //calculate use cost of that quantity of material
+        var quantityLeft = quantity - amountToAdd;
 
         var toDo = {
             purchaseID: document.querySelector("#addMaterialForm .id").value,
@@ -145,36 +159,39 @@ function ViewModel()
             lvIndex: document.querySelector("#addMaterialForm .lvIndex").value
         };
 
-        console.log('id is ' + toDo.purchaseID);
-        console.log('type is ' + toDo.resourceType);
-        console.log('name is ' + toDo.resourceName);
-        console.log('quantifier is ' + toDo.quantifier);
-        console.log('cost is ' + toDo.cost);
-        console.log('quantity is ' + quantity);
-        console.log('amount to add is ' + toDo.amountToAdd);
-        console.log('use cost is ' + toDo.useCost);
+   
+        //Add to ruList, edit quantity in purchaseObjectStore
 
-        //Add to ruList, edit quantity in purchaseList
+        myDatabase.purchaseList.add(toDo, resourceUseageObjectStoreName, function (e) {
+            dataListRU.push(e); //added to Resource Use Object Store
+            addMaterialFlyout.hide();
+            addMaterialForm.reset();
+            getValuesFromObjectStore(cropCycleIdFromStorage);
+        });
+
+
+        //get purchase information from addMaterialForm
+        var purchaseToDo = {
+            id: document.querySelector("#addMaterialForm .id").value,
+            type: document.querySelector("#addMaterialForm .type").value,
+            name: document.querySelector("#addMaterialForm .name").value,
+            quantifier: document.querySelector("#addMaterialForm .quantifier").value,
+            quantity: quantityLeft,
+            cost: document.querySelector("#addMaterialForm .cost").value,
+            lvIndex: document.querySelector("#addMaterialForm .lvIndex").value
+        };
+
+        //now edit quantity in purchase
+        myDatabase.purchaseList.update(purchaseToDo, purchaseObjectStoreName, function (e) {
+            addMaterialFlyout.hide();
+            appBar.hide();
+            addMaterialForm.reset();
+            listView.selection.clear();
+
+            dataList.setAt(purchaseToDo.lvIndex, purchaseToDo);
+        });
         
 
-      /*  myDatabase.purchaseList.add(toDo, resourceUseageObjectStoreName, function (e) {
-            dataList.push(e);
-            addMaterialFlyout.hide();
-            appBar.hide();
-            addMaterialForm.reset();
-            listView.selection.clear();
-            getValuesFromObjectStore();
-
-        }); */
-
-     /*   myDatabase.purchaseList.update(toDo, purchaseObjectStoreName, function (e) {
-            addMaterialFlyout.hide();
-            appBar.hide();
-            addMaterialForm.reset();
-            listView.selection.clear();
-
-            dataList.setAt(toDo.lvIndex, toDo);
-        }); */
     };
 
     this.cancelEdit = function (e) {
@@ -188,14 +205,38 @@ function ViewModel()
 }
 
 
-function getValuesFromObjectStore()
+function getValuesFromObjectStore(cropCyID)
 {
-    myDatabase.purchaseList.getList(resourceUseageObjectStoreName, function (e) {
+    //get values for that crop cyclements
+    myDatabase.purchaseList.getCycleList(resourceUseageObjectStoreName, cropCyID, function (e) {
         var resourceList = new WinJS.Binding.List(e);
-        for (var i = 0; i < resourceList.length; i++)
+        var newList = resourceList;
+
+        /*for (var key in newList)
         {
-            console.log(resourceList.id);
-           
-        }
+            if (newList.hasOwnProperty(key))
+            {
+                var obj = newList[key];
+                for (var prop in obj) {
+                    if (obj.hasOwnProperty(prop))
+                    {
+                        console.log(prop + " = " + obj[prop]);
+                    }
+                }
+            }
+        }*/
+
+
+       /* for (var i = 0; i < newList.length; i++) //go through entire object store
+        {
+            var keys = Object.keys(resourceList.getItem(i)); //returns array of keys for this resource use entry
+            for (var j = 0; j < keys.length; j++)
+            {
+                console.log("The value of this field is: " + resourceList.getItem(i)[keys[j]][name]);
+            }
+        } */
     });
+
+   
+
 }

@@ -26,28 +26,39 @@
             <p>Quantity Remaining: <span data-win-bind="textContent: quantity" class="item-sub"></span>
                 <span data-win-bind="textContent: quantifier" class="item-sub"></span>
             </p>
-            
-            
-
+        </div>
+    </div>
+    <div id="previousPurchasesItemTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
+        <div class="item">
+            <div data-win-bind="textContent: resourceType" class="item-title"></div>
+            <p>Name: <span data-win-bind="textContent: resourceName" class="item-sub"></span></p>
+            <p>Amount Added: <span data-win-bind="textContent: amountToAdd" class="item-sub"></span>
+                <span data-win-bind="textContent: quantifier" class="item-sub"></span>
+            </p>
+            <p>Cost: $<span data-win-bind="textContent: useCost" class="item-sub"></span></p>
         </div>
     </div>
     <div class="fragment toDo">
         <header role="banner">
-            <h1 class="titlearea">Resources Used</h1>
-
+            <!--<h1 class="titlearea">This Cycle : </h1> -->
             <a href="default.html">Home</a>
-
         </header>
         <section role="main">
             <aside>
                 <!-- display stats here i.e. filter by cycleid -->
-
-                
-
+                <h1>This Cycle: </h1>
+                <p id="cycleNameID"></p>
+                <p id="cycleCropID"></p>
+                <p><b>Materials Used: </b></p>
+                <div id="ruList" class="pList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div>
                 
             </aside>
+
+
+           
             <div id="pList" class="pList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
         </section>
+
     </div>
     
    

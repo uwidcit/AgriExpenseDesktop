@@ -26,9 +26,9 @@
             request.onupgradeneeded = function (e) {
                 var db = e.target.result;
 
-            //    db.deleteObjectStore(purchaseObjectStoreName);
-            //    db.deleteObjectStore(cycleObjectStoreName);
-            //    db.deleteObjectStore(resourceUseageObjectStoreName);
+                db.deleteObjectStore(purchaseObjectStoreName);
+                db.deleteObjectStore(cycleObjectStoreName);
+                db.deleteObjectStore(resourceUseageObjectStoreName);
                 
                 var purchaseStore = db.createObjectStore(purchaseObjectStoreName, {
                     keyPath: "id",
@@ -70,6 +70,33 @@
     myDatabase.purchaseList = (function () {
 
         var getList = function (oStoreName, success) {
+
+                var
+                    list = [],
+                    transaction = myDatabase.data.db.transaction(oStoreName),
+                    store = transaction.objectStore(oStoreName);
+
+                store.openCursor().onsuccess = function (e) {
+                    var cursor = e.target.result;
+
+                    if (cursor) {
+                        if (cursor.value.quantity != '0') {  //check if the quantity remaining (in purchases) is more than 0, then add to the list
+                            list.push(cursor.value); //add to list
+                        }
+                        cursor.continue();
+                    }
+                    else {
+                        success(list);
+             
+                };
+
+            }
+
+        };
+
+        var getCycleList = function (oStoreName, cropCyId, success) {
+
+           
             var
                 list = [],
                 transaction = myDatabase.data.db.transaction(oStoreName),
@@ -79,15 +106,18 @@
                 var cursor = e.target.result;
 
                 if (cursor) {
-                    if (cursor.value.quantity != '0') {  //check if the quantity remaining is more than 0, then add to the list
+                    if (cursor.value.cropCycleID == cropCyId) {  //filter by cropcycle id
                         list.push(cursor.value); //add to list
                     }
                     cursor.continue();
                 }
                 else {
                     success(list);
-                }
-            };
+                    
+                };
+
+            }
+
         };
 
 
@@ -105,7 +135,7 @@
 
         var add = function (toDo, oStoreName, success) {
             if (oStoreName == "purchaseObjectStore") {
-                console.log('hello wrong');
+               
                 var
                     transaction = myDatabase.data.db.transaction(oStoreName, "readwrite"),
                     store = transaction.objectStore(oStoreName),
@@ -131,21 +161,23 @@
             }
 
             else if (oStoreName == "resourceObjectStore") {
-                console.log('hello correct');
+                
                 var
                     transaction = myDatabase.data.db.transaction(oStoreName, "readwrite"),
                     store = transaction.objectStore(oStoreName),
                     request = store.add({
-                        type: toDo.type,
-                        name: toDo.name,
-                        quantifier: toDo.quantifier,
-                        quantity: toDo.quantity,
+                        purchaseID: toDo.purchaseID,
+                        resourceName: toDo.resourceName,
+                        cropCycleID: toDo.cropCycleID,
+                        resourceType: toDo.resourceType,
                         amountToAdd: toDo.amountToAdd,
-                        cost: toDo.cost
+                        quantifier: toDo.quantifier,
+                        cost: toDo.cost,
+                        useCost: toDo.useCost
                     });
 
                
-                console.log('resource name: ' + toDo.name);
+                console.log('resource name: ' + toDo.resourceName);
                 console.log('amount to add: ' + toDo.amountToAdd);
             }
 
@@ -216,6 +248,7 @@
         return {
             get: get,
             getList: getList,
+            getCycleList: getCycleList,
             add: add,
             update: update,
             remove: remove

@@ -215,6 +215,8 @@ function ViewModel() {
                 };
 
                 localStorage.setItem("cropCycleId", item.data.id); //Add Crop Cycle Id to local storage to access later
+                localStorage.setItem("cropCycleName", item.data.name);
+                localStorage.setItem("cropCycleCrop", item.data.crop);
 
                 window.location = 'addPurchases.html'; //navigate to page where they can select from purchases
             });
