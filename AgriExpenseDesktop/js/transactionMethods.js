@@ -8,7 +8,7 @@
         var indexedDB = window.indexedDB;
 
         var init = function (success) {
-            var request = indexedDB.open(dbName, 5);
+            var request = indexedDB.open(dbName, 6);
 
             request.onsuccess = function () {
                 myDatabase.data.db = request.result;
@@ -45,6 +45,11 @@
                     autoIncrement: true
                 });
 
+                var labourStore = db.createObjectStore(labourObjectStoreName, {
+                    keyPath: "id",
+                    autoIncrement: true
+                });
+
                 cycleStore.createIndex("name", "name", {
                     unique: false
                 }); 
@@ -54,6 +59,10 @@
                 });
 
                 resourceUseStore.createIndex("name", "name", {
+                    unique: false
+                });
+
+                labourStore.createIndex("name", "name", {
                     unique: false
                 });
 
@@ -71,6 +80,7 @@
 
         var getList = function (oStoreName, success) {
 
+        //    if ((oStoreName == purchaseObjectStoreName) || (oStoreName == cycleObjectStoreName)) {
                 var
                     list = [],
                     transaction = myDatabase.data.db.transaction(oStoreName),
@@ -87,7 +97,7 @@
                     }
                     else {
                         success(list);
-             
+              //      }
                 };
 
             }
@@ -175,10 +185,21 @@
                         cost: toDo.cost,
                         useCost: toDo.useCost
                     });
+            }
 
-               
-                console.log('resource name: ' + toDo.resourceName);
-                console.log('amount to add: ' + toDo.amountToAdd);
+            else if (oStoreName == labourObjectStoreName) {
+
+                var
+                    transaction = myDatabase.data.db.transaction(oStoreName, "readwrite"),
+                    store = transaction.objectStore(oStoreName),
+                    request = store.add({
+                        personName: toDo.personName,
+                        paymentPlan: toDo.paymentPlan,
+                        time: toDo.time,
+                        cost: toDo.cost,
+                        cycleID: toDo.cycleID
+                    });
+
             }
 
                

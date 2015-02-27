@@ -14,7 +14,7 @@
     <script src="/js/globalStores.js"></script>
     <!-- myPurchases references -->
 
-    <link href="/css/default.css" rel="stylesheet" />
+    <link href="/css/addPurchases.css" rel="stylesheet" />
     <script src="/js/default.js"></script>
 </head>
 <body onload="onAddPurchasesPageLoad()">
@@ -38,28 +38,34 @@
             <p>Cost: $<span data-win-bind="textContent: useCost" class="item-sub"></span></p>
         </div>
     </div>
-    <div class="fragment toDo">
+    <div class="fragment toDo"> 
         <header role="banner">
             <!--<h1 class="titlearea">This Cycle : </h1> -->
             <a href="default.html">Home</a>
         </header>
         <section role="main">
-            <aside>
-                <!-- display stats here i.e. filter by cycleid -->
-                <h1>This Cycle: </h1>
-                <p id="cycleNameID"></p>
-                <p id="cycleCropID"></p>
-                <p><b>Materials Used: </b></p>
-                <div id="ruList" class="pList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div>
-                
+            
+            
+                <aside id="cycleInfo">
+                    
+                    <!-- display stats here i.e. filter by cycleid -->
+                    <h1>This Cycle: </h1>
+                    <p id="cycleNameID"></p>
+                    <p id="cycleCropID"></p>
+                    <p><b>Materials Used: </b></p>
+
+                    <div id="ruList" class="pList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div>
+                    
+                </aside>
+            
+            <aside id="listInfo">
+              <h1>Add Purchases to Cycle: </h1>
+              <div id="pList" class="pList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
             </aside>
-
-
-           
-            <div id="pList" class="pList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+            
         </section>
 
-    </div>
+    </div> 
     
    
     <div id="appBar" data-win-control="WinJS.UI.AppBar">

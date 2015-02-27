@@ -147,51 +147,62 @@ function ViewModel()
         var useCost = ((quantity / cost) * amountToAdd).toFixed(2); //calculate use cost of that quantity of material
         var quantityLeft = quantity - amountToAdd;
 
-        var toDo = {
-            purchaseID: document.querySelector("#addMaterialForm .id").value,
-            resourceName: document.querySelector("#addMaterialForm .name").value,
-            cropCycleID: cropCycleIdFromStorage,
-            resourceType: document.querySelector("#addMaterialForm .type").value,
-            amountToAdd: amountToAdd,
-            quantifier: document.querySelector("#addMaterialForm .quantifier").value,
-            cost: cost,
-            useCost: useCost,
-            lvIndex: document.querySelector("#addMaterialForm .lvIndex").value
-        };
+        if (amountToAdd <= quantity) {
 
-   
-        //Add to ruList, edit quantity in purchaseObjectStore
-
-        myDatabase.purchaseList.add(toDo, resourceUseageObjectStoreName, function (e) {
-            dataListRU.push(e); //added to Resource Use Object Store
-            addMaterialFlyout.hide();
-            addMaterialForm.reset();
-            getValuesFromObjectStore(cropCycleIdFromStorage);
-        });
+            var toDo = {
+                purchaseID: document.querySelector("#addMaterialForm .id").value,
+                resourceName: document.querySelector("#addMaterialForm .name").value,
+                cropCycleID: cropCycleIdFromStorage,
+                resourceType: document.querySelector("#addMaterialForm .type").value,
+                amountToAdd: amountToAdd,
+                quantifier: document.querySelector("#addMaterialForm .quantifier").value,
+                cost: cost,
+                useCost: useCost,
+                lvIndex: document.querySelector("#addMaterialForm .lvIndex").value
+            };
 
 
-        //get purchase information from addMaterialForm
-        var purchaseToDo = {
-            id: document.querySelector("#addMaterialForm .id").value,
-            type: document.querySelector("#addMaterialForm .type").value,
-            name: document.querySelector("#addMaterialForm .name").value,
-            quantifier: document.querySelector("#addMaterialForm .quantifier").value,
-            quantity: quantityLeft,
-            cost: document.querySelector("#addMaterialForm .cost").value,
-            lvIndex: document.querySelector("#addMaterialForm .lvIndex").value
-        };
+            //Add to ruList, edit quantity in purchaseObjectStore
 
-        //now edit quantity in purchase
-        myDatabase.purchaseList.update(purchaseToDo, purchaseObjectStoreName, function (e) {
-            addMaterialFlyout.hide();
-            appBar.hide();
-            addMaterialForm.reset();
+            myDatabase.purchaseList.add(toDo, resourceUseageObjectStoreName, function (e) {
+                dataListRU.push(e); //added to Resource Use Object Store
+                addMaterialFlyout.hide();
+                addMaterialForm.reset();
+                getValuesFromObjectStore(cropCycleIdFromStorage);
+            });
+
+
+            //get purchase information from addMaterialForm
+            var purchaseToDo = {
+                id: document.querySelector("#addMaterialForm .id").value,
+                type: document.querySelector("#addMaterialForm .type").value,
+                name: document.querySelector("#addMaterialForm .name").value,
+                quantifier: document.querySelector("#addMaterialForm .quantifier").value,
+                quantity: quantityLeft,
+                cost: document.querySelector("#addMaterialForm .cost").value,
+                lvIndex: document.querySelector("#addMaterialForm .lvIndex").value
+            };
+
+            //now edit quantity in purchase
+            myDatabase.purchaseList.update(purchaseToDo, purchaseObjectStoreName, function (e) {
+                addMaterialFlyout.hide();
+                appBar.hide();
+                addMaterialForm.reset();
+                listView.selection.clear();
+
+                dataList.setAt(purchaseToDo.lvIndex, purchaseToDo);
+            });
+
+        }
+        else {
+            var dialog = new Windows.UI.Popups.MessageDialog("Not enough available");
+
+            dialog.commands.append(new Windows.UI.Popups.UICommand("Okay", null));
             listView.selection.clear();
+            dialog.cancelCommandIndex = 1;
 
-            dataList.setAt(purchaseToDo.lvIndex, purchaseToDo);
-        });
-        
-
+            dialog.showAsync();
+        }
     };
 
     this.cancelEdit = function (e) {

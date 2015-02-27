@@ -8,34 +8,100 @@
     <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
     <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
     <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+    
     <script src="/js/transactionMethods.js"></script>
+    <script src="/js/globalStores.js"></script>
     <!-- myPurchases references -->
-
+    <script src="/js/labourDb.js"></script>
     <link href="/css/default.css" rel="stylesheet" />
     <script src="/js/default.js"></script>
+    <script src="/js/dynamicoptionlist.js"></script>
 </head>
-<body>
+<body onload="onLabourPageLoad()">
     
-    <div id="purchasesItemTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
-      
+ <div id="purchasesItemTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
+        <div class="item">
+
+               <form id="getIdForm">
+             <input type="hidden" class="id" data-win-bind="value:id" /> 
+                </form>
+
+             <p>Name: <span data-win-bind="textContent: name" class="item-title"></span></p>
+
+             <p>Crop: <span data-win-bind="textContent: crop" class="item-sub"></span></p>
+             <p>Type of Land: <span data-win-bind="textContent: typeOfLand" class="item-sub"></span></p>
+             <p>Quantity of Land: <span data-win-bind="textContent: quantity" class="item-sub"></span></p>
+             <p>Start Date: <span data-win-bind="textContent: startDate" class="item-sub"></span></p>
+        </div>
     </div>
     <div class="fragment toDo">
         <header role="banner">
-            <h1 class="titlearea">Labour</h1> <br />
+            <h1 class="titlearea">Hire Labour</h1>
 
-              <a href="default.html">Home</a>
+            <a href="default.html">Home</a>
+
         </header>
-
-         <section role="main">
+        <section role="main">
             <aside>
-             
+
+
+                <form id="addForm">
+
+                    <button type="button">View Current Employees</button>
+                    <br />
+                    <br />
+                    <br />
+                    <label>Select Person to Hire</label>
+                    <select id="labourSelect" class="personName input-block"></select>
+                    <script>
+                        var select = document.getElementById("labourSelect");
+                        for (var i = 0; i < labourArray.length; i++) {
+                            var opt = labourArray[i];
+                            var el = document.createElement("option");
+                            el.textContent = opt;
+                            el.value = opt;
+                            select.appendChild(el);
+                        }
+                    </script>
+
+                    <label>How is this person going to be paid?</label>
+                    <select id="paidSelect" class="paymentPlan input-block"></select>
+                    <script>
+                        var select = document.getElementById("paidSelect");
+                        for (var i = 0; i < paymentArray.length; i++) {
+                            var opt = paymentArray[i];
+                            var el = document.createElement("option");
+                            el.textContent = opt;
+                            el.value = opt;
+                            select.appendChild(el);
+                        }
+                    </script>
+
+
+                    <label>Amount of Time</label>
+                    <input type="number" class="time input-block" required />
+                    <label>Total Cost for this person : $</label>
+                    <input type="number" class="cost input-block" required />
+
+
+                    
+                    <input type="radio" id ="one" name = "amtCrop" value="oneCrop" class="oneCrop input-block" checked>One Crop Cycle
+                    <br>
+                    <input type="radio" id = "many" name="amtCrop" value="manyCrops" class="manyCrops input-block">Many Crop Cycles
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div>
+                        <button type="submit">Hire</button>
+                    </div>
+
+                    
+                </form>
                 
             </aside>
-          
+            <div id="cycleList" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
         </section>
-    
     </div>
-    
-    
-</body> 
+   
+</body>
 </html>

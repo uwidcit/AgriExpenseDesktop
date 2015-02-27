@@ -54,6 +54,7 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <Content Include="addPurchases.html" />
+    <Content Include="css\addPurchases.css" />
     <Content Include="css\default.css" />
     <Content Include="cycles.html" />
     <Content Include="default.html" />
@@ -66,6 +67,7 @@
     <Content Include="js\default.js" />
     <Content Include="js\dynamicoptionlist.js" />
     <Content Include="js\globalStores.js" />
+    <Content Include="js\labourDb.js" />
     <Content Include="js\purchaseDb.js" />
     <Content Include="js\transactionMethods.js" />
     <Content Include="labour.html" />
