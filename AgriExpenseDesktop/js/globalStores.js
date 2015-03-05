@@ -10,5 +10,5 @@ var landTypeArray = ["Acre", "Bed", "Hectre"];
 var purchaseTypeArray = ["Chemical", "Fertlizer", "Planting Material", "Soil Amendment", "Other"];
 var fertilizerArray = ["12-24-12 Fertlizer", "Ferqidd (10.13.32 + TE)", "Fersan", "Flower Plus", "Harvest More"];
 var chemicalArray = ["Algicides", "Anitimicrobials", "Biocides", "Biopesticides", "Fumigants", "Fungicide", "Herbicides", "Insecticides"];
-var labourArray = ["John", "Mark", "Matthew", "Luke"];
+var labourArray = ["John"];
 var paymentArray = ["Hour", "Day", "Crop Cycle"];

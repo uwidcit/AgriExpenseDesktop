@@ -54,18 +54,22 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <Content Include="addPurchases.html" />
+    <Content Include="chooseCropCycle.html" />
     <Content Include="css\addPurchases.css" />
     <Content Include="css\default.css" />
     <Content Include="cycles.html" />
     <Content Include="default.html" />
+    <Content Include="employees.html" />
     <Content Include="images\logo.png" />
     <Content Include="images\smalllogo.png" />
     <Content Include="images\splashscreen.png" />
     <Content Include="images\storelogo.png" />
     <Content Include="js\addPurchases.js" />
+    <Content Include="js\chooseCropCycle.js" />
     <Content Include="js\cycleDb.js" />
     <Content Include="js\default.js" />
     <Content Include="js\dynamicoptionlist.js" />
+    <Content Include="js\employees.js" />
     <Content Include="js\globalStores.js" />
     <Content Include="js\labourDb.js" />
     <Content Include="js\purchaseDb.js" />

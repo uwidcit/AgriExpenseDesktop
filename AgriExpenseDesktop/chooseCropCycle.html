@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Default Page</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+    
+    <script src="/js/transactionMethods.js"></script>
+    <script src="/js/chooseCropCycle.js"></script>
+    <script src="/js/globalStores.js"></script>
+    <!-- myPurchases references -->
+
+    <link href="/css/default.css" rel="stylesheet" />
+    <script src="/js/default.js"></script>
+</head>
+<body onload="onCyclesPageLoad()">
+    
+    <div id="purchasesItemTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
+        <div class="item">
+             <p>Name: <span data-win-bind="textContent: name" class="item-title"></span></p>
+             <p>Id: <span data-win-bind="textContent: id" class="item-sub"></span></p>
+             <p>Crop: <span data-win-bind="textContent: crop" class="item-sub"></span></p>
+             <p>Type of Land: <span data-win-bind="textContent: typeOfLand" class="item-sub"></span></p>
+             <p>Quantity of Land: <span data-win-bind="textContent: quantity" class="item-sub"></span></p>
+             <p>Start Date: <span data-win-bind="textContent: startDate" class="item-sub"></span></p>
+        </div>
+    </div>
+    <div class="fragment toDo">
+        <header role="banner">
+            <h1 class="titlearea">Select Which Cycle</h1>
+
+            <a href="default.html">Home</a>
+
+        </header>
+        <section role="main">
+            <aside>
+
+               
+            </aside>
+            <div id="cycleList" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+        </section>
+    </div>
+</body>
+</html>

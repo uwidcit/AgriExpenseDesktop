@@ -8,7 +8,7 @@
         var indexedDB = window.indexedDB;
 
         var init = function (success) {
-            var request = indexedDB.open(dbName, 6);
+            var request = indexedDB.open(dbName, 7);
 
             request.onsuccess = function () {
                 myDatabase.data.db = request.result;
@@ -29,6 +29,7 @@
                 db.deleteObjectStore(purchaseObjectStoreName);
                 db.deleteObjectStore(cycleObjectStoreName);
                 db.deleteObjectStore(resourceUseageObjectStoreName);
+                db.deleteObjectStore(labourObjectStoreName);
                 
                 var purchaseStore = db.createObjectStore(purchaseObjectStoreName, {
                     keyPath: "id",
@@ -50,6 +51,11 @@
                     autoIncrement: true
                 });
 
+                var historicalLabourStore = db.createObjectStore(historicalLabourStoreName, {
+                    keyPath: "id",
+                    autoIncrement: true
+                });
+
                 cycleStore.createIndex("name", "name", {
                     unique: false
                 }); 
@@ -66,6 +72,10 @@
                     unique: false
                 });
 
+                historicalLabourStore.createIndex("name", "name", {
+                    unique: false
+                });
+
 
             };
         };
@@ -78,9 +88,7 @@
 
     myDatabase.purchaseList = (function () {
 
-        var getList = function (oStoreName, success) {
-
-        //    if ((oStoreName == purchaseObjectStoreName) || (oStoreName == cycleObjectStoreName)) {
+        var getList = function (oStoreName, success) {       
                 var
                     list = [],
                     transaction = myDatabase.data.db.transaction(oStoreName),
@@ -97,16 +105,14 @@
                     }
                     else {
                         success(list);
-              //      }
                 };
 
             }
 
         };
 
-        var getCycleList = function (oStoreName, cropCyId, success) {
-
-           
+        var getCycleList = function (oStoreName, materialType, cropCyId, success) {
+         
             var
                 list = [],
                 transaction = myDatabase.data.db.transaction(oStoreName),
@@ -116,7 +122,7 @@
                 var cursor = e.target.result;
 
                 if (cursor) {
-                    if (cursor.value.cropCycleID == cropCyId) {  //filter by cropcycle id
+                    if ((cursor.value.cropCycleID == cropCyId) && (cursor.value.resourceType == materialType)) {  //filter by cropcycle id
                         list.push(cursor.value); //add to list
                     }
                     cursor.continue();
@@ -127,9 +133,9 @@
                 };
 
             }
-
         };
 
+       
 
         var get = function (oStoreName, key, success) {
             var
@@ -144,7 +150,7 @@
 
 
         var add = function (toDo, oStoreName, success) {
-            if (oStoreName == "purchaseObjectStore") {
+            if (oStoreName == purchaseObjectStoreName) {
                
                 var
                     transaction = myDatabase.data.db.transaction(oStoreName, "readwrite"),
@@ -157,7 +163,7 @@
                         cost: toDo.cost
                     });
             }
-            else if (oStoreName == "cycleObjectStore") {
+            else if (oStoreName == cycleObjectStoreName) {
                 var
                     transaction = myDatabase.data.db.transaction(oStoreName, "readwrite"),
                     store = transaction.objectStore(oStoreName),
@@ -170,7 +176,7 @@
                     });
             }
 
-            else if (oStoreName == "resourceObjectStore") {
+            else if (oStoreName == resourceUseageObjectStoreName) {
                 
                 var
                     transaction = myDatabase.data.db.transaction(oStoreName, "readwrite"),
@@ -183,7 +189,8 @@
                         amountToAdd: toDo.amountToAdd,
                         quantifier: toDo.quantifier,
                         cost: toDo.cost,
-                        useCost: toDo.useCost
+                        useCost: toDo.useCost,
+                        datePurchased: toDo.datePurchased
                     });
             }
 
@@ -199,7 +206,15 @@
                         cost: toDo.cost,
                         cycleID: toDo.cycleID
                     });
+            }
 
+            else if (oStoreName == historicalLabourStoreName) {
+                var
+                    transaction = myDatabase.data.db.transaction(oStoreName, "readwrite"),
+                    store = transaction.objectStore(oStoreName),
+                    request = store.add({
+                        name: toDo.name
+                    });
             }
 
                

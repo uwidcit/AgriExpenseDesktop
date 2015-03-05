@@ -22,12 +22,8 @@
  <div id="purchasesItemTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
         <div class="item">
 
-               <form id="getIdForm">
-             <input type="hidden" class="id" data-win-bind="value:id" /> 
-                </form>
-
              <p>Name: <span data-win-bind="textContent: name" class="item-title"></span></p>
-
+             <p>Id: <span data-win-bind="textContent: id" class="item-sub"></span></p>
              <p>Crop: <span data-win-bind="textContent: crop" class="item-sub"></span></p>
              <p>Type of Land: <span data-win-bind="textContent: typeOfLand" class="item-sub"></span></p>
              <p>Quantity of Land: <span data-win-bind="textContent: quantity" class="item-sub"></span></p>
@@ -47,22 +43,13 @@
 
                 <form id="addForm">
 
-                    <button type="button">View Current Employees</button>
+                    <button onclick="window.location='employees.html'">Manage Employees</button>
                     <br />
                     <br />
                     <br />
                     <label>Select Person to Hire</label>
                     <select id="labourSelect" class="personName input-block"></select>
-                    <script>
-                        var select = document.getElementById("labourSelect");
-                        for (var i = 0; i < labourArray.length; i++) {
-                            var opt = labourArray[i];
-                            var el = document.createElement("option");
-                            el.textContent = opt;
-                            el.value = opt;
-                            select.appendChild(el);
-                        }
-                    </script>
+               
 
                     <label>How is this person going to be paid?</label>
                     <select id="paidSelect" class="paymentPlan input-block"></select>
@@ -83,23 +70,18 @@
                     <label>Total Cost for this person : $</label>
                     <input type="number" class="cost input-block" required />
 
-
-                    
-                    <input type="radio" id ="one" name = "amtCrop" value="oneCrop" class="oneCrop input-block" checked>One Crop Cycle
+                    <input id="oneCycle" type="radio" name="oneOrMany" value="oneCycle" checked>One Crop Cycle
                     <br>
-                    <input type="radio" id = "many" name="amtCrop" value="manyCrops" class="manyCrops input-block">Many Crop Cycles
-                    <br/>
-                    <br/>
-                    <br/>
-                    <div>
-                        <button type="submit">Hire</button>
-                    </div>
+                    <input id="manyCycles" type="radio" name="oneOrMany" value="manyCycles">Many Crop Cycles
 
-                    
+                    <div>
+                        <button type="submit">Next</button>
+                    </div>
                 </form>
                 
             </aside>
             <div id="cycleList" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+            <div id="employeeList" style="display: none;" class="employeeList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
         </section>
     </div>
    
