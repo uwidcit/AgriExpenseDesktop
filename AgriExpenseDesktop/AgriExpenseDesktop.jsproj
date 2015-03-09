@@ -68,7 +68,7 @@
     <Content Include="js\chooseCropCycle.js" />
     <Content Include="js\cycleDb.js" />
     <Content Include="js\default.js" />
-    <Content Include="js\dynamicoptionlist.js" />
+    <Content Include="js\dynamicPurchaseForm.js" />
     <Content Include="js\employees.js" />
     <Content Include="js\globalStores.js" />
     <Content Include="js\labourDb.js" />

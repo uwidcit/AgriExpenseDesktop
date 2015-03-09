@@ -30,6 +30,7 @@
                 db.deleteObjectStore(cycleObjectStoreName);
                 db.deleteObjectStore(resourceUseageObjectStoreName);
                 db.deleteObjectStore(labourObjectStoreName);
+                db.deleteObjectStore(historicalLabourStoreName);
                 
                 var purchaseStore = db.createObjectStore(purchaseObjectStoreName, {
                     keyPath: "id",

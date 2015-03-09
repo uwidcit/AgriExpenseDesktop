@@ -1,7 +1,7 @@
 ﻿.fragment {
     /* Define a grid with rows for a banner and a body */
     -ms-grid-columns: 1fr;
-    -ms-grid-rows: 100px 1fr;
+    -ms-grid-rows: 100px 200px 1fr;
     display: -ms-grid;
     height: 100%;
     width: 100%;
@@ -35,11 +35,10 @@
   #cycleInfo {
   background: black;
   border: green solid 1px;
- 
+ -ms-grid-row: 1;
+  -ms-grid-column: 1;
 
-  -ms-grid-columns: 340px;
-  -ms-grid-rows: 250px 1fr;
-  display: -ms-grid;
+  
 }
 
 
@@ -47,7 +46,6 @@
   -ms-grid-row: 1;
   -ms-grid-column: 2;
 
-  
 }
 
 

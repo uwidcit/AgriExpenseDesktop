@@ -11,6 +11,7 @@
     
     <script src="/js/transactionMethods.js"></script>
     <script src="/js/purchaseDb.js"></script>
+    <script src="/js/dynamicPurchaseForm.js"></script>
     <script src="/js/globalStores.js"></script>
     <!-- myPurchases references -->
 
@@ -44,18 +45,20 @@
 
                 <form id="addForm">
                     <label>Type</label>
-                    <select class="type input-block">
+                    <select class="type input-block" id="purchaseTypeSelect" onblur="addFormDynamic()">
                     <option value="Fertilizer">Fertilizer</option>
                     <option value="Chemical">Chemical</option>
                     <option value="Planting Material">Planting Material</option>
                     <option value="Soil Amendment">Soil Amendment</option>
-                    <option value="Other">Other</option>
                     </select>
 
+                
                     <label>Name</label>
-                    <input type="text" class="name input-block" required />
+                    <select class="name input-block" id="selectPurchaseName"> </select>
+                    
                     <label>Quantifier</label>
-                    <input type="text" class="quantifier input-block" required />
+                    <select class="quantifier input-block" id="selectPurchaseQuantifier"> </select>
+
                     <label>Quantity</label>
                     <input type="number" class="quantity input-block" required />
                     <label>Cost</label>
@@ -64,7 +67,8 @@
                     <div>
                         <button type="submit">Add</button>
                     </div>
-                </form>
+                </form>     
+
                 
             </aside>
             <div id="purchaseList" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
@@ -81,36 +85,33 @@
             <h2>Edit Purchase</h2>
             <input type="hidden" class="id" data-win-bind="value:id" />
             <input type="hidden" class="lvIndex" data-win-bind="value:lvIndex" />
-            <label>
-                Type
-            </label>
-            <input type="text" class="type input-block" data-win-bind="value:type" required />
-            <label>
-                Name
-            </label>
-            <textarea class="name input-block" data-win-bind="value:name"></textarea>
-            <label>
-                Quantifier
-            </label>
-            <input type="text" class="quantifier input-block" data-win-bind="value:quantifier" required />
-            <label>
-                Quantity
-            </label>
+            
+            <label>Type</label>
+            <select class="type input-block" id="editFormTypeSelect" onblur="editFormDynamic()">
+                    <option value="Fertilizer">Fertilizer</option>
+                    <option value="Chemical">Chemical</option>
+                    <option value="Planting Material">Planting Material</option>
+                    <option value="Soil Amendment">Soil Amendment</option>
+            </select>
+         
+            <label>Name</label>
+            <select class="name input-block" id="editFormPurchaseName"> </select>
+
+            <label>Quantifier</label>
+            <select class="quantifier input-block" id="editFormQuantifier"> </select>
+
+            <label>Quantity</label>
             <input type="number" class="quantity input-block" data-win-bind="value:quantity" required />
-            <label>
-                Cost
-            </label>
+
+            <label>Cost</label>
             <input type="number" class="cost input-block" data-win-bind="value:cost" required />
+
             <div>
                 <button type="submit">Save</button>
                 <button class="cancel">Cancel</button>
             </div>
         </form>
     </div>
-
-
-
-
 
 </body>
 </html>
