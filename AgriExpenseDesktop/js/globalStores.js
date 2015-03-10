@@ -22,5 +22,5 @@ var soilAmendmentQuantifierArray = ["Bag", "Truck"];
 var landTypeArray = ["Acre", "Bed", "Hectre"];
 var purchaseTypeArray = ["Chemical", "Fertlizer", "Planting Material", "Soil Amendment", "Other"];
 
-var labourArray = ["John"];
-var paymentArray = ["Hour", "Day", "Crop Cycle"];
+var labourArray = [""];
+var paymentArray = ["Hourly", "Daily", "Per Crop Cycle"];

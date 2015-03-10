@@ -15,19 +15,17 @@
     <script src="/js/labourDb.js"></script>
     <link href="/css/default.css" rel="stylesheet" />
     <script src="/js/default.js"></script>
-    <script src="/js/dynamicoptionlist.js"></script>
+    
 </head>
 <body onload="onLabourPageLoad()">
     
  <div id="purchasesItemTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
         <div class="item">
 
-             <p>Name: <span data-win-bind="textContent: name" class="item-title"></span></p>
-             <p>Id: <span data-win-bind="textContent: id" class="item-sub"></span></p>
-             <p>Crop: <span data-win-bind="textContent: crop" class="item-sub"></span></p>
-             <p>Type of Land: <span data-win-bind="textContent: typeOfLand" class="item-sub"></span></p>
-             <p>Quantity of Land: <span data-win-bind="textContent: quantity" class="item-sub"></span></p>
-             <p>Start Date: <span data-win-bind="textContent: startDate" class="item-sub"></span></p>
+             <p> <span data-win-bind="textContent: personName" class="item-title"></span></p>
+             <p hidden="hidden">Id: <span data-win-bind="textContent: id" class="item-sub"></span></p>
+             <p>Payment Plan: <span data-win-bind="textContent: paymentPlan" class="item-sub"></span></p>
+             <p>Cost: <span data-win-bind="textContent: cost" class="item-sub"></span></p>
         </div>
     </div>
     <div class="fragment toDo">
@@ -40,19 +38,20 @@
         <section role="main">
             <aside>
 
+                <h2>Hire Employee</h2>
+                <p>---------------------------------------------------</p>
 
                 <form id="addForm">
 
                     <button onclick="window.location='employees.html'">Manage Employees</button>
                     <br />
                     <br />
-                    <br />
                     <label>Select Person to Hire</label>
-                    <select id="labourSelect" class="personName input-block"></select>
+                    <select id="labourSelect" class="personName input-block"></select> <br />
                
 
                     <label>How is this person going to be paid?</label>
-                    <select id="paidSelect" class="paymentPlan input-block"></select>
+                    <select id="paidSelect" class="paymentPlan input-block"></select> 
                     <script>
                         var select = document.getElementById("paidSelect");
                         for (var i = 0; i < paymentArray.length; i++) {
@@ -63,25 +62,32 @@
                             select.appendChild(el);
                         }
                     </script>
+                    <br />
 
 
                     <label>Amount of Time</label>
-                    <input type="number" class="time input-block" required />
+                    <input type="number" class="time input-block" required /><br />
                     <label>Total Cost for this person : $</label>
-                    <input type="number" class="cost input-block" required />
+                    <input type="number" class="cost input-block" required /><br />
 
                     <input id="oneCycle" type="radio" name="oneOrMany" value="oneCycle" checked>One Crop Cycle
                     <br>
                     <input id="manyCycles" type="radio" name="oneOrMany" value="manyCycles">Many Crop Cycles
-
+                    <br /><br />
                     <div>
-                        <button type="submit">Next</button>
+                        <button type="submit" class="width-150px">Next</button>
                     </div>
                 </form>
                 
             </aside>
-            <div id="cycleList" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
-            <div id="employeeList" style="display: none;" class="employeeList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+            <div class="displayListColumn">
+                <h2>Recent Hired Employees</h2>
+                <p>-------------------------------------------------------------------------------------------------</p>
+
+                <div id="cycleList" style="display: none;" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+                <div id="labourList" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+                <div id="employeeList" style="display: none;" class="employeeList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+            </div>
         </section>
     </div>
    

@@ -16,7 +16,7 @@
 
     <link href="/css/default.css" rel="stylesheet" />
     <script src="/js/default.js"></script>
-    <script src="/js/dynamicoptionlist.js"></script>
+  
 </head>
 <body onload="onEmployeesPageLoad()">
     
@@ -37,16 +37,26 @@
         </header>
         <section role="main">
             <aside>
+
+                <h2>Add New Employee</h2>
+                <p>---------------------------------------------------</p>
                 <form id="addForm">
+
                     <label>Name</label>
                     <input type="text" class="name input-block" required />
                     <div>
-                        <button type="submit">Add</button>
+                        <button type="submit" class="width-150px">Add</button>
                     </div>
                 </form>
                 
             </aside>
-            <div id="historicalLabourList" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+
+            <div class="displayListColumn">
+                <h2>Employees Available</h2>
+                <p>-------------------------------------------------------------------------------------------------</p>
+                <div id="historicalLabourList" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+          </div>
+
         </section>
     </div>
     <div id="appBar" data-win-control="WinJS.UI.AppBar">

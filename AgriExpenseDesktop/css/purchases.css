@@ -1,11 +1,14 @@
-﻿.fragment {
-    /* Define a grid with rows for a banner and a body */
+﻿body {
+}
+
+.fragment {
+    
     -ms-grid-columns: 1fr;
     -ms-grid-rows: 128px 1fr;
     display: -ms-grid;
     height: 100%;
     width: 100%;
-}
+} 
 
     .fragment header[role=banner] {
         -ms-grid-columns: 120px 1fr;
@@ -30,14 +33,6 @@
         display: -ms-grid;
     }
 
-    #cycleInfo {
-  background: maroon;
-  border: orange solid 1px;
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
-}
-
-
 
 
 .toDo aside {
@@ -45,6 +40,7 @@
     padding-right: 30px;
     border-style: solid;
     border-color: black;
+
 }
 
 .toDo aside hr {
@@ -84,55 +80,6 @@
 
 
 
-
-.toDo .cycleList {
-    -ms-grid-column: 3;
-    height: 100%;
-    width: 100%;
-}
-
-    .toDo .cycleList .item {
-        height: 200px;
-        width: 300px;
-        padding: 15px;
-        background-color: rgba(255,255,255,0.6);
-    }
-
-        .toDo .cycleList .item .item-title {
-            font-weight: 600;
-            font-size: 15pt;
-        }
-
-        .toDo .cycleList .item .item-sub {
-            overflow: hidden;
-            margin-left: 15px;
-        }
-
-
-.toDo .pList {
-    -ms-grid-column: 3;
-    height: 100%;
-    width: 100%;
-}
-
-    .toDo .pList .item {
-        height: 200px;
-        width: 300px;
-        padding: 15px;
-        background-color: rgba(255,255,255,0.6);
-    }
-
-        .toDo .pList .item .item-title {
-            font-weight: 600;
-            font-size: 15pt;
-        }
-
-        .toDo .pList .item .item-sub {
-            overflow: hidden;
-            margin-left: 15px;
-        }
-
-
 .toDo form label, #updateFlyout form label {
     display: block;
     margin-bottom: 5px;
@@ -151,4 +98,4 @@
     width: 150px;
     display: inline-block;
 }
-
+    

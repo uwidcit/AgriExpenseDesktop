@@ -39,10 +39,12 @@
         <section role="main">
             <aside>
 
-
+                <h2>Add New Cycle</h2>
+                <p>---------------------------------------------------</p>
                 <form id="addForm">
                     <label>Name</label>
-                    <input type="text" class="name input-block" required />
+                    <input type="text" class="name input-block" required /> <br /><br />
+
                     <label>Crop</label>
                    <!-- <input type="text" class="crop input-block" required /> -->
                     <select id="cropSelect" class="crop input-block"></select>
@@ -56,7 +58,7 @@
                             select.appendChild(el);
                         }
                     </script>
-
+                    <br /><br />
 
                     <label>Type of Land</label>
                     <select id="landTypeSelect" class="typeOfLand input-block"></select>
@@ -70,21 +72,28 @@
                             select.appendChild(el);
                         }
                     </script>
+                    <br /><br />
    
                    
                     <label>Land Quantity</label>
-                    <input type="text" class="quantity input-block" required />
+                    <input type="text" class="quantity input-block" required /><br /><br />
                     <label>Start Date</label>
-                    <div id="dateDiv" data-win-control="WinJS.UI.DatePicker" class="startDate"></div>
+                    <div id="dateDiv" data-win-control="WinJS.UI.DatePicker" class="startDate"></div><br /><br /> <br />
                     
                     <div>
-                        <button type="submit">Add</button>
+                        <button type="submit" class="width-150px">Add</button>
                     </div>
                 </form>
 
                 
             </aside>
-            <div id="cycleList" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+
+            <div class="displayListColumn">
+                <h2>Recent Cycles</h2>
+                <p>-------------------------------------------------------------------------------------------------</p>
+                <div id="cycleList" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+            </div>
+
         </section>
     </div>
     <div id="appBar" data-win-control="WinJS.UI.AppBar">

@@ -26,6 +26,7 @@ function initializeLabourUI() {
 function ViewModel() {
     var
         listView = document.getElementById("cycleList").winControl,
+        labourListView = document.getElementById("labourList").winControl,
         employeeListView = document.getElementById("employeeList").winControl,
         addForm = document.getElementById("addForm"),
         self = this,
@@ -36,6 +37,13 @@ function ViewModel() {
         myDatabase.purchaseList.getList(cycleObjectStoreName, function (e) {
             dataList = new WinJS.Binding.List(e);
             listView.itemDataSource = dataList.dataSource;
+
+            //  listView.onselectionchanged = self.selectionChanged;
+        });
+
+        myDatabase.purchaseList.getList(labourObjectStoreName, function (e) {
+            dataList = new WinJS.Binding.List(e);
+            labourListView.itemDataSource = dataList.dataSource;
 
             //  listView.onselectionchanged = self.selectionChanged;
         });
@@ -149,35 +157,6 @@ function ViewModel() {
 
 
 
-    this.editToDo = function () {
-        var
-            anchor = document.querySelector(".toDo"),
-            selectionCount = listView.selection.count();
-
-        if (selectionCount === 1) {
-            listView.selection.getItems().then(function (items) {
-                var
-                    item = items[0],
-                    editFlyoutElement = document.getElementById("editFlyout");
-
-                var toDo = {
-                    id: item.data.id,
-                    type: item.data.type,
-                    name: item.data.name,
-                    quantifier: item.data.quantifier,
-                    quantity: item.data.quantity,
-                    cost: item.data.cost,
-                    lvIndex: item.index
-                };
-
-                var process = WinJS.Binding.processAll(editFlyoutElement, toDo);
-
-                process.then(function () {
-                    editFlyout.show(anchor, "top", "center");
-                });
-            });
-        }
-    };
 
 
     this.submitAdd = function (e) {
