@@ -53,6 +53,7 @@
     <AppxManifest Include="package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="addOtherPurchase.html" />
     <Content Include="addPurchases.html" />
     <Content Include="chooseCropCycle.html" />
     <Content Include="css\addPurchases.css" />
@@ -65,6 +66,7 @@
     <Content Include="images\smalllogo.png" />
     <Content Include="images\splashscreen.png" />
     <Content Include="images\storelogo.png" />
+    <Content Include="js\addOtherPurchase.js" />
     <Content Include="js\addPurchases.js" />
     <Content Include="js\chooseCropCycle.js" />
     <Content Include="js\cycleDb.js" />
@@ -72,11 +74,13 @@
     <Content Include="js\dynamicPurchaseForm.js" />
     <Content Include="js\employees.js" />
     <Content Include="js\globalStores.js" />
+    <Content Include="js\jqueryForWindows8.js" />
     <Content Include="js\labourDb.js" />
     <Content Include="js\purchaseDb.js" />
     <Content Include="js\transactionMethods.js" />
     <Content Include="labour.html" />
     <Content Include="purchases.html" />
+    <Content Include="reports.html" />
     <Content Include="resources.html" />
     <None Include="AgriExpenseDesktop_TemporaryKey.pfx" />
   </ItemGroup>

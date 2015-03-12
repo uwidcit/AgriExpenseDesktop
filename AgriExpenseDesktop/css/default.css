@@ -43,8 +43,8 @@
 .toDo aside {
     -ms-grid-column: 1;
     padding-right: 30px;
-    border-style: solid;
-    border-color: black;
+  /*  border-style: solid;
+  //  border-color: black; */
 }
 
 .toDo aside hr {

@@ -52,9 +52,10 @@ function ViewModel() {
             employeeList = new WinJS.Binding.List(e);
             employeeListView.itemDataSource = employeeList.dataSource;
             employeeListView.selection.selectAll(); //select all from the list
-            //DO IT HERE
+
+            //push to array
             var selectionCount = employeeListView.selection.count();
-            console.log("Selection count : " + selectionCount);
+            
 
             if (selectionCount > 0) {
                 employeeListView.selection.getItems().then(function (items) {
@@ -67,7 +68,7 @@ function ViewModel() {
                     });
                 });
 
-                //populate list in form here
+                //populate list (select box) in labour form here
                 var lselect = document.getElementById("labourSelect");
                 for (var i = 0; i < labourArray.length; i++) {
                     var opt = labourArray[i];

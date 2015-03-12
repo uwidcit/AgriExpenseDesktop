@@ -8,7 +8,7 @@
         var indexedDB = window.indexedDB;
 
         var init = function (success) {
-            var request = indexedDB.open(dbName, 8);
+            var request = indexedDB.open(dbName, 14);
 
             request.onsuccess = function () {
                 myDatabase.data.db = request.result;
@@ -23,7 +23,7 @@
                 console.log(event);
             };
 
-            request.onupgradeneeded = function (e) {
+            request.onupgradeneeded = function (e) { //runs when a new instance of the db is created
                 var db = e.target.result;
 
                 db.deleteObjectStore(purchaseObjectStoreName);
@@ -31,6 +31,7 @@
                 db.deleteObjectStore(resourceUseageObjectStoreName);
                 db.deleteObjectStore(labourObjectStoreName);
                 db.deleteObjectStore(historicalLabourStoreName);
+              //  db.deleteObjectStore(fertilizerObjectStoreName);
                 
                 var purchaseStore = db.createObjectStore(purchaseObjectStoreName, {
                     keyPath: "id",
@@ -57,6 +58,13 @@
                     autoIncrement: true
                 });
 
+                var otherPurchaseStore = db.createObjectStore(otherPurchaseObjectStoreName, {
+                    keyPath: "id",
+                    autoIncrement: true
+                });
+
+               
+
                 cycleStore.createIndex("name", "name", {
                     unique: false
                 }); 
@@ -77,6 +85,9 @@
                     unique: false
                 });
 
+                otherPurchaseStore.createIndex("name", "name", {
+                    unique: false
+                });
 
             };
         };
@@ -86,6 +97,8 @@
         };
 
     })();
+
+    
 
     myDatabase.purchaseList = (function () {
 
@@ -218,6 +231,20 @@
                     });
             }
 
+            else if (oStoreName == otherPurchaseObjectStoreName) {
+
+                var
+                    transaction = myDatabase.data.db.transaction(oStoreName, "readwrite"),
+                    store = transaction.objectStore(oStoreName),
+                    request = store.add({
+                        type: toDo.type,
+                        name: toDo.name,
+                        quantifier: toDo.quantifier,
+                        quantity: toDo.quantity,
+                        cost: toDo.cost
+                    });
+            }
+
                
             
 
@@ -262,6 +289,23 @@
                       quantity: toDo.quantity,
                       startDate: toDo.startDate
               });
+
+                request.onsuccess = function () {
+                    success(toDo);
+                };
+            }
+
+            else if (oStoreName == otherPurchaseObjectStoreName) {
+                var
+                  transaction = myDatabase.data.db.transaction(oStoreName, "readwrite"),
+                  store = transaction.objectStore(oStoreName),
+                  request = store.put({
+                      id: parseInt(toDo.id, 10),
+                      name: toDo.name,
+                      quantifier: toDo.quantifier,
+                      quantity: toDo.quantity,
+                      cost: toDo.cost
+                  });
 
                 request.onsuccess = function () {
                     success(toDo);

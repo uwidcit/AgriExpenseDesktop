@@ -25,47 +25,26 @@ function initializePurchaseUI() {
     document.getElementById("deleteCommand").addEventListener("click", viewModel.deleteToDo, false);
     document.getElementById("editCommand").addEventListener("click", viewModel.editToDo, false);
     document.querySelector("#editForm .cancel").addEventListener("click", viewModel.cancelEdit, false);
+    document.getElementById('inputName').value = localStorage.getItem("otherNameSelected");
+    localStorage.setItem("otherNameSelected", "");
 }
 
 function ViewModel() {
     var
-        listView = document.getElementById("purchaseList").winControl,
-        otherPurchaseListView = document.getElementById("otherPurchaseList").winControl,
+        listView = document.getElementById("otherPurchaseList").winControl,
         appBar = document.getElementById("appBar").winControl,
         editFlyout = document.getElementById("editFlyout").winControl,
         addForm = document.getElementById("addForm"),
         editForm = document.getElementById("editForm"),
         self = this,
-        otherPurchaseDataList,
         dataList;
 
     this.init = function () {
-        myDatabase.purchaseList.getList(purchaseObjectStoreName, function (e) {
+        myDatabase.purchaseList.getList(otherPurchaseObjectStoreName, function (e) {
             dataList = new WinJS.Binding.List(e);
 
             listView.itemDataSource = dataList.dataSource;
             listView.onselectionchanged = self.selectionChanged;
-        });
-
-        myDatabase.purchaseList.getList(otherPurchaseObjectStoreName, function (e) {
-            otherPurchaseDataList = new WinJS.Binding.List(e);
-
-            otherPurchaseListView.itemDataSource = otherPurchaseDataList.dataSource;
-            //   otherPurchaseListView.onselectionchanged = self.selectionChanged;
-            otherPurchaseListView.selection.selectAll();
-            var selectionCount = otherPurchaseListView.selection.count();
-            
-            //push to otherPurchaseArray
-            if (selectionCount > 0) {
-                otherPurchaseListView.selection.getItems().then(function (items) {
-                    items.forEach(function (item) {
-                        var name = item.data.name;
-                        otherPurchaseArray.push(name);
-                    });
-                });
-            }
-
-
         });
     };
 
@@ -115,7 +94,7 @@ function ViewModel() {
                             dbKey = item.data.id,
                             lvKey = item.key;
 
-                        myDatabase.purchaseList.remove(dbKey, purchaseObjectStoreName, function () {
+                        myDatabase.purchaseList.remove(dbKey, otherPurchaseObjectStoreName, function () {
                             listView.itemDataSource.remove(lvKey);
                         });
                     });
@@ -165,21 +144,17 @@ function ViewModel() {
         e.preventDefault();
 
         var toDo = {
-            type: document.querySelector("#addForm .type").value,
+            type: "Other",
             name: document.querySelector("#addForm .name").value,
             quantifier: document.querySelector("#addForm .quantifier").value,
             quantity: document.querySelector("#addForm .quantity").value,
             cost: document.querySelector("#addForm .cost").value,
-            amountRemaining: document.querySelector("#addForm .quantity").value
 
         };
 
-        myDatabase.purchaseList.add(toDo, purchaseObjectStoreName, function (e) {
+        myDatabase.purchaseList.add(toDo, otherPurchaseObjectStoreName, function (e) {
             dataList.push(e);
-
             addForm.reset();
-
-            
         });
     };
 
@@ -188,7 +163,7 @@ function ViewModel() {
 
         var toDo = {
             id: document.querySelector("#editForm .id").value,
-            type: document.querySelector("#editForm .type").value,
+            type: "Other",
             name: document.querySelector("#editForm .name").value,
             quantifier: document.querySelector("#editForm .quantifier").value,
             quantity: document.querySelector("#editForm .quantity").value,
@@ -196,7 +171,7 @@ function ViewModel() {
             lvIndex: document.querySelector("#editForm .lvIndex").value
         };
 
-        myDatabase.purchaseList.update(toDo, purchaseObjectStoreName, function (e) {
+        myDatabase.purchaseList.update(toDo, otherPurchaseObjectStoreName, function (e) {
             editFlyout.hide();
             appBar.hide();
             editForm.reset();
