@@ -8,7 +8,7 @@
         var indexedDB = window.indexedDB;
 
         var init = function (success) {
-            var request = indexedDB.open(dbName, 7);
+            var request = indexedDB.open(dbName, 8);
 
             request.onsuccess = function () {
                 myDatabase.data.db = request.result;
@@ -30,6 +30,7 @@
                 db.deleteObjectStore(cycleObjectStoreName);
                 db.deleteObjectStore(resourceUseageObjectStoreName);
                 db.deleteObjectStore(labourObjectStoreName);
+                db.deleteObjectStore(historicalLabourStoreName);
                 
                 var purchaseStore = db.createObjectStore(purchaseObjectStoreName, {
                     keyPath: "id",
