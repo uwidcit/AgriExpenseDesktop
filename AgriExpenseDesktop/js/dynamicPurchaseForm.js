@@ -22,7 +22,12 @@
         var opt = "";
         var el = document.createElement("option");
         el.textContent = opt;
-        select.appendChild(el); 
+        select.appendChild(el);
+
+        var opt = "(Add New)";
+        var el = document.createElement("option");
+        el.textContent = opt;
+        select.appendChild(el);
 
         for (var i = 0; i < fertilizerArray.length; i++) {
             var opt = fertilizerArray[i];
@@ -46,6 +51,11 @@
 
         //add blank element to the top
         var opt = "";
+        var el = document.createElement("option");
+        el.textContent = opt;
+        select.appendChild(el);
+
+        var opt = "(Add New)";
         var el = document.createElement("option");
         el.textContent = opt;
         select.appendChild(el);
@@ -74,6 +84,11 @@
         el.textContent = opt;
         select.appendChild(el);
 
+        var opt = "(Add New)";
+        var el = document.createElement("option");
+        el.textContent = opt;
+        select.appendChild(el);
+
         for (var i = 0; i < cropArray.length; i++) {
             var opt = cropArray[i];
             var el = document.createElement("option");
@@ -96,6 +111,11 @@
             var el = document.createElement("option");
             el.textContent = opt;
             el.value = opt;
+            select.appendChild(el);
+
+            var opt = "(Add New)";
+            var el = document.createElement("option");
+            el.textContent = opt;
             select.appendChild(el);
         }
 
@@ -132,17 +152,29 @@
 function navigateOrNot() {
 
     var nameSelect = document.getElementById("selectPurchaseName");
+    var typeSelect = document.getElementById("purchaseTypeSelect");
 
     if (nameSelect.value == "Other") {
         window.location = "addOtherPurchase.html";
     }
-    else if (nameSelect != "") {
+    else if (nameSelect.value == "(Add New)") {
+        localStorage.setItem("typeSelected", typeSelect.value);
+        window.location = "otherItemTypeKnown.html";
+    }
+    else if ((nameSelect != "") && (typeSelect == "Other")) {
 
         //localstorage and pass it on to addOtherPurchases page
         localStorage.setItem("otherNameSelected", nameSelect.value);
         window.location = "addOtherPurchase.html";
     }
 
+}
+
+function navigateFertilizerOrNot() {
+    var nameSelect = document.getElementById("selectPurchaseName");
+    if (nameSelect == "(Add New)") {
+        window.location("otherItemTypeKnown.html");
+    }
 }
 
 function editFormDynamic() {

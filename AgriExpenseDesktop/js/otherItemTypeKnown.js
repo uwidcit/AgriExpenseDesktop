@@ -17,7 +17,6 @@ function initializeDb() {
 }
 
 function initializePurchaseUI() {
-    //location.reload();
     var viewModel = new ViewModel();
     viewModel.init();
 
@@ -26,139 +25,26 @@ function initializePurchaseUI() {
     document.getElementById("deleteCommand").addEventListener("click", viewModel.deleteToDo, false);
     document.getElementById("editCommand").addEventListener("click", viewModel.editToDo, false);
     document.querySelector("#editForm .cancel").addEventListener("click", viewModel.cancelEdit, false);
+    document.getElementById('inputType').value = localStorage.getItem("typeSelected");
+    localStorage.setItem("typeSelected", "");
 }
 
 function ViewModel() {
     var
-        listView = document.getElementById("purchaseList").winControl,
-        otherPurchaseListView = document.getElementById("otherPurchaseList").winControl,
-        fertlizerListView = document.getElementById("fertilizerList").winControl,
-        chemicalListView = document.getElementById("chemicalList").winControl,
-        plantingMaterialListView = document.getElementById("plantingMaterialList").winControl,
-        soilAmendmentListView = document.getElementById("soilAmendmentList").winControl,
-
+        listView = document.getElementById("otherPurchaseList").winControl,
         appBar = document.getElementById("appBar").winControl,
         editFlyout = document.getElementById("editFlyout").winControl,
         addForm = document.getElementById("addForm"),
         editForm = document.getElementById("editForm"),
         self = this,
-        otherPurchaseDataList,
-        fertilizerDataList,
-        chemicalDataList,
-        plantingMaterialDataList,
-        soilAmendmentDataList,
         dataList;
 
     this.init = function () {
-        console.log("hellooo");
-        myDatabase.purchaseList.getList(purchaseObjectStoreName, function (e) {
+        myDatabase.purchaseList.getList(otherPurchaseObjectStoreName, function (e) {
             dataList = new WinJS.Binding.List(e);
 
             listView.itemDataSource = dataList.dataSource;
             listView.onselectionchanged = self.selectionChanged;
-        });
-
-        myDatabase.purchaseList.getList(otherPurchaseObjectStoreName, function (e) {
-            otherPurchaseDataList = new WinJS.Binding.List(e);
-
-            otherPurchaseListView.itemDataSource = otherPurchaseDataList.dataSource;
-           
-            otherPurchaseListView.selection.selectAll();
-            var selectionCount = otherPurchaseListView.selection.count();
-            
-            //push to otherPurchaseArray
-            if (selectionCount > 0) {
-                otherPurchaseListView.selection.getItems().then(function (items) {
-                    items.forEach(function (item) {
-                        var name = item.data.name;
-                        otherPurchaseArray.push(name);
-                    });
-                });
-            }
-        });
-
-        myDatabase.purchaseList.getList(otherFertilizerObjectStoreName, function (e) {
-            fertilizerDataList = new WinJS.Binding.List(e);
-
-            fertlizerListView.itemDataSource = fertilizerDataList.dataSource;
-           
-            fertlizerListView.selection.selectAll();
-            var selectionCount = fertlizerListView.selection.count();
-
-            //push to fertlizerArray
-            if (selectionCount > 0) {
-                fertlizerListView.selection.getItems().then(function (items) {
-                    items.forEach(function (item) {
-                        var name = item.data.name;
-                        fertilizerArray.push(name);
-                    });
-                });
-            }
-
-
-        });
-
-        myDatabase.purchaseList.getList(otherChemicalObjectStoreName, function (e) {
-            chemicalDataList = new WinJS.Binding.List(e);
-
-            chemicalListView.itemDataSource = chemicalDataList.dataSource;
-          
-            chemicalListView.selection.selectAll();
-            var selectionCount = chemicalListView.selection.count();
-
-            //push to chemicalArray
-            if (selectionCount > 0) {
-                chemicalListView.selection.getItems().then(function (items) {
-                    items.forEach(function (item) {
-                        var name = item.data.name;
-                        chemicalArray.push(name);
-                    });
-                });
-            }
-
-
-        });
-
-        myDatabase.purchaseList.getList(otherPlantingMaterialObjectStoreName, function (e) {
-            plantingMaterialDataList = new WinJS.Binding.List(e);
-
-            plantingMaterialListView.itemDataSource = plantingMaterialDataList.dataSource;
-           
-            plantingMaterialListView.selection.selectAll();
-            var selectionCount = plantingMaterialListView.selection.count();
-
-            //push to fertlizerArray
-            if (selectionCount > 0) {
-                plantingMaterialListView.selection.getItems().then(function (items) {
-                    items.forEach(function (item) {
-                        var name = item.data.name;
-                        cropArray.push(name);
-                    });
-                });
-            }
-
-
-        });
-
-        myDatabase.purchaseList.getList(otherSoilAmendmentObjectStoreName, function (e) {
-            soilAmendmentDataList = new WinJS.Binding.List(e);
-
-            soilAmendmentListView.itemDataSource = soilAmendmentDataList.dataSource;
-           
-            soilAmendmentListView.selection.selectAll();
-            var selectionCount = soilAmendmentListView.selection.count();
-
-            //push to fertlizerArray
-            if (selectionCount > 0) {
-                soilAmendmentListView.selection.getItems().then(function (items) {
-                    items.forEach(function (item) {
-                        var name = item.data.name;
-                        soilAmendmentArray.push(name);
-                    });
-                });
-            }
-
-
         });
     };
 
@@ -208,7 +94,7 @@ function ViewModel() {
                             dbKey = item.data.id,
                             lvKey = item.key;
 
-                        myDatabase.purchaseList.remove(dbKey, purchaseObjectStoreName, function () {
+                        myDatabase.purchaseList.remove(dbKey, otherPurchaseObjectStoreName, function () {
                             listView.itemDataSource.remove(lvKey);
                         });
                     });
@@ -259,20 +145,41 @@ function ViewModel() {
 
         var toDo = {
             type: document.querySelector("#addForm .type").value,
-            name: document.querySelector("#addForm .name").value,
-            quantifier: document.querySelector("#addForm .quantifier").value,
-            quantity: document.querySelector("#addForm .quantity").value,
-            cost: document.querySelector("#addForm .cost").value,
-            amountRemaining: document.querySelector("#addForm .quantity").value
-
+            name: document.querySelector("#addForm .name").value,   
         };
 
-        myDatabase.purchaseList.add(toDo, purchaseObjectStoreName, function (e) {
+        if (toDo.type == "Fertilizer") {
+            myDatabase.purchaseList.add(toDo, otherFertilizerObjectStoreName, function (e) {
+                dataList.push(e);
+                addForm.reset();
+            });
+       
+        }
+        else if (toDo.type == "Chemical") {
+            myDatabase.purchaseList.add(toDo, otherChemicalObjectStoreName, function (e) {
+                dataList.push(e);
+                addForm.reset();
+            });
+        }
+        else if (toDo.type == "Planting Material") {
+            myDatabase.purchaseList.add(toDo, otherPlantingMaterialObjectStoreName, function (e) {
+                dataList.push(e);
+                addForm.reset();
+            });
+        }
+        else if (toDo.type == "Soil Amendment") {
+            myDatabase.purchaseList.add(toDo, otherSoilAmendmentObjectStoreName, function (e) {
+                dataList.push(e);
+                addForm.reset();
+            });
+        }
+
+        myDatabase.purchaseList.add(toDo, otherPurchaseObjectStoreName, function (e) {
             dataList.push(e);
-
             addForm.reset();
-
         });
+
+        //window.location("purchases.html");
     };
 
     this.submitEdit = function (e) {
@@ -280,7 +187,7 @@ function ViewModel() {
 
         var toDo = {
             id: document.querySelector("#editForm .id").value,
-            type: document.querySelector("#editForm .type").value,
+            type: "Other",
             name: document.querySelector("#editForm .name").value,
             quantifier: document.querySelector("#editForm .quantifier").value,
             quantity: document.querySelector("#editForm .quantity").value,
@@ -288,7 +195,7 @@ function ViewModel() {
             lvIndex: document.querySelector("#editForm .lvIndex").value
         };
 
-        myDatabase.purchaseList.update(toDo, purchaseObjectStoreName, function (e) {
+        myDatabase.purchaseList.update(toDo, otherPurchaseObjectStoreName, function (e) {
             editFlyout.hide();
             appBar.hide();
             editForm.reset();

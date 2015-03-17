@@ -10,7 +10,7 @@
     <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
     
     <script src="/js/transactionMethods.js"></script>
-    <script src="/js/purchaseDb.js"></script>
+    <script src="/js/otherItemTypeKnown.js"></script>
     <script src="/js/dynamicPurchaseForm.js"></script>
     <script src="/js/globalStores.js"></script>
     <!-- myPurchases references -->
@@ -44,56 +44,32 @@
         <section role="main">
             <aside>
 
-                <h2>Add New Purchase</h2>
+                <h2>Add Item</h2>
                 <p>---------------------------------------------------</p>
                 <form id="addForm">
-                    <label>Type</label>
-                    <select class="type input-block" id="purchaseTypeSelect" onchange="addFormDynamic()">
-                    <option value="">--</option>
-                    <option value="Fertilizer">Fertilizer</option>
-                    <option value="Chemical">Chemical</option>
-                    <option value="Planting Material">Planting Material</option>
-                    <option value="Soil Amendment">Soil Amendment</option>
-                    <option value="Other">Other</option>
-                    </select>
-                    <br /><br />
-                
-                    <label>Name</label>
-                    <select class="name input-block" id="selectPurchaseName" onchange="navigateOrNot()" required> </select> <br /><br />
-                    
-                    <label>Quantifier</label>
-                    <select class="quantifier input-block" id="selectPurchaseQuantifier" required> </select> <br /><br />
 
-                    <label>Quantity</label>
-                    <input type="number" class="quantity input-block" required /><br /><br />
-                    <label>Cost</label>
-                    <input type="number" class="cost input-block" required /><br /><br />
+                    <label>Type</label>
+                    <input id="inputType" type="text" class="type input-block" disabled /><br /><br />
+                    <label>Name</label>
+                    <input id="inputName" type="text" class="name input-block" required /><br /><br />
+                    
                   
                     <div>
-                        <button type="submit" class="width-150px">Add Purchase</button>
+                        <button type="submit" class="width-150px">Add Item</button> <br /><br />
                     </div>
-
-
+                    <div>
+                        <input TYPE="button" class="width-150px" VALUE="Back to Purchases" onclick="window.location.href = 'purchases.html'"> 
+                    </div>
                 </form>     
              
             </aside>
 
-            <div class="displayListColumn">
-           <!--     <h2>Recent Purchases</h2>
-                <p>-------------------------------------------------------------------------------------------------</p> -->
-            <div id="purchaseList" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+           <div class="displayListColumn">
             <div id="otherPurchaseList" style="display: none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
-            <div id="fertilizerList" style="display: none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
-            <div id="chemicalList" style="display: none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
-            <div id="plantingMaterialList" style="display: none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
-            <div id="soilAmendmentList" style="display: none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
             </div>
 
         </section>
     </div> 
-
-
-
 
 
 
@@ -109,20 +85,14 @@
             <input type="hidden" class="id" data-win-bind="value:id" />
             <input type="hidden" class="lvIndex" data-win-bind="value:lvIndex" />
             
-            <label>Type</label>
-            <select class="type input-block" id="editFormTypeSelect" onblur="editFormDynamic()">
-                    <option value="Fertilizer">Fertilizer</option>
-                    <option value="Chemical">Chemical</option>
-                    <option value="Planting Material">Planting Material</option>
-                    <option value="Soil Amendment">Soil Amendment</option>
-                    <option value="Other">Other</option>
-            </select>
+
+            
          
             <label>Name</label>
-            <select class="name input-block" id="editFormPurchaseName"> </select>
+            <input type="text" class="name input-block" data-win-bind="value:name" required />
 
             <label>Quantifier</label>
-            <select class="quantifier input-block" id="editFormQuantifier"> </select>
+            <input type="text" class="quantifier input-block" data-win-bind="value:quantifier" required />
 
             <label>Quantity</label>
             <input type="number" class="quantity input-block" data-win-bind="value:quantity" required />

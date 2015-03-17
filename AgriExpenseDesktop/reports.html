@@ -52,9 +52,9 @@
                         var savePicker = new Windows.Storage.Pickers.FileSavePicker();
                         savePicker.suggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.musicLibrary;
                         // Dropdown of file types the user can save the file as
-                        savePicker.fileTypeChoices.insert("Excel Format", [".csv"]);
+                        savePicker.fileTypeChoices.insert("Excel Format", [".xlsx"]);
                         // Default file name if the user does not type one in or select a file to replace
-                        savePicker.suggestedFileName = "test.csv";
+                        savePicker.suggestedFileName = "test.xlsx";
 
                         savePicker.pickSaveFileAsync().then(function (file) {
                             if (file) {

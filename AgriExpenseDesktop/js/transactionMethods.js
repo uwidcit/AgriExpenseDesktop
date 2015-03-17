@@ -8,7 +8,7 @@
         var indexedDB = window.indexedDB;
 
         var init = function (success) {
-            var request = indexedDB.open(dbName, 14);
+            var request = indexedDB.open(dbName, 16);
 
             request.onsuccess = function () {
                 myDatabase.data.db = request.result;
@@ -31,7 +31,9 @@
                 db.deleteObjectStore(resourceUseageObjectStoreName);
                 db.deleteObjectStore(labourObjectStoreName);
                 db.deleteObjectStore(historicalLabourStoreName);
-              //  db.deleteObjectStore(fertilizerObjectStoreName);
+                db.deleteObjectStore(otherPurchaseObjectStoreName);
+                db.deleteObjectStore(otherFertilizerObjectStoreName);
+                db.deleteObjectStore(otherChemicalObjectStoreName);
                 
                 var purchaseStore = db.createObjectStore(purchaseObjectStoreName, {
                     keyPath: "id",
@@ -63,6 +65,25 @@
                     autoIncrement: true
                 });
 
+                var otherFertlizerStore = db.createObjectStore(otherFertilizerObjectStoreName, {
+                    keyPath: "id",
+                    autoIncrement: true
+                });
+
+                var otherChemicalStore = db.createObjectStore(otherChemicalObjectStoreName, {
+                    keyPath: "id",
+                    autoIncrement: true
+                });
+
+                var otherPlantingMaterialStore = db.createObjectStore(otherPlantingMaterialObjectStoreName, {
+                    keyPath: "id",
+                    autoIncrement: true
+                });
+
+                var otherSoilAmendmentStore = db.createObjectStore(otherSoilAmendmentObjectStoreName, {
+                    keyPath: "id",
+                    autoIncrement: true
+                });
                
 
                 cycleStore.createIndex("name", "name", {
@@ -88,6 +109,24 @@
                 otherPurchaseStore.createIndex("name", "name", {
                     unique: false
                 });
+
+                otherFertlizerStore.createIndex("name", "name", {
+                    unique: false
+                });
+
+                otherChemicalStore.createIndex("name", "name", {
+                    unique: false
+                });
+
+                otherPlantingMaterialStore.createIndex("name", "name", {
+                    unique: false
+                });
+
+                otherSoilAmendmentStore.createIndex("name", "name", {
+                    unique: false
+                });
+
+                
 
             };
         };
@@ -243,6 +282,47 @@
                         quantity: toDo.quantity,
                         cost: toDo.cost
                     });
+            }
+
+            else if (oStoreName == otherFertilizerObjectStoreName) {
+
+                var
+                    transaction = myDatabase.data.db.transaction(oStoreName, "readwrite"),
+                    store = transaction.objectStore(oStoreName),
+                    request = store.add({
+                        type: "Fertilizer",
+                        name: toDo.name
+                    });
+            }
+
+            else if (oStoreName == otherChemicalObjectStoreName) {
+                var
+                   transaction = myDatabase.data.db.transaction(oStoreName, "readwrite"),
+                   store = transaction.objectStore(oStoreName),
+                   request = store.add({
+                       type: "Chemical",
+                       name: toDo.name
+                   });
+            }
+
+            else if (oStoreName == otherPlantingMaterialObjectStoreName) {
+                var
+                   transaction = myDatabase.data.db.transaction(oStoreName, "readwrite"),
+                   store = transaction.objectStore(oStoreName),
+                   request = store.add({
+                       type: "Planting Material",
+                       name: toDo.name
+                   });
+            }
+
+            else if (oStoreName == otherSoilAmendmentObjectStoreName) {
+                var
+                   transaction = myDatabase.data.db.transaction(oStoreName, "readwrite"),
+                   store = transaction.objectStore(oStoreName),
+                   request = store.add({
+                       type: "Soil Amendment",
+                       name: toDo.name
+                   });
             }
 
                

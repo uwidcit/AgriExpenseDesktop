@@ -5,6 +5,10 @@ var resourceUseageObjectStoreName = "resourceObjectStore";
 var labourObjectStoreName = "labourObjectStore";
 var historicalLabourStoreName = "historicalLabourObjectStore";
 var otherPurchaseObjectStoreName = "otherPurchaseObjectStore";
+var otherFertilizerObjectStoreName = "fertilizerObjectStore";
+var otherChemicalObjectStoreName = "chemicalObjectStore";
+var otherPlantingMaterialObjectStoreName = "plantingMaterialObjectStore";
+var otherSoilAmendmentObjectStoreName = "soilAmendmentObjectStore";
 
 
 
