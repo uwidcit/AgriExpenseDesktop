@@ -8,7 +8,7 @@
         var indexedDB = window.indexedDB;
 
         var init = function (success) {
-            var request = indexedDB.open(dbName, 16);
+            var request = indexedDB.open(dbName, 17);
 
             request.onsuccess = function () {
                 myDatabase.data.db = request.result;
@@ -34,6 +34,8 @@
                 db.deleteObjectStore(otherPurchaseObjectStoreName);
                 db.deleteObjectStore(otherFertilizerObjectStoreName);
                 db.deleteObjectStore(otherChemicalObjectStoreName);
+                db.deleteObjectStore(otherPlantingMaterialObjectStoreName);
+                db.deleteObjectStore(otherSoilAmendmentObjectStoreName);
                 
                 var purchaseStore = db.createObjectStore(purchaseObjectStoreName, {
                     keyPath: "id",

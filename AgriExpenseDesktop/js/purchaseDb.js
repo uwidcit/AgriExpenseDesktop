@@ -50,7 +50,7 @@ function ViewModel() {
         dataList;
 
     this.init = function () {
-        console.log("hellooo");
+        
         myDatabase.purchaseList.getList(purchaseObjectStoreName, function (e) {
             dataList = new WinJS.Binding.List(e);
 
