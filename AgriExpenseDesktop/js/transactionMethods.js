@@ -8,7 +8,7 @@
         var indexedDB = window.indexedDB;
 
         var init = function (success) {
-            var request = indexedDB.open(dbName, 20);
+            var request = indexedDB.open(dbName, 21);
 
             request.onsuccess = function () {
                 myDatabase.data.db = request.result;

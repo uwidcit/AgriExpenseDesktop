@@ -47,11 +47,13 @@ function ViewModel() {
         chemicalDataList,
         plantingMaterialDataList,
         soilAmendmentDataList,
+        initialDataList, //purchase list ONLY without Other Purchase List
         dataList;
 
     this.init = function () {
         
         myDatabase.purchaseList.getList(purchaseObjectStoreName, function (e) {
+            
             dataList = new WinJS.Binding.List(e);
             dataList.reverse(); //reverse the order of the list so that the most recently added would be first
 
@@ -76,6 +78,7 @@ function ViewModel() {
                     });
                 });
             }
+
         });
 
         myDatabase.purchaseList.getList(otherFertilizerObjectStoreName, function (e) {
@@ -161,6 +164,8 @@ function ViewModel() {
 
 
         });
+
+        
     };
 
 
@@ -272,7 +277,7 @@ function ViewModel() {
             dataList.push(e);
 
             addForm.reset();
-            window.location = "purchases.html";
+            window.location = "purchases.html"; //refresh page
 
         });
     };

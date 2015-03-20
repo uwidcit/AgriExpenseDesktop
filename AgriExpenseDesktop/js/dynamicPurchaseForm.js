@@ -1,8 +1,16 @@
-﻿function addFormDynamic() {
+﻿
+function addFormDynamic() {
 
     var typeSelect = document.getElementById("purchaseTypeSelect");
     var nameSelect = document.getElementById("selectPurchaseName");
     var quantifierSelect = document.getElementById("selectPurchaseQuantifier");
+
+    //Put options in alphabetical order
+    newFertilizerArray.sort();
+    newChemicalArray.sort();
+    newCropArray.sort();
+    newSoilAmendmentArray.sort();
+    otherPurchaseArray.sort();
 
     //remove previous entries from Name select box to put new ones if the Type is changed
     for (var i = nameSelect.options.length - 1; i >= 0; i--) {

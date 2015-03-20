@@ -29,7 +29,7 @@
         margin-left: 120px;
         margin-right: 120px;
 
-        -ms-grid-columns: 350px 50px 1fr;
+        -ms-grid-columns: 350px 60px 1fr;
         -ms-grid-rows: 1fr;
         display: -ms-grid;
     }
@@ -53,9 +53,11 @@
 .toDo .displayListColumn {
     -ms-grid-column:3;    /*3rd column*/
     background-color:#8BC34A;
+    padding-right: 30px;
+    padding-left:30px;
     border-style: solid;
     border-color: black;
-    overflow-x: scroll;
+    /*overflow-x: scroll;*/
 }
 
 .toDo .purchaseList {

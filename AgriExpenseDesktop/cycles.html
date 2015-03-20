@@ -33,20 +33,19 @@
         <header role="banner">
             <h1 class="titlearea">Crop Cycles</h1>
 
-            <a href="default.html">Home</a>
+            <br /> <br />
+            <a href="default.html" style="padding-left: 50px;"><img src="/images/home.png" alt="HOME" style="width:42px;height:42px;"></a>
 
         </header>
         <section role="main">
             <aside>
 
                 <h2>Add New Cycle</h2>
-                <p>---------------------------------------------------</p>
+                <p>----------------------------------------------</p>
                 <form id="addForm">
                     <label>Name</label>
-                    <input type="text" class="name input-block" required /> <br /><br />
-
+                    <input type="text" class="name input-block" required />
                     <label>Crop</label>
-                   <!-- <input type="text" class="crop input-block" required /> -->
                     <select id="cropSelect" class="crop input-block"></select>
                     <script>
                         var select = document.getElementById("cropSelect");
@@ -58,7 +57,7 @@
                             select.appendChild(el);
                         }
                     </script>
-                    <br /><br />
+                  
 
                     <label>Type of Land</label>
                     <select id="landTypeSelect" class="typeOfLand input-block"></select>
@@ -72,13 +71,13 @@
                             select.appendChild(el);
                         }
                     </script>
-                    <br /><br />
+                
    
                    
                     <label>Land Quantity</label>
-                    <input type="text" class="quantity input-block" required /><br /><br />
+                    <input type="text" class="quantity input-block" required />
                     <label>Start Date</label>
-                    <div id="dateDiv" data-win-control="WinJS.UI.DatePicker" class="startDate"></div><br /><br /> <br />
+                    <div id="dateDiv" data-win-control="WinJS.UI.DatePicker" class="startDate"></div>
                     
                     <div>
                         <button type="submit" class="width-150px">Add</button>

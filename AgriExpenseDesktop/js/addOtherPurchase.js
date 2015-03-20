@@ -37,6 +37,7 @@ function ViewModel() {
         addForm = document.getElementById("addForm"),
         editForm = document.getElementById("editForm"),
         self = this,
+        purchaseDataList,
         dataList;
 
     this.init = function () {
@@ -46,6 +47,15 @@ function ViewModel() {
             listView.itemDataSource = dataList.dataSource;
             listView.onselectionchanged = self.selectionChanged;
         });
+
+        myDatabase.purchaseList.getList(purchaseObjectStoreName, function (e) {
+            purchaseDataList = new WinJS.Binding.List(e);
+
+            listView.itemDataSource = purchaseDataList.dataSource;
+            listView.onselectionchanged = self.selectionChanged;
+        });
+
+      
     };
 
 
@@ -154,6 +164,12 @@ function ViewModel() {
 
         myDatabase.purchaseList.add(toDo, otherPurchaseObjectStoreName, function (e) {
             dataList.push(e);
+            addForm.reset();
+        });
+
+        //also add to PurchaseList with type OTHER
+        myDatabase.purchaseList.add(toDo, purchaseObjectStoreName, function (e) {
+            purchaseDataList.push(e);
             addForm.reset();
         });
     };

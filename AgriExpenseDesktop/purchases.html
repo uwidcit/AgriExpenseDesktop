@@ -38,7 +38,7 @@
             <h1 class="titlearea">Purchases</h1>
 
             <br /> <br />
-            <a href="default.html"><img src="/images/home.png" alt="HOME" style="width:42px;height:42px;"></a>
+            <a href="default.html" style="padding-left: 50px;"><img src="/images/home.png" alt="HOME" style="width:42px;height:42px;"></a>
 
 
         </header>
@@ -82,9 +82,10 @@
             </aside> 
 
             <div class="displayListColumn">
-              <!--  <h2>Recent Purchases</h2>
-                <p>-------------------------------------------------------------------------------------------------</p>-->
-            <div id="purchaseList" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+                <h2>Recent Purchases</h2>
+                <p>-------------------------------------------------------------------------------------------------</p>
+            <div style="overflow-x: scroll;" id="purchaseList" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+
             <!-- Lists needed but NOT displayed on this page so - style="display:none;"-->
             <div id="otherPurchaseList" style="display: none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
             <div id="fertilizerList" style="display: none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>

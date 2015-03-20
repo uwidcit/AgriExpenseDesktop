@@ -44,6 +44,7 @@ function ViewModel() {
     this.init = function () {
         myDatabase.purchaseList.getList(cycleObjectStoreName, function (e) {
             dataList = new WinJS.Binding.List(e);
+            dataList.reverse();
 
             listView.itemDataSource = dataList.dataSource;
             listView.onselectionchanged = self.selectionChanged;
@@ -160,6 +161,7 @@ function ViewModel() {
             dataList.push(e);
 
             addForm.reset();
+            window.location = "cycles.html"; //refresh page
         });
     };
 
