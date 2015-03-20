@@ -29,8 +29,8 @@
         el.textContent = opt;
         select.appendChild(el);
 
-        for (var i = 0; i < fertArr.length; i++) {
-            var opt = fertArr[i];
+        for (var i = 0; i < newFertilizerArray.length; i++) {
+            var opt = newFertilizerArray[i];
             var el = document.createElement("option");
             el.textContent = opt;
             el.value = opt;
@@ -60,8 +60,8 @@
         el.textContent = opt;
         select.appendChild(el);
 
-        for (var i = 0; i < chemicalArray.length; i++) {
-            var opt = chemicalArray[i];
+        for (var i = 0; i < newChemicalArray.length; i++) {
+            var opt = newChemicalArray[i];
             var el = document.createElement("option");
             el.textContent = opt;
             el.value = opt;
@@ -89,8 +89,8 @@
         el.textContent = opt;
         select.appendChild(el);
 
-        for (var i = 0; i < cropArray.length; i++) {
-            var opt = cropArray[i];
+        for (var i = 0; i < newCropArray.length; i++) {
+            var opt = newCropArray[i];
             var el = document.createElement("option");
             el.textContent = opt;
             el.value = opt;
@@ -106,8 +106,8 @@
         }
     }
     else if (typeSelect.value == "Soil Amendment") {
-        for (var i = 0; i < soilAmendmentArray.length; i++) {
-            var opt = soilAmendmentArray[i];
+        for (var i = 0; i < newSoilAmendmentArray.length; i++) {
+            var opt = newSoilAmendmentArray[i];
             var el = document.createElement("option");
             el.textContent = opt;
             el.value = opt;

@@ -112,7 +112,7 @@ function ViewModel() {
                 chemicalListView.selection.getItems().then(function (items) {
                     items.forEach(function (item) {
                         var name = item.data.name;
-                        chemicalArray.push(name);
+                        newChemicalArray.push(name);
                     });
                 });
             }
@@ -133,7 +133,7 @@ function ViewModel() {
                 plantingMaterialListView.selection.getItems().then(function (items) {
                     items.forEach(function (item) {
                         var name = item.data.name;
-                        cropArray.push(name);
+                        newCropArray.push(name);
                     });
                 });
             }
@@ -154,7 +154,7 @@ function ViewModel() {
                 soilAmendmentListView.selection.getItems().then(function (items) {
                     items.forEach(function (item) {
                         var name = item.data.name;
-                        soilAmendmentArray.push(name);
+                        newSoilAmendmentArray.push(name);
                     });
                 });
             }

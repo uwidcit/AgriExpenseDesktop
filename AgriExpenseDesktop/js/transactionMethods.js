@@ -8,7 +8,7 @@
         var indexedDB = window.indexedDB;
 
         var init = function (success) {
-            var request = indexedDB.open(dbName, 19);
+            var request = indexedDB.open(dbName, 20);
 
             request.onsuccess = function () {
                 myDatabase.data.db = request.result;
@@ -128,7 +128,7 @@
                     unique: false
                 });
 
-                //read from the arrays and insert into other Fertlizer Store
+                //read from the arrays and insert into database on startup
                 for (var i = 0; i < fertilizerArray.length; i++) {
                     var toDo = {
                         type: "Fertilizer",
@@ -136,7 +136,33 @@
                     };
 
                     otherFertlizerStore.add(toDo);
-                    console.log("Yayss");
+                }
+
+                for (var i = 0; i < chemicalArray.length; i++) {
+                    var toDo = {
+                        type: "Chemical",
+                        name: chemicalArray[i]
+                    };
+
+                    otherChemicalStore.add(toDo);
+                }
+
+                for (var i = 0; i < fertilizerArray.length; i++) {
+                    var toDo = {
+                        type: "Planting Material",
+                        name: cropArray[i]
+                    };
+
+                    otherPlantingMaterialStore.add(toDo);
+                }
+
+                for (var i = 0; i < fertilizerArray.length; i++) {
+                    var toDo = {
+                        type: "Soil Amendment",
+                        name: soilAmendmentArray[i]
+                    };
+
+                    otherSoilAmendmentStore.add(toDo);
                 }
 
 
