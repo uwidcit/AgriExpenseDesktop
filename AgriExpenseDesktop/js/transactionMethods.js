@@ -8,7 +8,7 @@
         var indexedDB = window.indexedDB;
 
         var init = function (success) {
-            var request = indexedDB.open(dbName, 17);
+            var request = indexedDB.open(dbName, 19);
 
             request.onsuccess = function () {
                 myDatabase.data.db = request.result;
@@ -32,7 +32,7 @@
                 db.deleteObjectStore(labourObjectStoreName);
                 db.deleteObjectStore(historicalLabourStoreName);
                 db.deleteObjectStore(otherPurchaseObjectStoreName);
-                db.deleteObjectStore(otherFertilizerObjectStoreName);
+                 db.deleteObjectStore(otherFertilizerObjectStoreName);
                 db.deleteObjectStore(otherChemicalObjectStoreName);
                 db.deleteObjectStore(otherPlantingMaterialObjectStoreName);
                 db.deleteObjectStore(otherSoilAmendmentObjectStoreName);
@@ -128,7 +128,17 @@
                     unique: false
                 });
 
-                
+                //read from the arrays and insert into other Fertlizer Store
+                for (var i = 0; i < fertilizerArray.length; i++) {
+                    var toDo = {
+                        type: "Fertilizer",
+                        name: fertilizerArray[i]
+                    };
+
+                    otherFertlizerStore.add(toDo);
+                    console.log("Yayss");
+                }
+
 
             };
         };

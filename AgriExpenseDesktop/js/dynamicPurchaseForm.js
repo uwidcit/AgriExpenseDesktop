@@ -29,8 +29,8 @@
         el.textContent = opt;
         select.appendChild(el);
 
-        for (var i = 0; i < fertilizerArray.length; i++) {
-            var opt = fertilizerArray[i];
+        for (var i = 0; i < fertArr.length; i++) {
+            var opt = fertArr[i];
             var el = document.createElement("option");
             el.textContent = opt;
             el.value = opt;

@@ -1,10 +1,11 @@
 ﻿body {
+     background-color: #FFFFFF;
 }
 
 .fragment {
     
     -ms-grid-columns: 1fr;
-    -ms-grid-rows: 128px 1fr;
+    -ms-grid-rows: 128px 500px 1fr;
     display: -ms-grid;
     height: 100%;
     width: 100%;
@@ -38,9 +39,10 @@
 .toDo aside {
     -ms-grid-column: 1;
     padding-right: 30px;
+    padding-left:30px;
     border-style: solid;
     border-color: black;
-
+    background-color:#8BC34A;
 }
 
 .toDo aside hr {
@@ -49,9 +51,11 @@
 }
 
 .toDo .displayListColumn {
-    -ms-grid-column:3;
-     border-style: solid;
-     border-color: black;
+    -ms-grid-column:3;    /*3rd column*/
+    background-color:#8BC34A;
+    border-style: solid;
+    border-color: black;
+    overflow-x: scroll;
 }
 
 .toDo .purchaseList {
@@ -60,11 +64,14 @@
     width: 100%;
 }
 
-    .toDo .purchaseList .item {
-        height: 200px;
-        width: 300px;
-        padding: 15px;
-        background-color: rgba(255,255,255,0.6);
+    .toDo .purchaseList .item { /*Boxes in List View*/
+        height: 150px;
+        width: 250px;
+        padding: 10px;
+        background-color: #FFFFFF;
+        color:#689F38;
+        border-style: solid;
+        border-color: #689F38;
     }
 
         .toDo .purchaseList .item .item-title {
@@ -73,10 +80,9 @@
         }
 
         .toDo .purchaseList .item .item-sub {
-            overflow: hidden;
+           /* overflow: hidden; */
             margin-left: 15px;
         }
-
 
 
 
@@ -94,6 +100,7 @@
 }
 
 
+/*Used for buttons*/
 .width-150px{
     width: 150px;
     display: inline-block;

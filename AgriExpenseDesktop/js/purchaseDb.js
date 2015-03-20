@@ -53,6 +53,7 @@ function ViewModel() {
         
         myDatabase.purchaseList.getList(purchaseObjectStoreName, function (e) {
             dataList = new WinJS.Binding.List(e);
+            dataList.reverse(); //reverse the order of the list so that the most recently added would be first
 
             listView.itemDataSource = dataList.dataSource;
             listView.onselectionchanged = self.selectionChanged;
@@ -90,7 +91,7 @@ function ViewModel() {
                 fertlizerListView.selection.getItems().then(function (items) {
                     items.forEach(function (item) {
                         var name = item.data.name;
-                        fertilizerArray.push(name);
+                        newFertilizerArray.push(name);
                     });
                 });
             }
@@ -271,6 +272,7 @@ function ViewModel() {
             dataList.push(e);
 
             addForm.reset();
+            window.location = "purchases.html";
 
         });
     };

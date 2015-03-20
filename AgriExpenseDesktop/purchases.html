@@ -29,7 +29,6 @@
                 <span data-win-bind="textContent: quantifier" class="item-sub"></span>
             </p>
             <p>Cost: $ <span data-win-bind="textContent: cost" class="item-sub"></span></p>
-
         </div>
     </div>
 
@@ -38,14 +37,16 @@
         <header role="banner">
             <h1 class="titlearea">Purchases</h1>
 
-            <a href="default.html">Home</a>
+            <br /> <br />
+            <a href="default.html"><img src="/images/home.png" alt="HOME" style="width:42px;height:42px;"></a>
+
 
         </header>
         <section role="main">
             <aside>
-
+                <!--<div style="overflow-y: scroll;"> -->
                 <h2>Add New Purchase</h2>
-                <p>---------------------------------------------------</p>
+                <p>----------------------------------------------</p>
                 <form id="addForm">
                     <label>Type</label>
                     <select class="type input-block" id="purchaseTypeSelect" onchange="addFormDynamic()">
@@ -56,32 +57,35 @@
                     <option value="Soil Amendment">Soil Amendment</option>
                     <option value="Other">Other</option>
                     </select>
-                    <br /><br />
-                
+                    
                     <label>Name</label>
-                    <select class="name input-block" id="selectPurchaseName" onchange="navigateOrNot()" required> </select> <br /><br />
+                    <select class="name input-block" id="selectPurchaseName" onchange="navigateOrNot()" required> </select>
                     
                     <label>Quantifier</label>
-                    <select class="quantifier input-block" id="selectPurchaseQuantifier" required> </select> <br /><br />
+                    <select class="quantifier input-block" id="selectPurchaseQuantifier" required> </select>
 
                     <label>Quantity</label>
-                    <input type="number" class="quantity input-block" required /><br /><br />
+                    <input type="number" class="quantity input-block" required />
                     <label>Cost</label>
-                    <input type="number" class="cost input-block" required /><br /><br />
+                    <input type="number" class="cost input-block" required />
+
+                    <br />
                   
                     <div>
                         <button type="submit" class="width-150px">Add Purchase</button>
                     </div>
 
-
+                    
                 </form>     
+             <!--       </div> -->
              
-            </aside>
+            </aside> 
 
             <div class="displayListColumn">
-           <!--     <h2>Recent Purchases</h2>
-                <p>-------------------------------------------------------------------------------------------------</p> -->
+              <!--  <h2>Recent Purchases</h2>
+                <p>-------------------------------------------------------------------------------------------------</p>-->
             <div id="purchaseList" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+            <!-- Lists needed but NOT displayed on this page so - style="display:none;"-->
             <div id="otherPurchaseList" style="display: none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
             <div id="fertilizerList" style="display: none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
             <div id="chemicalList" style="display: none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
