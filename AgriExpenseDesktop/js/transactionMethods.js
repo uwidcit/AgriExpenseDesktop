@@ -25,17 +25,21 @@
 
             request.onupgradeneeded = function (e) { //runs when a new instance of the db is created
                 var db = e.target.result;
-
-                db.deleteObjectStore(purchaseObjectStoreName);
-                db.deleteObjectStore(cycleObjectStoreName);
-                db.deleteObjectStore(resourceUseageObjectStoreName);
-                db.deleteObjectStore(labourObjectStoreName);
-                db.deleteObjectStore(historicalLabourStoreName);
-                db.deleteObjectStore(otherPurchaseObjectStoreName);
-                db.deleteObjectStore(otherFertilizerObjectStoreName);
-                db.deleteObjectStore(otherChemicalObjectStoreName);
-                db.deleteObjectStore(otherPlantingMaterialObjectStoreName);
-                db.deleteObjectStore(otherSoilAmendmentObjectStoreName);
+                try{
+                    db.deleteObjectStore(purchaseObjectStoreName);
+                    db.deleteObjectStore(cycleObjectStoreName);
+                    db.deleteObjectStore(resourceUseageObjectStoreName);
+                    db.deleteObjectStore(labourObjectStoreName);
+                    db.deleteObjectStore(historicalLabourStoreName);
+                    db.deleteObjectStore(otherPurchaseObjectStoreName);
+                    db.deleteObjectStore(otherFertilizerObjectStoreName);
+                    db.deleteObjectStore(otherChemicalObjectStoreName);
+                    db.deleteObjectStore(otherPlantingMaterialObjectStoreName);
+                    db.deleteObjectStore(otherSoilAmendmentObjectStoreName);
+                } catch (exception) {
+                    console.log(exception);
+                }
+                
                 
                 var purchaseStore = db.createObjectStore(purchaseObjectStoreName, {
                     keyPath: "id",

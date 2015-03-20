@@ -7,6 +7,9 @@
 *.userosscache
 *.sln.docstates
 
+# Removed Sln from github changes to help with upgrade
+*.sln
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
