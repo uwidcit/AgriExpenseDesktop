@@ -14,40 +14,56 @@
     <script src="/js/globalStores.js"></script>
     <!-- myPurchases references -->
 
-    <link href="/css/default.css" rel="stylesheet" />
+    <link href="/css/cycles.css" rel="stylesheet" />
     <script src="/js/default.js"></script>
 </head>
 <body onload="onCyclesPageLoad()">
     
     <div id="purchasesItemTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
         <div class="item">
-             <p>Name: <span data-win-bind="textContent: name" class="item-title"></span></p>
-
-             <p>Crop: <span data-win-bind="textContent: crop" class="item-sub"></span></p>
-             <p>Type of Land: <span data-win-bind="textContent: typeOfLand" class="item-sub"></span></p>
-             <p>Quantity of Land: <span data-win-bind="textContent: quantity" class="item-sub"></span></p>
-             <p>Start Date: <span data-win-bind="textContent: startDate" class="item-sub"></span></p>
+              <span data-win-bind="textContent: name" class="item-title"></span> <br style="line-height:20px;"/>
+             Crop: <span data-win-bind="textContent: crop" class="item-sub"></span> <br style="line-height:30px;"/> 
+             Type of Land: <span data-win-bind="textContent: typeOfLand" class="item-sub"></span>  <br style="line-height:30px;"/>
+             Quantity of Land: <span data-win-bind="textContent: quantity" class="item-sub"></span>  <br style="line-height:35px;"/>
+             Start Date: <span data-win-bind="textContent: startDate" class="item-sub"></span>
         </div>
     </div>
     <div class="fragment toDo">
         <header role="banner">
-            <h1 class="titlearea">Crop Cycles</h1>
+            <h2 class="titlearea">Home > Crop Cycles</h2>
 
             <br /> <br />
             <a href="default.html" style="padding-left: 50px;"><img src="/images/home.png" alt="HOME" style="width:42px;height:42px;"></a>
 
         </header>
+
+        <div id ="addNewCycleTitle">
+          <h2> Add New Crop Cycle </h2>
+       </div>
+
+        <div id="recentCyclesTitle">
+            <h2>Recent Crop Cycles</h2>
+        </div>
+
         <section role="main">
             <aside>
 
-                <h2>Add New Cycle</h2>
-                <p>----------------------------------------------</p>
                 <form id="addForm">
+                    <br /><br />
                     <label>Name</label>
                     <input type="text" class="name input-block" required />
                     <label>Crop</label>
                     <select id="cropSelect" class="crop input-block"></select>
                     <script>
+
+                        //add blank element to the top of list
+                        var select = document.getElementById("cropSelect");
+                        var opt = "";
+                        var el = document.createElement("option");
+                        el.textContent = opt;
+                        el.value = opt;
+                        select.appendChild(el);
+
                         var select = document.getElementById("cropSelect");
                         for (var i = 0; i < cropArray.length; i++) {
                             var opt = cropArray[i];
@@ -62,7 +78,15 @@
                     <label>Type of Land</label>
                     <select id="landTypeSelect" class="typeOfLand input-block"></select>
                     <script>
+
+                        //add blank element to the top of list
                         var select = document.getElementById("landTypeSelect");
+                        var opt = "";
+                        var el = document.createElement("option");
+                        el.textContent = opt;
+                        el.value = opt;
+                        select.appendChild(el);
+
                         for (var i = 0; i < landTypeArray.length; i++) {
                             var opt = landTypeArray[i];
                             var el = document.createElement("option");
@@ -79,6 +103,7 @@
                     <label>Start Date</label>
                     <div id="dateDiv" data-win-control="WinJS.UI.DatePicker" class="startDate"></div>
                     
+                    <br /> <br />
                     <div>
                         <button type="submit" class="width-150px">Add</button>
                     </div>
@@ -88,8 +113,6 @@
             </aside>
 
             <div class="displayListColumn">
-                <h2>Recent Cycles</h2>
-                <p>-------------------------------------------------------------------------------------------------</p>
                 <div id="cycleList" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
             </div>
 
@@ -104,19 +127,37 @@
         </button>
     </div>
     <div id="editFlyout" data-win-control="WinJS.UI.Flyout">
+
+
         <form id="editForm">
-            <h2>Edit Purchase</h2>
+            <h2>Edit Cycle</h2>
             <input type="hidden" class="id" data-win-bind="value:id" />
             <input type="hidden" class="lvIndex" data-win-bind="value:lvIndex" />
             
-            <label>
-                Name
-            </label>
-            <textarea class="name input-block" data-win-bind="value:name"></textarea>
-            <label>
-                Crop
-            </label>
-            <input type="text" class="crop input-block" data-win-bind="value:crop" required />
+            <label>Name</label>
+            <input type="text" class="name input-block" data-win-bind="value:name" required />
+
+            <label>Crop</label>
+                    <select id="cropSelectEdit" class="crop input-block" required></select>
+                    <!-- populate select box with list of crops-->
+                    <script>
+
+                        //add blank element to the top of list
+                        var select = document.getElementById("cropSelectEdit");
+                        var opt = "";
+                        var el = document.createElement("option");
+                        el.textContent = opt;
+                        el.value = opt;
+                        select.appendChild(el);
+
+                        for (var i = 0; i < cropArray.length; i++) {
+                            var opt = cropArray[i];
+                            var el = document.createElement("option");
+                            el.textContent = opt;
+                            el.value = opt;
+                            select.appendChild(el);
+                        }
+                    </script>
             <label>
                 Type Of Land
             </label>
@@ -128,7 +169,7 @@
             <label>
                 Start Date
             </label>
-            <input type="text" class="startDate input-block" data-win-bind="value:startDate" required />
+            <div id="startDateEdit" data-win-control="WinJS.UI.DatePicker" class="startDate"></div>
             <div>
                 <button type="submit">Save</button>
                 <button class="cancel">Cancel</button>

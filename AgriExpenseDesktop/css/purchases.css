@@ -11,7 +11,7 @@
 } 
 
     .fragment header[role=banner] {
-        -ms-grid-columns: 100px 1fr; /*The 120px is padding on the left*/
+        -ms-grid-columns: 120px 1fr; /*The 120px is padding on the left*/
         -ms-grid-rows: 1fr;
         display: -ms-grid;
     }

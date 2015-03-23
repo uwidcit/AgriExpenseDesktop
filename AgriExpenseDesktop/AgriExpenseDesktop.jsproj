@@ -57,6 +57,7 @@
     <Content Include="addPurchases.html" />
     <Content Include="chooseCropCycle.html" />
     <Content Include="css\addPurchases.css" />
+    <Content Include="css\cycles.css" />
     <Content Include="css\default.css" />
     <Content Include="css\purchases.css" />
     <Content Include="cycles.html" />

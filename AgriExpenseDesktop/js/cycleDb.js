@@ -168,13 +168,16 @@ function ViewModel() {
     this.submitEdit = function (e) {
         e.preventDefault();
 
+        var dp = document.getElementById("startDateEdit").winControl;
+        var currentDate = dp.current;
+
         var toDo = {
             id: document.querySelector("#editForm .id").value,
             name: document.querySelector("#editForm .name").value,
             crop: document.querySelector("#editForm .crop").value,
             typeOfLand: document.querySelector("#editForm .typeOfLand").value,
             quantity: document.querySelector("#editForm .quantity").value,
-            startDate: document.querySelector("#editForm .startDate").value,
+            startDate: currentDate,
             lvIndex: document.querySelector("#editForm .lvIndex").value
         };
 

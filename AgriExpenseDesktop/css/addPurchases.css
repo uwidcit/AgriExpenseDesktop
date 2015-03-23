@@ -1,24 +1,30 @@
-﻿.fragment {
+﻿body {
+    background-color:white;
+    color:black;
+}
+
+.fragment {
     /* Define a grid with rows for a banner and a body */
-    -ms-grid-columns: 1fr;
     -ms-grid-rows: 100px 200px 1fr;
+    -ms-grid-columns: 1fr;   
     display: -ms-grid;
     height: 100%;
     width: 100%;
 }
 
     .fragment header[role=banner] {
-        -ms-grid-columns: 120px 1fr;
+        -ms-grid-columns: 120px 1fr; /*120px is padding*/
         -ms-grid-rows: 1fr;
         display: -ms-grid;
     }
 
-        .fragment header[role=banner] h1 {
-            -ms-grid-column: 2;
+        .fragment header[role=banner] h2 {
+            -ms-grid-column: 2; /*Breadcrumb is in here*/
             margin-top: 37px;
+            color:lightgray;
         }
 
-    .fragment section[role=main] {
+  /*  .fragment section[role=main] {
         -ms-grid-row: 2;
         height: 100%;
         width: 100%;
@@ -28,86 +34,51 @@
         -ms-grid-columns: 350px 1fr;
         -ms-grid-rows: 1fr;
         display: -ms-grid;
+    }*/
+
+
+      .fragment section[role=main] {
+        -ms-grid-row: 2;
+        height: 100%;
+        width: 100%;
+        margin-left: 120px;
+        margin-right: 120px;
+
+        -ms-grid-columns: 300px, 50px, 1fr; /*1 column that need to be further divided*/
+        -ms-grid-rows: 100px 300px 50px 1fr; /*4 rows 100 px reserved for title*/
+        display: -ms-grid;
     }
 
-   
+        .fragment section[role=main] h1 {
+        -ms-grid-row: 1;
+        -ms-grid-column:1;
+        height: 100%;
+        width: 100%;
+        margin-left: 120px;
+        margin-right: 120px;
+    }
+
+   /*further divide column*/
 
   #cycleInfo {
-  background: black;
+  background: white;
   border: green solid 1px;
- -ms-grid-row: 1;
-  -ms-grid-column: 1;
+  -ms-grid-row: 2; /*the 300px row*/
 
   
 }
 
-
+  
    #listInfo {
-  -ms-grid-row: 1;
-  -ms-grid-column: 2;
+  -ms-grid-row: 4;
+  -ms-grid-column: 1;
 
 }
 
 
-.toDo aside {
-    -ms-grid-column: 1;
-    padding-right: 30px;
-}
-
-.toDo aside hr {
-    margin-bottom: 20px;
-    margin-top: 20px;
-}
-
-.toDo .purchaseList {
-    -ms-grid-column: 2;
-    height: 100%;
-    width: 100%;
-}
-
-    .toDo .purchaseList .item {
-        height: 200px;
-        width: 300px;
-        padding: 15px;
-        background-color: rgba(255,255,255,0.6);
-    }
-
-        .toDo .purchaseList .item .item-title {
-            font-weight: 600;
-            font-size: 15pt;
-        }
-
-        .toDo .purchaseList .item .item-sub {
-            overflow: hidden;
-            margin-left: 15px;
-        }
 
 
 
-
-
-.toDo .cycleList {
-    -ms-grid-column: 2;
-    height: 100%;
-    width: 100%;
-}
-
-    .toDo .cycleList .item {
-        height: 200px;
-        width: 300px;
-        padding: 15px;
-        background-color: rgba(255,255,255,0.6);
-    }
-
-        .toDo .cycleList .item .item-title {
-            font-weight: 600;
-            font-size: 15pt;
-        }
-
-        .toDo .cycleList .item .item-sub {
-            overflow: hidden;
-            margin-left: 15px;
-        }
 
 
 .toDo .pList {
