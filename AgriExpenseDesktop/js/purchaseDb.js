@@ -36,6 +36,7 @@ function ViewModel() {
         chemicalListView = document.getElementById("chemicalList").winControl,
         plantingMaterialListView = document.getElementById("plantingMaterialList").winControl,
         soilAmendmentListView = document.getElementById("soilAmendmentList").winControl,
+        quantifierListView = document.getElementById("quantifierList").winControl,
 
         appBar = document.getElementById("appBar").winControl,
         editFlyout = document.getElementById("editFlyout").winControl,
@@ -47,7 +48,8 @@ function ViewModel() {
         chemicalDataList,
         plantingMaterialDataList,
         soilAmendmentDataList,
-        initialDataList, //purchase list ONLY without Other Purchase List
+        initialDataList, //purchase list ONLY without "Other" Purchase List
+        quantifierDataList,
         dataList;
 
     this.init = function () {
@@ -163,6 +165,24 @@ function ViewModel() {
             }
 
 
+        });
+
+        myDatabase.purchaseList.getList(otherQuantifierObjectStoreName, function (e) {
+            quantifierDataList = new WinJS.Binding.List(e);
+
+            quantifierListView.itemDataSource = quantifierDataList.dataSource;
+
+            quantifierListView.selection.selectAll();
+            var selectionCount = quantifierListView.selection.count();
+
+            if (selectionCount > 0) {
+                quantifierListView.selection.getItems().then(function (items) {
+                    items.forEach(function (item) {
+                        var name = item.data.name;
+                        totalQuantifierArray.push(name);
+                    });
+                });
+            }
         });
 
         

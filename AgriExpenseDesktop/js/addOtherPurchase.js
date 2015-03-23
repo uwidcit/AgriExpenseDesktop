@@ -31,21 +31,24 @@ function initializePurchaseUI() {
 
 function ViewModel() {
     var
-        listView = document.getElementById("otherPurchaseList").winControl,
+        listView = document.getElementById("purchaseList").winControl,
+        otherPurchaseListView = document.getElementById("otherPurchaseList").winControl,
+        quantifierListView = document.getElementById("quantifierList").winControl,
         appBar = document.getElementById("appBar").winControl,
         editFlyout = document.getElementById("editFlyout").winControl,
         addForm = document.getElementById("addForm"),
         editForm = document.getElementById("editForm"),
         self = this,
         purchaseDataList,
+        quantifierDataList,
         dataList;
 
     this.init = function () {
         myDatabase.purchaseList.getList(otherPurchaseObjectStoreName, function (e) {
             dataList = new WinJS.Binding.List(e);
 
-            listView.itemDataSource = dataList.dataSource;
-            listView.onselectionchanged = self.selectionChanged;
+           // listView.itemDataSource = dataList.dataSource;
+          //  listView.onselectionchanged = self.selectionChanged;
         });
 
         myDatabase.purchaseList.getList(purchaseObjectStoreName, function (e) {
@@ -53,6 +56,24 @@ function ViewModel() {
 
             listView.itemDataSource = purchaseDataList.dataSource;
             listView.onselectionchanged = self.selectionChanged;
+        });
+
+        myDatabase.purchaseList.getList(otherQuantifierObjectStoreName, function (e) {
+            quantifierDataList = new WinJS.Binding.List(e);
+
+            quantifierListView.itemDataSource = quantifierDataList.dataSource;
+
+            quantifierListView.selection.selectAll();
+            var selectionCount = quantifierListView.selection.count();
+
+            if (selectionCount > 0) {
+                quantifierListView.selection.getItems().then(function (items) {
+                    items.forEach(function (item) {
+                        var name = item.data.name;
+                        totalQuantifierArray.push(name);
+                    });
+                });
+            }
         });
 
       
@@ -162,6 +183,10 @@ function ViewModel() {
 
         };
 
+        var quantifierToDo = {
+            name: toDo.quantifier
+        }
+
         myDatabase.purchaseList.add(toDo, otherPurchaseObjectStoreName, function (e) {
             dataList.push(e);
             addForm.reset();
@@ -172,6 +197,7 @@ function ViewModel() {
             purchaseDataList.push(e);
             addForm.reset();
         });
+
     };
 
     this.submitEdit = function (e) {

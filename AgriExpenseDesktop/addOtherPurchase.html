@@ -36,31 +36,58 @@
 
     <div class="fragment toDo"> <!--entire display-->
         <header role="banner">
-            <h1 class="titlearea">Purchases</h1>
+            <h2 class="titlearea">Home > Purchases > Add Other Purchases</h2>
 
             <br /> <br />
             <a href="default.html" style="padding-left: 50px;"><img src="/images/home.png" alt="HOME" style="width:42px;height:42px;"></a>
 
         </header>
+
+         <div id ="addNewPurchaseTitle">
+          <h2> Add New Purchase </h2>
+       </div>
+
+        <div id="recentPurchasesTitle">
+            <h2>Recent Purchases</h2>
+        </div>
+
         <section role="main">
             <aside>
 
-                <h2>Add New Purchase</h2>
-                <p>----------------------------------------------</p>
                 <form id="addForm">
                     
+                    <br />
                     <label>Name</label>
-                    <input id="inputName" type="text" class="name input-block" required />
+                    <input id="inputName" type="text" class="name input-block" onchange="executeThis()" required />
+
                     <label>Quantifier</label>
-                    <input type="text" class="quantifier input-block" required />
+                    <select class="quantifier input-block" id="selectOtherPurchaseQuantifier" required> </select>
+                    <script>
+                        function executeThis() {
+                            var select = document.getElementById("selectOtherPurchaseQuantifier");
+                            for (var i = 0; i < totalQuantifierArray.length; i++) {
+                                var opt = totalQuantifierArray[i];
+                                var el = document.createElement("option");
+                                el.textContent = opt;
+                                el.value = opt;
+                                select.appendChild(el);
+                            }
+                        }
+                    </script>
+
+
+
                     <label>Quantity</label>
                     <input type="text" class="quantity input-block" required />
-                    <label>Cost</label>
+
+                    <label>Cost $</label>
                     <input type="text" class="cost input-block" required />
-                  
+
+                    <br />
                     <div>
                         <button type="submit" class="width-150px">Add Purchase</button>
                     </div>
+                    <br />
                     <div>
                         <input TYPE="button" class="width-150px" VALUE="Back to Purchases" onclick="window.location.href = 'purchases.html'"> 
                     </div>
@@ -69,7 +96,9 @@
             </aside>
 
             <div class="displayListColumn">
-            <div id="otherPurchaseList" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+                <div id="purchaseList" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+                <div id="otherPurchaseList" style="display:none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+                <div id="quantifierList" style="display:none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
             </div>
 
         </section>

@@ -1,14 +1,11 @@
 ﻿var myDatabase = myDatabase || {};
-
-
-//(function (myDatabase) {
     "use strict";
 
     myDatabase.data = (function () {
         var indexedDB = window.indexedDB;
 
         var init = function (success) {
-            var request = indexedDB.open(dbName, 21);
+            var request = indexedDB.open(dbName, 23);
 
             request.onsuccess = function () {
                 myDatabase.data.db = request.result;
@@ -23,20 +20,24 @@
                 console.log(event);
             };
 
-            request.onupgradeneeded = function (e) { //runs when a new instance of the db is created
+            request.onupgradeneeded = function (e) { //runs only when a new instance of the db is created
                 var db = e.target.result;
 
+                //This deletion section is for testing purposes only. It must be removed in the
+                //final product
                 db.deleteObjectStore(purchaseObjectStoreName);
                 db.deleteObjectStore(cycleObjectStoreName);
                 db.deleteObjectStore(resourceUseageObjectStoreName);
                 db.deleteObjectStore(labourObjectStoreName);
                 db.deleteObjectStore(historicalLabourStoreName);
                 db.deleteObjectStore(otherPurchaseObjectStoreName);
-                 db.deleteObjectStore(otherFertilizerObjectStoreName);
+                db.deleteObjectStore(otherFertilizerObjectStoreName);
                 db.deleteObjectStore(otherChemicalObjectStoreName);
                 db.deleteObjectStore(otherPlantingMaterialObjectStoreName);
                 db.deleteObjectStore(otherSoilAmendmentObjectStoreName);
-                
+                db.deleteObjectStore(otherQuantifierObjectStoreName);
+
+                //create all object stores
                 var purchaseStore = db.createObjectStore(purchaseObjectStoreName, {
                     keyPath: "id",
                     autoIncrement: true
@@ -86,8 +87,13 @@
                     keyPath: "id",
                     autoIncrement: true
                 });
-               
 
+                var otherQuantifierStore = db.createObjectStore(otherQuantifierObjectStoreName, {
+                    keyPath: "id",
+                    autoIncrement: true
+                });
+               
+                //create indexes on object stores
                 cycleStore.createIndex("name", "name", {
                     unique: false
                 }); 
@@ -128,7 +134,12 @@
                     unique: false
                 });
 
-                //read from the arrays and insert into database on startup
+                otherQuantifierStore.createIndex("name", "name", {
+                    unique: false
+                });
+
+
+                //read from the various hard-coded arrays and insert into database on first startup
                 for (var i = 0; i < fertilizerArray.length; i++) {
                     var toDo = {
                         type: "Fertilizer",
@@ -165,6 +176,14 @@
                     otherSoilAmendmentStore.add(toDo);
                 }
 
+                //add list of all quantifiers to the Database
+                for (var i = 0; i < combinedQuantifierArray.length; i++) {
+                    var toDo = {
+                        name: combinedQuantifierArray[i]
+                    };
+
+                    otherQuantifierStore.add(toDo);
+                }
 
             };
         };
@@ -228,7 +247,8 @@
 
        
 
-        var get = function (oStoreName, key, success) {
+        //search for an item in an object store in the database
+        var get = function (oStoreName, key, success) { 
             var
                 transaction = myDatabase.data.db.transaction(oStoreName),
                 store = transaction.objectStore(oStoreName),
@@ -240,6 +260,7 @@
         };
 
 
+        //add an item to an obejct store in the database
         var add = function (toDo, oStoreName, success) {
             if (oStoreName == purchaseObjectStoreName) {
                
@@ -375,6 +396,7 @@
         };
 
 
+        //edit an item in an objectstore in the database
         var update = function (toDo, oStoreName, success) {
 
             if (oStoreName == purchaseObjectStoreName) {
@@ -433,6 +455,8 @@
           
         };
 
+
+        //delete an item in an object store in the database
         var remove = function (key, oStoreName, success) {
             var
                 transaction = myDatabase.data.db.transaction(oStoreName, "readwrite"),
@@ -455,5 +479,4 @@
 
     })();
 
-//})(myDatabase);
 

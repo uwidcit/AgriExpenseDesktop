@@ -35,19 +35,23 @@
 
     <div class="fragment toDo"> <!--entire display-->
         <header role="banner">
-            <h1 class="titlearea">Purchases</h1>
-
+            <h2 class="titlearea">Home > Purchases</h2>
             <br /> <br />
             <a href="default.html" style="padding-left: 50px;"><img src="/images/home.png" alt="HOME" style="width:42px;height:42px;"></a>
-
-
         </header>
+
+       <div id ="addNewPurchaseTitle">
+          <h2> Add New Purchase </h2>
+       </div>
+
+        <div id="recentPurchasesTitle">
+            <h2>Recent Purchases</h2>
+        </div>
+
         <section role="main">
             <aside>
-                <!--<div style="overflow-y: scroll;"> -->
-                <h2>Add New Purchase</h2>
-                <p>----------------------------------------------</p>
                 <form id="addForm">
+                    <br />
                     <label>Type</label>
                     <select class="type input-block" id="purchaseTypeSelect" onchange="addFormDynamic()">
                     <option value="">--</option>
@@ -77,22 +81,21 @@
 
                     
                 </form>     
-             <!--       </div> -->
+           
              
             </aside> 
 
             <div class="displayListColumn">
-                <h2>Recent Purchases</h2>
-                <p>-------------------------------------------------------------------------------------------------</p>
-            <div style="overflow-x: scroll;" id="purchaseList" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+                <div id="purchaseList" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
 
-            <!-- Lists needed but NOT displayed on this page so - style="display:none;"-->
-            <div id="otherPurchaseList" style="display: none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
-            <div id="fertilizerList" style="display: none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
-            <div id="chemicalList" style="display: none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
-            <div id="plantingMaterialList" style="display: none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
-            <div id="soilAmendmentList" style="display: none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
-            </div>
+                <!-- Lists needed but NOT displayed on this page so - style="display:none;"-->
+                <div id="otherPurchaseList" style="display: none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+                <div id="fertilizerList" style="display: none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+                <div id="chemicalList" style="display: none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+                <div id="plantingMaterialList" style="display: none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+                <div id="soilAmendmentList" style="display: none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+                <div id="quantifierList" style="display: none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+             </div>
 
         </section>
     </div> 
@@ -115,7 +118,8 @@
             <input type="hidden" class="lvIndex" data-win-bind="value:lvIndex" />
             
             <label>Type</label>
-            <select class="type input-block" id="editFormTypeSelect" onblur="editFormDynamic()">
+            <select class="type input-block" id="editFormTypeSelect" onchange="editFormDynamic()" required>
+                    <option value="">--</option>
                     <option value="Fertilizer">Fertilizer</option>
                     <option value="Chemical">Chemical</option>
                     <option value="Planting Material">Planting Material</option>
@@ -124,10 +128,10 @@
             </select>
          
             <label>Name</label>
-            <select class="name input-block" id="editFormPurchaseName"> </select>
+            <select class="name input-block" id="editFormPurchaseName" required> </select>
 
             <label>Quantifier</label>
-            <select class="quantifier input-block" id="editFormQuantifier"> </select>
+            <select class="quantifier input-block" id="editFormQuantifier" required> </select>
 
             <label>Quantity</label>
             <input type="number" class="quantity input-block" data-win-bind="value:quantity" required />

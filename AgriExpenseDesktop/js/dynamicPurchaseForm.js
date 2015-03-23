@@ -1,16 +1,17 @@
-﻿
-function addFormDynamic() {
+﻿function addFormDynamic()
+{
 
-    var typeSelect = document.getElementById("purchaseTypeSelect");
-    var nameSelect = document.getElementById("selectPurchaseName");
-    var quantifierSelect = document.getElementById("selectPurchaseQuantifier");
+    var typeSelect = document.getElementById("purchaseTypeSelect");//type of material
+    var nameSelect = document.getElementById("selectPurchaseName"); //name of material
+    var quantifierSelect = document.getElementById("selectPurchaseQuantifier"); //quantifier of material
 
-    //Put options in alphabetical order
+    //Put options in select list in alphabetical order by sorting the arrays
     newFertilizerArray.sort();
     newChemicalArray.sort();
     newCropArray.sort();
     newSoilAmendmentArray.sort();
     otherPurchaseArray.sort();
+    totalQuantifierArray.sort();
 
     //remove previous entries from Name select box to put new ones if the Type is changed
     for (var i = nameSelect.options.length - 1; i >= 0; i--) {
@@ -21,7 +22,7 @@ function addFormDynamic() {
         quantifierSelect.remove(i);
     }
 
-    var select = document.getElementById("selectPurchaseName");
+    var select = document.getElementById("selectPurchaseName"); //name of material
 
    
     if (typeSelect.value == "Fertilizer") {
@@ -44,6 +45,12 @@ function addFormDynamic() {
             el.value = opt;
             select.appendChild(el);
         }
+
+        //add blank element to top of quantifier select box
+        var opt = "";
+        var el = document.createElement("option");
+        el.textContent = opt;
+        quantifierSelect.appendChild(el);
 
         for (var i = 0; i < fertilizerQuantifierArray.length; i++) {
             var opt = fertilizerQuantifierArray[i];
@@ -76,6 +83,12 @@ function addFormDynamic() {
             select.appendChild(el);
         }
 
+        //add blank element to top of quantifier select box
+        var opt = "";
+        var el = document.createElement("option");
+        el.textContent = opt;
+        quantifierSelect.appendChild(el);
+
         for (var i = 0; i < chemicalQuantifierArray.length; i++) {
             var opt = chemicalQuantifierArray[i];
             var el = document.createElement("option");
@@ -105,6 +118,12 @@ function addFormDynamic() {
             select.appendChild(el);
         }
 
+        //add blank element to top of quantifier select box
+        var opt = "";
+        var el = document.createElement("option");
+        el.textContent = opt;
+        quantifierSelect.appendChild(el);
+
         for (var i = 0; i < plantingMaterialQuantifierArray.length; i++) {
             var opt = plantingMaterialQuantifierArray[i];
             var el = document.createElement("option");
@@ -126,6 +145,12 @@ function addFormDynamic() {
             el.textContent = opt;
             select.appendChild(el);
         }
+
+        //add blank element to top of quantifier select box
+        var opt = "";
+        var el = document.createElement("option");
+        el.textContent = opt;
+        quantifierSelect.appendChild(el);
 
         for (var i = 0; i < soilAmendmentQuantifierArray.length; i++) {
             var opt = soilAmendmentQuantifierArray[i];
@@ -150,8 +175,20 @@ function addFormDynamic() {
             select.appendChild(el);
         }
 
-        //quantifier stuff - don't save it, just pass the name through local storage and make them enter quantifier in
-        //addOtherPurchase page
+        //add blank element to top of quantifier select box
+        var opt = "";
+        var el = document.createElement("option");
+        el.textContent = opt;
+        quantifierSelect.appendChild(el);
+
+        //populate quantifier section with values from otherQuantifierObjectStore
+        for (var i = 0; i < totalQuantifierArray.length; i++) {
+            var opt = totalQuantifierArray[i];
+            var el = document.createElement("option");
+            el.textContent = opt;
+            el.value = opt;
+            quantifierSelect.appendChild(el);
+        }
      
     }
 
@@ -178,18 +215,13 @@ function navigateOrNot() {
 
 }
 
-function navigateFertilizerOrNot() {
-    var nameSelect = document.getElementById("selectPurchaseName");
-    if (nameSelect == "(Add New)") {
-        window.location("otherItemTypeKnown.html");
-    }
-}
 
+//Dynamic elements of the "Edit Purchase" form
 function editFormDynamic() {
 
-    var typeSelect = document.getElementById("editFormTypeSelect");
-    var nameSelect = document.getElementById("editFormPurchaseName");
-    var quantifierSelect = document.getElementById("editFormQuantifier");
+    var typeSelect = document.getElementById("editFormTypeSelect"); //purchase type
+    var nameSelect = document.getElementById("editFormPurchaseName"); //purchase Name
+    var quantifierSelect = document.getElementById("editFormQuantifier"); //purchase quantifier
 
     //remove previous entries from Name select box to put new ones if the Type is changed
     for (var i = nameSelect.options.length - 1; i >= 0; i--) {
@@ -217,6 +249,13 @@ function editFormDynamic() {
             select.appendChild(el);
         }
 
+
+        //add blank element to top of quantifier select box
+        var opt = "";
+        var el = document.createElement("option");
+        el.textContent = opt;
+        quantifierSelect.appendChild(el);
+
         for (var i = 0; i < fertilizerQuantifierArray.length; i++) {
             var opt = fertilizerQuantifierArray[i];
             var el = document.createElement("option");
@@ -243,6 +282,12 @@ function editFormDynamic() {
             select.appendChild(el);
         }
 
+        //add blank element to top of quantifier select box
+        var opt = "";
+        var el = document.createElement("option");
+        el.textContent = opt;
+        quantifierSelect.appendChild(el);
+
         for (var i = 0; i < chemicalQuantifierArray.length; i++) {
             var opt = chemicalQuantifierArray[i];
             var el = document.createElement("option");
@@ -267,6 +312,12 @@ function editFormDynamic() {
             select.appendChild(el);
         }
 
+        //add blank element to top of quantifier select box
+        var opt = "";
+        var el = document.createElement("option");
+        el.textContent = opt;
+        quantifierSelect.appendChild(el);
+
         for (var i = 0; i < plantingMaterialQuantifierArray.length; i++) {
             var opt = plantingMaterialQuantifierArray[i];
             var el = document.createElement("option");
@@ -290,8 +341,55 @@ function editFormDynamic() {
             select.appendChild(el);
         }
 
+        //add blank element to top of quantifier select box
+        var opt = "";
+        var el = document.createElement("option");
+        el.textContent = opt;
+        quantifierSelect.appendChild(el);
+
         for (var i = 0; i < soilAmendmentQuantifierArray.length; i++) {
             var opt = soilAmendmentQuantifierArray[i];
+            var el = document.createElement("option");
+            el.textContent = opt;
+            el.value = opt;
+            quantifierSelect.appendChild(el);
+        }
+    }
+
+    else if (typeSelect.value == "Other") {
+        //add blank element to the top
+        var opt = "";
+        var el = document.createElement("option");
+        el.textContent = opt;
+        select.appendChild(el);
+
+        //values from the otherPurchaseArray (names)
+
+        //REMOVE the option "Other" from the list
+        var newArr = otherPurchaseArray.slice(); //copy otherPurchaseArray into newArr
+        var index = newArr.indexOf("Other"); //find index of the name "Other"
+        newArr.splice(index, 1); //remove "Other" from the array
+
+
+        for (var i = 0; i < newArr.length; i++) {
+            var opt = newArr[i];
+            var el = document.createElement("option");
+            el.textContent = opt;
+            el.value = opt;
+            select.appendChild(el);
+        }
+
+
+        //populate quantifier section with values from otherQuantifierObjectStore
+
+        //add blank element to top of quantifier select box
+        var opt = "";
+        var el = document.createElement("option");
+        el.textContent = opt;
+        quantifierSelect.appendChild(el);
+
+        for (var i = 0; i < totalQuantifierArray.length; i++) {
+            var opt = totalQuantifierArray[i];
             var el = document.createElement("option");
             el.textContent = opt;
             el.value = opt;
