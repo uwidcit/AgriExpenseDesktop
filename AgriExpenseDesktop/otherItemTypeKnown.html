@@ -35,18 +35,26 @@
 
 
     <div class="fragment toDo"> <!--entire display-->
-        <header role="banner">
-            <h1 class="titlearea">Purchases</h1>
+         <header role="banner">
+            <h2 class="titlearea"><a href="default.html">Home</a> > <a href="purchases.html">Purchases</a> > Add Other Purchase</h2>
 
-           <br /> <br />
+            <br /> <br />
             <a href="default.html" style="padding-left: 50px;"><img src="/images/home.png" alt="HOME" style="width:42px;height:42px;"></a>
 
         </header>
+
+        <div id ="addNewPurchaseTitle">
+          <h2> Add New Item </h2>
+       </div>
+
+        <div id="recentPurchasesTitle">
+            <h2>Recent Items</h2>
+        </div>
+
         <section role="main">
             <aside>
 
-                <h2>Add Item</h2>
-                <p>----------------------------------------------</p>
+               
                 <form id="addForm">
 
                     <label>Type</label>
@@ -58,15 +66,14 @@
                     <div>
                         <button type="submit" class="width-150px">Add Item</button> <br /><br />
                     </div>
-                    <div>
-                        <input TYPE="button" class="width-150px" VALUE="Back to Purchases" onclick="window.location.href = 'purchases.html'"> 
-                    </div>
+                   
                 </form>     
              
             </aside>
 
            <div class="displayListColumn">
             <div id="otherPurchaseList" style="display: none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+            <div id="purchaseListID" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
             </div>
 
         </section>
@@ -74,39 +81,7 @@
 
 
 
-    <div id="appBar" data-win-control="WinJS.UI.AppBar">
-        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'deleteCommand', label:'Delete', icon:'remove', section:'selection', hidden:'true', extraClass:'appBarSelection'}">
-        </button>
-        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'editCommand', label:'Edit', icon:'edit', section:'selection', hidden:'true', extraClass:'appBarSelection appBarSingleSelection'}">
-        </button>
-    </div>
-    <div id="editFlyout" data-win-control="WinJS.UI.Flyout">
-        <form id="editForm">
-            <h2>Edit Purchase</h2>
-            <input type="hidden" class="id" data-win-bind="value:id" />
-            <input type="hidden" class="lvIndex" data-win-bind="value:lvIndex" />
-            
-
-            
-         
-            <label>Name</label>
-            <input type="text" class="name input-block" data-win-bind="value:name" required />
-
-            <label>Quantifier</label>
-            <input type="text" class="quantifier input-block" data-win-bind="value:quantifier" required />
-
-            <label>Quantity</label>
-            <input type="number" class="quantity input-block" data-win-bind="value:quantity" required />
-
-            <label>Cost</label>
-            <input type="number" class="cost input-block" data-win-bind="value:cost" required />
-
-            <div>
-                <button type="submit">Save</button>
-                <button class="cancel">Cancel</button>
-            </div>
-        </form>
-    </div>
+   
 
 </body>
 </html>

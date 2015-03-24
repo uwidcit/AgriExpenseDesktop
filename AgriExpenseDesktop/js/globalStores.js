@@ -28,7 +28,9 @@ var newChemicalArray = [];
 var soilAmendmentArray = ["Calphos", "Chicken Manure", "Compost", "Cow Manure", "Gypsum", "Horse Manure", "Limestone", "Molasses", "Sharp sand", "Sulphur"];
 var newSoilAmendmentArray = [];
 
-var cropArray = ["Anise Seed", "Banana", "Basil", "Bay Leaf", "Beet", "Bhagi", "Bora (Bodi) Bean", "Breadfruit", "Breadnut(Chataigne)", "Broccoli", "Cabbage", "Carailli", "Carambola", "Carrots", "Cassava", "Cauliflower", "Celery", "Cherry", "Chive", "Choi Sum (Chinese Cabbage)", "Christophene", "Citrus", "Cocoa", "Coconut", "Corn", "Cowpea (Gub Gub)", "Cucumber", "Cilantro (Shadon beni/ Bandania", "Curry Leaf", "Cush Cush", "Dasheen", "Dasheen Bush", "Dill", "Eddoes", "Eggplant", "Escallion", "Fennel", "Ginger", "Golden Apple", "Green Fig", "Hot Pepper", "Jack Bean", "Jhingi", "Lauki", "Leren (Topi Tambu)", "Lettuce", "Mango", "Marjoram", "Mint", "Nutmeg", "Ochro", "Onions", "Oregano", "Pakchoy", "Parsley", "Paw Paw", "Peanuts", "Pigeon Peas", "Pimento Pepper", "Plantain", "Pumpkin", "Radish (Morai)", "Rosemary", "Saijan", "Satputiya", "Seim", "Soyabean Legumes", "Squash", "String Bean", "Sweet Pepper", "Sweet Potato", "Tannia", "Tarragon", "Thyme - Fine", "Thyme - French", "Thyme - Spanish", "Tomato", "Turmeric (Saffron)", "Vine Spinach (Poi Bhagi)", "Watercress", "Watermelon", "Wing Bean", "Yam"];
+var cropArray = ["Anise Seed", "Banana", "Basil", "Bay Leaf", "Beet", "Bhagi", "Bora (Bodi) Bean", "Breadfruit", "Breadnut(Chataigne)", "Broccoli", "Cabbage", "Carailli", "Carambola", "Carrots", "Cassava", "Cauliflower", "Celery", "Cherry", "Chive", "Choi Sum (Chinese Cabbage)", "Christophene", "Citrus", "Cocoa", "Coconut", "Corn", "Cowpea (Gub Gub)", "Cucumber", "Cilantro (Shadon beni/ Bandania",
+    "Curry Leaf", "Cush Cush", "Dasheen", "Dasheen Bush", "Dill", "Eddoes", "Eggplant", "Escallion", "Fennel", "Ginger", "Golden Apple", "Green Fig", "Hot Pepper", "Jack Bean", "Jhingi", "Lauki", "Leren (Topi Tambu)", "Lettuce", "Mango", "Marjoram", "Mint", "Nutmeg", "Ochro", "Onions", "Oregano", "Pakchoy", "Parsley", "Paw Paw", "Peanuts", "Pigeon Peas", "Pimento Pepper", "Plantain", "Pumpkin", "Radish (Morai)",
+    "Rosemary", "Saijan", "Satputiya", "Seim", "Soyabean Legumes", "Squash", "String Bean", "Sweet Pepper", "Sweet Potato", "Tannia", "Tarragon", "Thyme - Fine", "Thyme - French", "Thyme - Spanish", "Tomato", "Turmeric (Saffron)", "Vine Spinach (Poi Bhagi)", "Watercress", "Watermelon", "Wing Bean", "Yam"];
 var newCropArray = [];
 
 var fertilizerQuantifierArray = ["Bag", "g", "kg", "lb"];
@@ -36,7 +38,7 @@ var chemicalQuantifierArray = ["L", "g", "kg", "ml", "oz"];
 var plantingMaterialQuantifierArray = ["Heades", "Seeds", "Seedlings", "Slips", "Sticks", "Tubes"];
 var soilAmendmentQuantifierArray = ["Bag", "Truck"];
 
-var combinedQuantifierArray = ["Bag", "g", "kg", "lb", "L", "ml", "oz", "Heades", "Seeds", "Seedlings", "Slips", "Sticks", "Tubes", "Bag", "Truck", "Other"];
+var combinedQuantifierArray = ["Bag", "g", "kg", "lb", "L", "ml", "oz", "Heades", "Seeds", "Seedlings", "Slips", "Sticks", "Tubes", "Bag", "Truck"];
 var totalQuantifierArray = [];
 
 

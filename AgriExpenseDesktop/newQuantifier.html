@@ -10,7 +10,7 @@
     <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
     
     <script src="/js/transactionMethods.js"></script>
-    <script src="/js/employees.js"></script>
+    <script src="/js/newQuantifier.js"></script>
     <script src="/js/globalStores.js"></script>
     <!-- myPurchases references -->
 
@@ -18,28 +18,28 @@
     <script src="/js/default.js"></script>
   
 </head>
-<body onload="onEmployeesPageLoad()">
+<body onload="onQuantifierPageLoad()">
     
     <div id="purchasesItemTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
         <div class="item">
-            <p>Name: <span data-win-bind="textContent: name" class="item-title"></span></p>
+             <span data-win-bind="textContent: name" class="item-title"></span>
         </div>
     </div>
     <div class="fragment toDo">
         <header role="banner">
-            <h2 class="titlearea"><a href="default.html">Home</a> > <a href="labour.html">Labour</a> > Manage Employees</h2>
+            <h2 class="titlearea"><a href="default.html">Home</a> > <a href="purchases.html">Purchases</a> > <a href="addOtherPurchase.html">Add Other Purchase</a> > Add Quantifier</h2>
 
             <br /> <br />
             <a href="default.html" style="padding-left: 50px;"><img src="/images/home.png" alt="HOME" style="width:42px;height:42px;"></a>
 
         </header>
 
-         <div id ="addNewEmployeeTitle">
-          <h2> Add New Employee </h2>
+        <div id ="addNewQuantifierTitle">
+          <h2> Add New Quantifier </h2>
        </div>
 
-        <div id="pastEmployeesTitle">
-            <h2>List of Employees</h2>
+        <div id="existingQuantifiersTitle">
+            <h2>List of Quantifiers</h2>
         </div>
 
         <section role="main">
@@ -48,7 +48,7 @@
                 <br /><br />
                 <form id="addForm">
 
-                    <label>Name</label>
+                    <label>New Quantifier</label>
                     <input type="text" class="name input-block" required /><br />
                     <div>
                         <button type="submit" class="width-150px">Add</button>
@@ -59,7 +59,7 @@
 
             <div class="displayListColumn">
                 
-                <div id="historicalLabourList" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+                <div id="quantifierList" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
           </div>
 
         </section>

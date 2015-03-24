@@ -384,6 +384,14 @@
                    });
             }
 
+            else if (oStoreName == otherQuantifierObjectStoreName) {
+                var
+                   transaction = myDatabase.data.db.transaction(oStoreName, "readwrite"),
+                   store = transaction.objectStore(oStoreName),
+                   request = store.add({
+                       name: toDo.name //quantifier name
+                   });
+            }
                
             
 

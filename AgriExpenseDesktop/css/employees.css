@@ -27,13 +27,13 @@ body {
             color: lightgray;
         }
 
-        .fragment #addNewCycleTitle {
+        .fragment #addNewEmployeeTitle {
         -ms-grid-row:2;
         padding-left:120px;
         color:black;
     }
 
-    .fragment #recentCyclesTitle {
+    .fragment #pastEmployeesTitle {
         -ms-grid-row:2;
         padding-left: 530px;
         color:black;

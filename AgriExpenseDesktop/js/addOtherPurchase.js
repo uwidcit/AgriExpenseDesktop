@@ -44,16 +44,23 @@ function ViewModel() {
         dataList;
 
     this.init = function () {
+
+        newFertilizerArray.sort();
+        newChemicalArray.sort();
+        newCropArray.sort();
+        newSoilAmendmentArray.sort();
+        otherPurchaseArray.sort();
+        totalQuantifierArray.sort();
+
         myDatabase.purchaseList.getList(otherPurchaseObjectStoreName, function (e) {
             dataList = new WinJS.Binding.List(e);
 
-           // listView.itemDataSource = dataList.dataSource;
-          //  listView.onselectionchanged = self.selectionChanged;
         });
 
         myDatabase.purchaseList.getList(purchaseObjectStoreName, function (e) {
             purchaseDataList = new WinJS.Binding.List(e);
-
+            purchaseDataList.reverse();
+            
             listView.itemDataSource = purchaseDataList.dataSource;
             listView.onselectionchanged = self.selectionChanged;
         });
@@ -196,6 +203,7 @@ function ViewModel() {
         myDatabase.purchaseList.add(toDo, purchaseObjectStoreName, function (e) {
             purchaseDataList.push(e);
             addForm.reset();
+            window.location="purchases.html"
         });
 
     };

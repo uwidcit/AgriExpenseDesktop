@@ -85,10 +85,13 @@
     <Content Include="js\globalStores.js" />
     <Content Include="js\jqueryForWindows8.js" />
     <Content Include="js\labourDb.js" />
+    <Content Include="js\newQuantifier.js" />
     <Content Include="js\otherItemTypeKnown.js" />
     <Content Include="js\purchaseDb.js" />
+    <Content Include="js\quantifier.js" />
     <Content Include="js\transactionMethods.js" />
     <Content Include="labour.html" />
+    <Content Include="newQuantifier.html" />
     <Content Include="otherItemTypeKnown.html" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="purchases.html" />

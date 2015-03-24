@@ -227,6 +227,13 @@ function navigateOrNot() {
 //Dynamic elements of the "Edit Purchase" form
 function editFormDynamic() {
 
+    newFertilizerArray.sort();
+    newChemicalArray.sort();
+    newCropArray.sort();
+    newSoilAmendmentArray.sort();
+    otherPurchaseArray.sort();
+    totalQuantifierArray.sort();
+
     var typeSelect = document.getElementById("editFormTypeSelect"); //purchase type
     var nameSelect = document.getElementById("editFormPurchaseName"); //purchase Name
     var quantifierSelect = document.getElementById("editFormQuantifier"); //purchase quantifier

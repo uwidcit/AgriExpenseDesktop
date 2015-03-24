@@ -13,7 +13,8 @@
     <script src="/js/addOtherPurchase.js"></script>
     <script src="/js/dynamicPurchaseForm.js"></script>
     <script src="/js/globalStores.js"></script>
-    <!-- myPurchases references -->
+     <script src="/js/quantifier.js"></script>
+    
 
     <link href="/css/purchases.css" rel="stylesheet" />
     <script src="/js/default.js"></script>
@@ -36,7 +37,7 @@
 
     <div class="fragment toDo"> <!--entire display-->
         <header role="banner">
-            <h2 class="titlearea">Home > Purchases > Add Other Purchases</h2>
+            <h2 class="titlearea"><a href="default.html">Home</a> > <a href="purchases.html">Purchases</a> > Add Other Purchases</h2>
 
             <br /> <br />
             <a href="default.html" style="padding-left: 50px;"><img src="/images/home.png" alt="HOME" style="width:42px;height:42px;"></a>
@@ -58,22 +59,11 @@
                     
                     <br />
                     <label>Name</label>
-                    <input id="inputName" type="text" class="name input-block" onchange="executeThis()" required />
+                    <input id="inputName" type="text" class="name input-block" onchange="populateList()" required />
 
                     <label>Quantifier</label>
-                    <select class="quantifier input-block" id="selectOtherPurchaseQuantifier" required> </select>
-                    <script>
-                        function executeThis() {
-                            var select = document.getElementById("selectOtherPurchaseQuantifier");
-                            for (var i = 0; i < totalQuantifierArray.length; i++) {
-                                var opt = totalQuantifierArray[i];
-                                var el = document.createElement("option");
-                                el.textContent = opt;
-                                el.value = opt;
-                                select.appendChild(el);
-                            }
-                        }
-                    </script>
+                    <select class="quantifier input-block" id="selectOtherPurchaseQuantifier" onchange="navigateOrNot()" required> </select>
+              
 
 
 
@@ -88,9 +78,7 @@
                         <button type="submit" class="width-150px">Add Purchase</button>
                     </div>
                     <br />
-                    <div>
-                        <input TYPE="button" class="width-150px" VALUE="Back to Purchases" onclick="window.location.href = 'purchases.html'"> 
-                    </div>
+                    
                 </form>     
              
             </aside>
