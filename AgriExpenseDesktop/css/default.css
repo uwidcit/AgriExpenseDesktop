@@ -41,12 +41,7 @@
         display: -ms-grid;
     }
 
-    #cycleInfo {
-  background: maroon;
-  border: orange solid 1px;
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
-}
+
 
 
 

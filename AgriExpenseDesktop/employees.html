@@ -14,7 +14,7 @@
     <script src="/js/globalStores.js"></script>
     <!-- myPurchases references -->
 
-    <link href="/css/default.css" rel="stylesheet" />
+    <link href="/css/employees.css" rel="stylesheet" />
     <script src="/js/default.js"></script>
   
 </head>
@@ -22,15 +22,12 @@
     
     <div id="purchasesItemTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
         <div class="item">
-            
             <p>Name: <span data-win-bind="textContent: name" class="item-title"></span></p>
-          
-
         </div>
     </div>
     <div class="fragment toDo">
         <header role="banner">
-            <h1 class="titlearea">Manage Employees</h1>
+            <h2 class="titlearea">Home > Labour > Manage Employees</h2>
 
             <br /> <br />
             <a href="default.html" style="padding-left: 50px;"><img src="/images/home.png" alt="HOME" style="width:42px;height:42px;"></a>
@@ -39,12 +36,11 @@
         <section role="main">
             <aside>
 
-                <h2>Add New Employee</h2>
-                <p>-------------------------------------------------</p>
+                <br /><br />
                 <form id="addForm">
 
                     <label>Name</label>
-                    <input type="text" class="name input-block" required />
+                    <input type="text" class="name input-block" required /><br />
                     <div>
                         <button type="submit" class="width-150px">Add</button>
                     </div>
@@ -53,8 +49,7 @@
             </aside>
 
             <div class="displayListColumn">
-                <h2>Employees Available</h2>
-                <p>-------------------------------------------------------------------------------------------------</p>
+                
                 <div id="historicalLabourList" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
           </div>
 

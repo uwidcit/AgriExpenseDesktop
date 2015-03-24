@@ -32,55 +32,62 @@
     <div id="previousPurchasesItemTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
         <div class="item">
             <div data-win-bind="textContent: resourceType" class="item-title"></div>
-            <p>Name: <span data-win-bind="textContent: resourceName" class="item-sub"></span></p>
-            <p>Amount Added: <span data-win-bind="textContent: amountToAdd" class="item-sub"></span>
-                <span data-win-bind="textContent: quantifier" class="item-sub"></span>
-            </p>
-            <p>Cost: $<span data-win-bind="textContent: useCost" class="item-sub"></span></p>
-            <p>Date Purchased: <span data-win-bind="textContent: datePurchased" class="item-sub"></span></p>
+            Name: <span data-win-bind="textContent: resourceName" class="item-sub"></span> <br />
+            Amount Added: <span data-win-bind="textContent: amountToAdd" class="item-sub"></span>
+                <span data-win-bind="textContent: quantifier" class="item-sub"></span> <br />
+            
+            Cost: $<span data-win-bind="textContent: useCost" class="item-sub"></span> <br />
+            Date Added: <span data-win-bind="textContent: datePurchased" class="item-sub"></span> <br />
         </div>
     </div>
 
     <div class="fragment toDo"> 
+
         <header role="banner">
             <h2 class="titlearea">Home > Crop Cycles > Add Material </h2> 
             <br /> <br />
             <a href="default.html" style="padding-left: 50px;"><img src="/images/home.png" alt="HOME" style="width:42px;height:42px;"></a>
         </header>
-
-
-        <section role="main">            
-                <div id="cycleInfo">   
+            
+        <section role="main">                         
                     <!-- display stats here i.e. filter by cycleid -->
-                    <h1>This Cycle: </h1>
+                    <div id="cycleInfoTitle">
+                        <h2>Cycle Details: </h2>
+                    </div> 
+
+                     <div id="addMaterialTitle">
+                        <h2>Add Materials to this Cycle (Right click on item to select)</h2>
+                    </div> 
+
+                  <div id="cycleInfo">   
                     <p id="cycleNameID"></p>
                     <p id="cycleCropID"></p>
-                    <p><b>Materials Used: </b></p> 
-
-                    
-                   
-                   
-
-                    <div id="pList" class="pList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
-                    
-                </div>
-           
+                    <p id="cycleLandTypeID"></p>
+                    <p id="cycleLandQuantityID"></p>
+                    <p id="cycleStartDateID"></p>
+                  </div>
+  
+                    <div id="pList" class="pList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>               
+            </section>
             
-            <!-- Purchases to select from to add-->
-            <div id="listInfo">
-              <h1>Items Used in this Cycle: </h1>
+        <section role="contentinfo">
+            <div id="listInfoTitle">
+                <br /><br /><h2>Items Used: </h2></div> 
+            <div id="chemicalTitle"><h3>Chemicals: </h3></div>
+            <div id="fertilizerTitle"><h3>Fertlizers: </h3></div>
+            <div id="plantingMaterialTitle"><h3>Planting Materials: </h3></div>
+            <div id="soilAmendmentTitle"><h3>Soil Amendments: </h3></div>
+            <div id="otherTitle"><h3>Others: </h3></div>
                  <!-- Items used in this cycle-->
                     <div id="ruList" style="display: none;" class="pList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div> 
-                    <div id="chemicalList" class="pList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div>
-                    <div id="fertilizerList" class="pList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div>
-                    <div id="plantingMaterialList" class="pList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div>
-                    <div id="soilAmendmentList" class="pList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div> 
-                    <div id="otherList" class="pList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div>
-            </div>
-            
-        </section>
+                    <div id="chemicalList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div>
+                    <div id="fertilizerList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div>
+                    <div id="plantingMaterialList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div>
+                    <div id="soilAmendmentList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div> 
+                    <div id="otherList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div>            
+       </section>
 
-    </div> 
+   </div> 
     
    
     <div id="appBar" data-win-control="WinJS.UI.AppBar">
@@ -107,7 +114,7 @@
             </label>
             <input type="text" class="quantifier input-block" data-win-bind="value:quantifier" disabled />
             <label>
-                Quantity
+                Quantity Remaining
             </label>
             <input type="number" class="quantity input-block" data-win-bind="value:quantity" disabled />
             <label>
@@ -118,7 +125,7 @@
                 Amount To Add
             </label>
             <input type="number" class="amountToAdd input-block" data-win-bind="value:amountToAdd" required />
-            <label>Date Purchased</label>
+            <label>Date Added</label>
                     <div id="dateDiv" data-win-control="WinJS.UI.DatePicker" class="datePurchased"></div>
             <div>
                 <button type="submit">Add</button>

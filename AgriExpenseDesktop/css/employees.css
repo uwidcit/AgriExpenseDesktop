@@ -1,17 +1,22 @@
 ﻿body {
-     background-color: #FFFFFF;
+}
+body {
+}
+body { 
+   background-color: #FFFFFF;
 }
 
-.fragment {  
+.fragment {
+    /* Define a grid with rows for a banner and a body */
     -ms-grid-columns: 1fr;
     -ms-grid-rows: 128px 50px 500px 1fr;
     display: -ms-grid;
     height: 100%;
     width: 100%;
-} 
+}
 
     .fragment header[role=banner] {
-        -ms-grid-columns: 120px 1fr; /*The 120px is padding on the left*/
+        -ms-grid-columns: 120px 1fr;
         -ms-grid-rows: 1fr;
         display: -ms-grid;
     }
@@ -19,30 +24,29 @@
         .fragment header[role=banner] h2 {
             -ms-grid-column: 2;
             margin-top: 37px;
-            color:lightgray; /*The word "Purchases" at the top*/
+            color: lightgray;
         }
 
-    .fragment #addNewPurchaseTitle {
+        .fragment #addNewCycleTitle {
         -ms-grid-row:2;
-        padding-left:100px;
+        padding-left:120px;
         color:black;
     }
 
-    .fragment #recentPurchasesTitle {
+    .fragment #recentCyclesTitle {
         -ms-grid-row:2;
-        padding-left: 510px;
+        padding-left: 530px;
         color:black;
     }
-
 
     .fragment section[role=main] {
         -ms-grid-row: 3;
         height: 100%;
         width: 100%;
-        margin-left: 100px;
-        margin-right: 100px;
+        margin-left: 120px;
+        margin-right: 120px;
 
-        -ms-grid-columns: 350px 60px 1fr;
+        -ms-grid-columns: 350px 50px 1fr;
         -ms-grid-rows: 1fr;
         display: -ms-grid;
     }
@@ -50,9 +54,9 @@
 
 
 .toDo aside {
-    -ms-grid-column: 1;
+   -ms-grid-column: 1;
     padding-right: 30px;
-    padding-left:30px;
+    padding-left:10px;
     border-style: solid;
     border-color: black;
     background-color:#8BC34A;
@@ -64,23 +68,26 @@
 }
 
 .toDo .displayListColumn {
-    -ms-grid-column:3;    /*3rd column*/
-    background-color:#8BC34A;  
+   -ms-grid-column:3;    /*3rd column*/
+    background-color:#8BC34A;
     padding-right: 30px;
     padding-left:30px;
     border-style: solid;
     border-color: black;
+    /*overflow-x: scroll;*/
 }
 
+
+
 .toDo .purchaseList {
-    -ms-grid-column: 2;
+    -ms-grid-column: 3;
     height: 100%;
     width: 100%;
 }
 
-    .toDo .purchaseList .item { /*Boxes in List View*/
-        height: 150px;
-        width: 250px;
+    .toDo .purchaseList .item {
+        height: 60px;
+        width: 170px;
         padding: 10px;
         background-color: #FFFFFF;
         color:#689F38;
@@ -94,7 +101,7 @@
         }
 
         .toDo .purchaseList .item .item-sub {
-           /* overflow: hidden; */
+            overflow: hidden;
             margin-left: 15px;
         }
 
@@ -114,9 +121,8 @@
 }
 
 
-/*Used for buttons*/
 .width-150px{
     width: 150px;
     display: inline-block;
 }
-    
+

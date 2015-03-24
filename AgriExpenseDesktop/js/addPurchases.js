@@ -6,9 +6,17 @@ function onAddPurchasesPageLoad() {
 
             var cycleName = localStorage.getItem("cropCycleName");
             var cycleCrop = localStorage.getItem("cropCycleCrop");
+            var cycleTypeOfLand = localStorage.getItem("cropCycleTypeOfLand");
+            var cycleLandQuantity = localStorage.getItem("cropCycleLandQuantity");
+            var cycleStartDate = localStorage.getItem("cropCycleStartDate");
+
+
             var cropCycleIdFromStorage = localStorage.getItem("cropCycleId");
             document.getElementById("cycleNameID").innerHTML = "Cycle Name: "+cycleName;
-            document.getElementById("cycleCropID").innerHTML = "Crop: "+cycleCrop;
+            document.getElementById("cycleCropID").innerHTML = "Crop: " + cycleCrop;
+            document.getElementById("cycleLandTypeID").innerHTML = "Land Type: " + cycleTypeOfLand;
+            document.getElementById("cycleLandQuantityID").innerHTML = "Land Quantity: " + cycleLandQuantity;
+            document.getElementById("cycleStartDateID").innerHTML = "Start Date: " + cycleStartDate;
 
         });
     });
@@ -69,35 +77,38 @@ function ViewModel()
         myDatabase.purchaseList.getCycleList(resourceUseageObjectStoreName, "Chemical", localStorage.getItem("cropCycleId"), function (e) {
             dataListRU = new WinJS.Binding.List(e);
             listView2.itemDataSource = dataListRU.dataSource;
-            //listView.itemDataSource = dataList.dataSource;
-            //listView.onselectionchanged = self.selectionChanged;
+           
         }); 
 
+        //Filter by Material Type - Chemical
         myDatabase.purchaseList.getCycleList(resourceUseageObjectStoreName, "Chemical", localStorage.getItem("cropCycleId"), function (e) {
             chemicalDataList = new WinJS.Binding.List(e);
             chemicalListView.itemDataSource = chemicalDataList.dataSource;
-           
+    
         });
 
+        //Filter by Material Type - Fertilizer
         myDatabase.purchaseList.getCycleList(resourceUseageObjectStoreName, "Fertilizer", localStorage.getItem("cropCycleId"), function (e) {
             fertilizerDataList = new WinJS.Binding.List(e);
             fertilizerListView.itemDataSource = fertilizerDataList.dataSource;
             
         });
 
-        
+        //Filter by Material Type - Planting Material
         myDatabase.purchaseList.getCycleList(resourceUseageObjectStoreName, "Planting Material", localStorage.getItem("cropCycleId"), function (e) {
             plantingMaterialDataList = new WinJS.Binding.List(e);
             plantingMaterialListView.itemDataSource = plantingMaterialDataList.dataSource;
             
         });
 
+        //Filter by Material Type - Soil Amendment
         myDatabase.purchaseList.getCycleList(resourceUseageObjectStoreName, "Soil Amendment", localStorage.getItem("cropCycleId"), function (e) {
             soilAmendmentDataList = new WinJS.Binding.List(e);
             soilAmendmentListView.itemDataSource = soilAmendmentDataList.dataSource;
           
           });
 
+        //Filter by Material Type - Other
         myDatabase.purchaseList.getCycleList(resourceUseageObjectStoreName, "Other", localStorage.getItem("cropCycleId"), function (e) {
               otherDataList = new WinJS.Binding.List(e);
               otherListView.itemDataSource = otherDataList.dataSource;
@@ -244,6 +255,7 @@ function ViewModel()
                 listView.selection.clear();
 
                 dataList.setAt(purchaseToDo.lvIndex, purchaseToDo);
+                window.location = "addPurchases.html";
             });
 
         }
@@ -271,34 +283,10 @@ function ViewModel()
 
 function getValuesFromObjectStore(cropCyID, materialType)
 {
-    //get values for that crop cyclements
+    //get values for that crop cycle
     myDatabase.purchaseList.getCycleList(resourceUseageObjectStoreName, materialType, cropCyID, function (e) {
         var resourceList = new WinJS.Binding.List(e);
         var newList = resourceList;
-
-        /*for (var key in newList)
-        {
-            if (newList.hasOwnProperty(key))
-            {
-                var obj = newList[key];
-                for (var prop in obj) {
-                    if (obj.hasOwnProperty(prop))
-                    {
-                        console.log(prop + " = " + obj[prop]);
-                    }
-                }
-            }
-        }*/
-
-
-       /* for (var i = 0; i < newList.length; i++) //go through entire object store
-        {
-            var keys = Object.keys(resourceList.getItem(i)); //returns array of keys for this resource use entry
-            for (var j = 0; j < keys.length; j++)
-            {
-                console.log("The value of this field is: " + resourceList.getItem(i)[keys[j]][name]);
-            }
-        } */
     });
 
    

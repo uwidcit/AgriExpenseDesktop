@@ -47,7 +47,9 @@
     <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
     <TargetPlatformVersion>8.0</TargetPlatformVersion>
     <DefaultLanguage>en-US</DefaultLanguage>
-    <PackageCertificateKeyFile>AgriExpenseDesktop_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>AgriExpenseDesktop_StoreKey.pfx</PackageCertificateKeyFile>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <PackageCertificateThumbprint>CC7792EF3B421574AEEBC9C166849AF527254B67</PackageCertificateThumbprint>
   </PropertyGroup>
   <ItemGroup>
     <AppxManifest Include="package.appxmanifest">
@@ -55,10 +57,14 @@
     </AppxManifest>
     <Content Include="addOtherPurchase.html" />
     <Content Include="addPurchases.html" />
+    <None Include="AgriExpenseDesktop_StoreKey.pfx" />
     <Content Include="chooseCropCycle.html" />
     <Content Include="css\addPurchases.css" />
+    <Content Include="css\chooseCropCycle.css" />
     <Content Include="css\cycles.css" />
     <Content Include="css\default.css" />
+    <Content Include="css\employees.css" />
+    <Content Include="css\labour.css" />
     <Content Include="css\purchases.css" />
     <Content Include="cycles.html" />
     <Content Include="default.html" />
@@ -84,6 +90,7 @@
     <Content Include="js\transactionMethods.js" />
     <Content Include="labour.html" />
     <Content Include="otherItemTypeKnown.html" />
+    <None Include="Package.StoreAssociation.xml" />
     <Content Include="purchases.html" />
     <Content Include="reports.html" />
     <Content Include="resources.html" />

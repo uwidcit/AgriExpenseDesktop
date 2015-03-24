@@ -14,7 +14,7 @@
     <script src="/js/globalStores.js"></script>
     <!-- myPurchases references -->
 
-    <link href="/css/default.css" rel="stylesheet" />
+    <link href="/css/chooseCropCycle.css" rel="stylesheet" />
     <script src="/js/default.js"></script>
 </head>
 <body onload="onCyclesPageLoad()">
@@ -30,18 +30,20 @@
         </div>
     </div>
     <div class="fragment toDo">
-        <header role="banner">
-            <h1 class="titlearea">Select Which Cycle</h1>
-
-            <a href="default.html">Home</a>
-
+         <header role="banner">
+            <h2 class="titlearea">Home > Hire Labour > Choose Crop Cycle</h2>
+            <br /> <br />
+            <a href="default.html" style="padding-left: 50px;"><img src="/images/home.png" alt="HOME" style="width:42px;height:42px;"></a>
         </header>
-        <section role="main">
-            <aside>
 
-               
-            </aside>
-            <div id="cycleList" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+        <div id ="selectCropCycleTitle"><h2> Select Crop Cycle </h2></div>
+
+        <section role="main">
+            
+            <div id="displayListColumn">
+                <div id="cycleList" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+            </div>
+
         </section>
     </div>
 </body>

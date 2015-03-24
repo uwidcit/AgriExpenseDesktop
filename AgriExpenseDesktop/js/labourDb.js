@@ -62,9 +62,6 @@ function ViewModel() {
                     items.forEach(function (item) {
                         var pname = item.data.name;
                         labourArray.push(pname);
-                        for (var i = 0; i < labourArray.length; i++) {
-                            console.log(labourArray[i]);
-                        }
                     });
                 });
 
@@ -177,14 +174,13 @@ function ViewModel() {
                 cycleID: cycleId
             };
 
-            console.log("person Name : " + toDo.personName);
-            console.log("cycle id : " + toDo.cycleID);
-
+     
             var dialog = new Windows.UI.Popups.MessageDialog("Are you sure you want to hire " + toDo.personName + " for many crop cycles?");
             dialog.commands.append(new Windows.UI.Popups.UICommand("Yes", function (command) {
                 myDatabase.purchaseList.add(toDo, labourObjectStoreName, function (e) {
                     dataList.push(e);
                     addForm.reset();
+                    window.location = "labour.html";
                 });
             }));
 

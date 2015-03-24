@@ -133,6 +133,18 @@
         }
     }
     else if (typeSelect.value == "Soil Amendment") {
+
+        //add blank element to the top
+        var opt = "";
+        var el = document.createElement("option");
+        el.textContent = opt;
+        select.appendChild(el);
+
+        var opt = "(Add New)";
+        var el = document.createElement("option");
+        el.textContent = opt;
+        select.appendChild(el);
+
         for (var i = 0; i < newSoilAmendmentArray.length; i++) {
             var opt = newSoilAmendmentArray[i];
             var el = document.createElement("option");
@@ -140,10 +152,6 @@
             el.value = opt;
             select.appendChild(el);
 
-            var opt = "(Add New)";
-            var el = document.createElement("option");
-            el.textContent = opt;
-            select.appendChild(el);
         }
 
         //add blank element to top of quantifier select box

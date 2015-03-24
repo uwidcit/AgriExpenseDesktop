@@ -13,7 +13,7 @@
     <script src="/js/globalStores.js"></script>
     <!-- myPurchases references -->
     <script src="/js/labourDb.js"></script>
-    <link href="/css/default.css" rel="stylesheet" />
+    <link href="/css/labour.css" rel="stylesheet" />
     <script src="/js/default.js"></script>
     
 </head>
@@ -30,17 +30,25 @@
     </div>
     <div class="fragment toDo">
         <header role="banner">
-            <h1 class="titlearea">Hire Labour</h1>
+            <h2 class="titlearea">Home > Labour</h2>
 
-           <br /> <br />
+            <br /> <br />
             <a href="default.html" style="padding-left: 50px;"><img src="/images/home.png" alt="HOME" style="width:42px;height:42px;"></a>
 
         </header>
+
+        <div id ="addNewCycleTitle">
+          <h2> Hire Employee</h2>
+       </div>
+
+        <div id="recentCyclesTitle">
+            <h2>All Employees</h2>
+        </div>
+
         <section role="main">
             <aside>
 
-                <h2>Hire Employee</h2>
-                <p>-------------------------------------------------</p>
+               <br /><br />
 
                 <form id="addForm">
 
@@ -48,13 +56,21 @@
                     <br />
                     <br />
                     <label>Select Person to Hire</label>
-                    <select id="labourSelect" class="personName input-block"></select>
+                    <select id="labourSelect" class="personName input-block" required></select>
                
 
                     <label>How is this person going to be paid?</label>
-                    <select id="paidSelect" class="paymentPlan input-block"></select> 
+                    <select id="paidSelect" class="paymentPlan input-block" required></select> 
                     <script>
+                        //add blank element at the top of the list
                         var select = document.getElementById("paidSelect");
+                        var opt = "";
+                        var el = document.createElement("option");
+                        el.textContent = opt;
+                        el.value = opt;
+                        select.appendChild(el);
+                       
+                        //populate select box with items from paymentArray
                         for (var i = 0; i < paymentArray.length; i++) {
                             var opt = paymentArray[i];
                             var el = document.createElement("option");
@@ -82,9 +98,6 @@
                 
             </aside>
             <div class="displayListColumn">
-                <h2>Recent Hired Employees</h2>
-                <p>-------------------------------------------------------------------------------------------------</p>
-
                 <div id="cycleList" style="display: none;" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
                 <div id="labourList" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
                 <div id="employeeList" style="display: none;" class="employeeList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>

@@ -76,14 +76,13 @@ function ViewModel() {
                     cost: localStorage.getItem("cost"),
                     cycleID: toDo.id
                 };
-                console.log("person name1: " + toDo2.personName);
+              
 
                 //Store entry in labourStore in database
                 var dialog = new Windows.UI.Popups.MessageDialog("Are you sure you want to hire " + toDo2.personName + " for crop cycle "+toDo2.cycleID+"?");
                 dialog.commands.append(new Windows.UI.Popups.UICommand("Yes", function (command) {
                     myDatabase.purchaseList.add(toDo2, labourObjectStoreName, function (e) {
                         dataList.push(e);
-                        console.log('stored2');
                         window.location = 'labour.html';
                     });
                }));

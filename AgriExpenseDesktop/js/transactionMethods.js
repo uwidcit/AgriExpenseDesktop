@@ -5,7 +5,7 @@
         var indexedDB = window.indexedDB;
 
         var init = function (success) {
-            var request = indexedDB.open(dbName, 23);
+            var request = indexedDB.open(dbName, 24);
 
             request.onsuccess = function () {
                 myDatabase.data.db = request.result;
@@ -36,7 +36,7 @@
                 db.deleteObjectStore(otherPlantingMaterialObjectStoreName);
                 db.deleteObjectStore(otherSoilAmendmentObjectStoreName);
                 db.deleteObjectStore(otherQuantifierObjectStoreName);
-
+                
                 //create all object stores
                 var purchaseStore = db.createObjectStore(purchaseObjectStoreName, {
                     keyPath: "id",
