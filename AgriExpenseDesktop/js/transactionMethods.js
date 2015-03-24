@@ -245,6 +245,30 @@
             }
         };
 
+        //used for generating reports
+        var getDataForEachCycle = function (oStoreName, cropCyId, success) {
+
+            var
+                list = [],
+                transaction = myDatabase.data.db.transaction(oStoreName),
+                store = transaction.objectStore(oStoreName);
+
+            store.openCursor().onsuccess = function (e) {
+                var cursor = e.target.result;
+
+                if (cursor) {
+                    if ((cursor.value.cropCycleID == cropCyId)) {  //filter by cropcycle id
+                        list.push(cursor.value); //add item to list
+                    }
+                    cursor.continue();
+                }
+                else {
+                    success(list);
+                };
+
+            }
+        };
+
        
 
         //search for an item in an object store in the database
@@ -480,11 +504,10 @@
             get: get,
             getList: getList,
             getCycleList: getCycleList,
+            getDataForEachCycle: getDataForEachCycle,
             add: add,
             update: update,
             remove: remove
         };
 
     })();
-
-

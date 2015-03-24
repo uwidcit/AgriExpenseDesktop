@@ -238,7 +238,7 @@ function ViewModel()
 
             //get purchase information from addMaterialForm
             var purchaseToDo = {
-                id: document.querySelector("#addMaterialForm .id").value,
+                id: document.querySelector("#addMaterialForm .id").value, //purchaseID
                 type: document.querySelector("#addMaterialForm .type").value,
                 name: document.querySelector("#addMaterialForm .name").value,
                 quantifier: document.querySelector("#addMaterialForm .quantifier").value,

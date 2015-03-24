@@ -1,5 +1,5 @@
 ﻿body { 
-   background-color: #FFFFFF;
+   background-image: -ms-linear-gradient(top left, #FFFFFF 0%, #0B8F14 100%);
 }
 
 .fragment {
@@ -53,9 +53,7 @@
    -ms-grid-column: 1;
     padding-right: 30px;
     padding-left:10px;
-    border-style: solid;
-    border-color: black;
-    background-color:#8BC34A;
+    background-image: -ms-linear-gradient(bottom, #CFFFBA 0%, #689F38 100%);
 }
 
 .toDo aside hr {
@@ -65,11 +63,11 @@
 
 .toDo .displayListColumn {
    -ms-grid-column:3;    /*3rd column*/
-    background-color:#8BC34A;
+   
     padding-right: 30px;
     padding-left:30px;
-    border-style: solid;
-    border-color: black;
+    background-image: -ms-linear-gradient(bottom, #CFFFBA 0%, #689F38 100%);
+   
     /*overflow-x: scroll;*/
 }
 
@@ -87,8 +85,9 @@
         padding: 10px;
         background-color: #FFFFFF;
         color:#689F38;
+
         border-style: solid;
-        border-color: #689F38;
+        border-color: #07570C;
     }
 
         .toDo .cycleList .item .item-title {

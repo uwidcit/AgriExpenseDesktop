@@ -1,4 +1,7 @@
-﻿var cropCycleId;
+﻿
+
+
+//var cropCycleId;
 
 
 function onCyclesPageLoad() {

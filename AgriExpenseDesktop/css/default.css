@@ -1,5 +1,5 @@
 ﻿body { 
-   background-color: #FFFFFF;
+   background-image: -ms-linear-gradient(top left, #FFFFFF 0%, #0B8F14 100%);
 }
 
 .fragment {
@@ -65,9 +65,7 @@
     background-color:#8BC34A;
     padding-right: 30px;
     padding-left:30px;
-    border-style: solid;
-    border-color: black;
-    /*overflow-x: scroll;*/
+    background-image: -ms-linear-gradient(bottom, #CFFFBA 0%, #689F38 100%);
 }
 
 .toDo .purchaseList {

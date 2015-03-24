@@ -64,14 +64,17 @@
     <Content Include="css\cycles.css" />
     <Content Include="css\default.css" />
     <Content Include="css\employees.css" />
+    <Content Include="css\home.css" />
     <Content Include="css\labour.css" />
     <Content Include="css\purchases.css" />
+    <Content Include="css\reports.css" />
     <Content Include="cycles.html" />
     <Content Include="default.html" />
     <Content Include="employees.html" />
     <Content Include="images\home.png" />
     <Content Include="images\logo.png" />
     <Content Include="images\logo_agrinet.png" />
+    <Content Include="images\logo_agrinet_small.png" />
     <Content Include="images\smalllogo.png" />
     <Content Include="images\splashscreen.png" />
     <Content Include="images\storelogo.png" />
@@ -89,6 +92,7 @@
     <Content Include="js\otherItemTypeKnown.js" />
     <Content Include="js\purchaseDb.js" />
     <Content Include="js\quantifier.js" />
+    <Content Include="js\reports.js" />
     <Content Include="js\transactionMethods.js" />
     <Content Include="labour.html" />
     <Content Include="newQuantifier.html" />

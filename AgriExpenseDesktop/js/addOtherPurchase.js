@@ -71,6 +71,7 @@ function ViewModel() {
             quantifierListView.itemDataSource = quantifierDataList.dataSource;
 
             quantifierListView.selection.selectAll();
+
             var selectionCount = quantifierListView.selection.count();
 
             if (selectionCount > 0) {

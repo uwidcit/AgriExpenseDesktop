@@ -9,21 +9,37 @@
     <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
     <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
     <script src="/js/transactionMethods.js"></script>
-    <script src="/js/jqueryForWindows8.js"></script>
    
     <link href="/css/default.css" rel="stylesheet" />
+    <link href="/css/reports.css" rel="stylesheet" />
     <script src="/js/default.js"></script>
+    <script src="/js/reports.js"></script>
+    <script src="/js/globalStores.js"></script>
 </head>
-<body>
-    
+
+<body onload="onReportsPageLoad()">
+
     <div id="purchasesItemTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
-      
+        <div class="item">
+              <span data-win-bind="textContent: name" class="item-title"></span> <br style="line-height:20px;"/>
+             Crop: <span data-win-bind="textContent: crop" class="item-sub"></span> <br style="line-height:30px;"/> 
+             Type of Land: <span data-win-bind="textContent: typeOfLand" class="item-sub"></span>  <br style="line-height:30px;"/>
+             Quantity of Land: <span data-win-bind="textContent: quantity" class="item-sub"></span>  <br style="line-height:35px;"/>
+             Start Date: <span data-win-bind="textContent: startDate" class="item-sub"></span>
+        </div>
     </div>
+
+     <div id="reportItemTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
+            <div class="item">
+                  <span data-win-bind="textContent: name" class="item-title"></span> <br style="line-height:20px;"/>
+            </div>
+    </div>
+    
+      
     <div class="fragment toDo">
         <header role="banner">
-            <h1 class="titlearea">Reports</h1> <br />
-
-             <br /> <br />
+            <h2 class="titlearea"><a href="default.html">Home</a> > Generate New Report</h2>
+            <br /> <br />
             <a href="default.html" style="padding-left: 50px;"><img src="/images/home.png" alt="HOME" style="width:42px;height:42px;"></a>
         </header>
 
@@ -32,55 +48,21 @@
 
                 <form>
                      <div>
-                        <button id="generateReportButton" type="button" class="width-150px" onclick="genCsvFile()">Generate Report</button>
+                        <button id="generateReportButton" type="button" class="width-150px" onclick="generateCsvFile()">Generate Report</button>
                     </div>
                 </form>
 
+
+                <div class="displayListColumn">
+                    <div id="cycleList" style="display:none" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+                    <div id="resourcesUsedList" style="display:none" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+
+                    <!-- Change this to be displayed-->
+                    <div id="reportList" style="display:none" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+                </div>
+
              
-                <script>
-                    var cropArray2 = ["Anise Seed", "Banana", "Basil", "Bay Leaf", "Beet", "Bhagi", "Bora (Bodi) Bean", "Breadfruit", "Breadnut(Chataigne)"];
-
-                    function genCsvFile() {
-                        var data = [["name1", "crop1", "some other info"], ["name2", "crop2", "more info"]];
-                        var csvContent = "";
-                        data.forEach(function (infoArray, index) {
-
-                            dataString = infoArray.join(",");
-                            csvContent += index < infoArray.length ? dataString + "\n" : dataString;
-
-                        });
-
-                        var savePicker = new Windows.Storage.Pickers.FileSavePicker();
-                        savePicker.suggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.musicLibrary;
-                        // Dropdown of file types the user can save the file as
-                        savePicker.fileTypeChoices.insert("Excel Format", [".xlsx"]);
-                        // Default file name if the user does not type one in or select a file to replace
-                        savePicker.suggestedFileName = "test.xlsx";
-
-                        savePicker.pickSaveFileAsync().then(function (file) {
-                            if (file) {
-                                // Prevent updates to the remote version of the file until we finish making changes and call CompleteUpdatesAsync.
-                                Windows.Storage.CachedFileManager.deferUpdates(file);
-                                // write to file
-                                Windows.Storage.FileIO.writeTextAsync(file, csvContent).done(function () {
-                                    // Let Windows know that we're finished changing the file so the other app can update the remote version of the file.
-                                    // Completing updates may require Windows to ask for user input.
-                                    Windows.Storage.CachedFileManager.completeUpdatesAsync(file).done(function (updateStatus) {
-                                        if (updateStatus === Windows.Storage.Provider.FileUpdateStatus.complete) {
-                                            WinJS.log && WinJS.log("File " + file.name + " was saved.", "sample", "status");
-                                        } else {
-                                            WinJS.log && WinJS.log("File " + file.name + " couldn't be saved.", "sample", "status");
-                                        }
-                                    });
-                                });
-                            } else {
-                                WinJS.log && WinJS.log("Operation cancelled.", "sample", "status");
-                            }
-                        });
-                    }
-
-                </script>
-
+                
                 
             </aside>
           

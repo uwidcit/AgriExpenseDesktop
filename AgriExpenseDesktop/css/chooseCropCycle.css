@@ -1,5 +1,5 @@
 ﻿body { 
-   background-color: #FFFFFF;
+   background-image: -ms-linear-gradient(top left, #FFFFFF 0%, #0B8F14 100%);
 }
 
 .fragment {
@@ -48,9 +48,14 @@
 
 .toDo .displayListColumn {
   /* -ms-grid-column:2; */   /*column*/
-    background-color:#8BC34A;
+   
     padding-right: 30px;
     padding-left:30px;
+
+    color:#689F38;
+
+    border-style: solid;
+    border-color: #07570C;
 }
 
 
@@ -66,9 +71,10 @@
         width: 300px;
         padding: 10px;
         background-color: #FFFFFF;
-        color:#689F38;
+         color:#689F38;
+
         border-style: solid;
-        border-color: #689F38;
+        border-color: #07570C;
     }
 
         .toDo .cycleList .item .item-title {
