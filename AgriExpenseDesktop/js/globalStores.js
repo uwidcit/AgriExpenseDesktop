@@ -52,3 +52,5 @@ var paymentArray = ["Hourly", "Daily", "Per Crop Cycle"];
 var cropCycleIdsArray = [];
 var cropCycleNamesArray = [];
 var cropCycleCropNamesArray = [];
+var cropCycleResourceCountArray = [];
+var resourceUseArray = [];

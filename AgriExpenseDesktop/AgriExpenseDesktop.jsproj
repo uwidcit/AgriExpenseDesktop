@@ -50,6 +50,7 @@
     <PackageCertificateKeyFile>AgriExpenseDesktop_StoreKey.pfx</PackageCertificateKeyFile>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <PackageCertificateThumbprint>CC7792EF3B421574AEEBC9C166849AF527254B67</PackageCertificateThumbprint>
+    <AppxPackageDir>C:\Users\user1\Desktop\</AppxPackageDir>
   </PropertyGroup>
   <ItemGroup>
     <AppxManifest Include="package.appxmanifest">

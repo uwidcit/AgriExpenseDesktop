@@ -159,9 +159,7 @@
 
 .toDo .pList {
     
-        border-style:solid;
-        border-color:black;
-
+       
     -ms-grid-column: 3;
     -ms-grid-row:2;
     height: 100%;
