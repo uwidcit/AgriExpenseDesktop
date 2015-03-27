@@ -19,7 +19,7 @@
         .fragment header[role=banner] h2 {
             -ms-grid-column: 2;
             margin-top: 37px;
-            color:lightgray; /*The word "Purchases" at the top*/
+            color:#312C2C; /*The word "Purchases" at the top*/
         }
 
     .fragment #addNewPurchaseTitle {
@@ -68,7 +68,6 @@
     
     padding-right: 30px;
     padding-left:30px;
-    background-image: -ms-linear-gradient(bottom, #CFFFBA 0%, #689F38 100%);
 }
 
 .toDo .purchaseList {

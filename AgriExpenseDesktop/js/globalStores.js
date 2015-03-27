@@ -49,8 +49,8 @@ var labourArray = [""];
 var paymentArray = ["Hourly", "Daily", "Per Crop Cycle"];
 
 //For genertaing reports - Parallel Arrays
-var cropCycleIdsArray = [];
-var cropCycleNamesArray = [];
-var cropCycleCropNamesArray = [];
-var cropCycleResourceCountArray = [];
-var resourceUseArray = [];
+var cropCycleIdsArray = []; //crop cycle id's
+var cropCycleNamesArray = []; //name of crop cycles
+var cropCycleCropNamesArray = []; //names of crops in cycle
+var cropCycleResourceCountArray = []; //amount of resources in each cycle
+var resourceUseArray = []; //array of objects

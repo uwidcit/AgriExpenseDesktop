@@ -1,6 +1,6 @@
 ﻿body { 
-   color:black;
    background-image: -ms-linear-gradient(top left, #FFFFFF 0%, #0B8F14 100%);
+   color:black;
 }
 
 .fragment {
@@ -51,9 +51,6 @@
    -ms-grid-column: 1;
     padding-right: 30px;
     padding-left:10px;
-    border-style:groove;
-    border-color:black;
-    background-color:white;
 }
 
 .toDo aside hr {
@@ -66,9 +63,6 @@
     background-color:#8BC34A;
     padding-right: 30px;
     padding-left:30px;
-    border-style: solid;
-    border-color: black;
-    /*overflow-x: scroll;*/
 }
 
 .toDo .purchaseList {
@@ -169,10 +163,8 @@
 }
 
 
-.width-320px{
-    width: 320px;
+.width-150px{
+    width: 150px;
     display: inline-block;
-    border-color:black;
-    color:black;
 }
 

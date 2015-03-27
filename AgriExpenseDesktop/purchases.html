@@ -118,7 +118,7 @@
             <input type="hidden" class="id" data-win-bind="value:id" />
             <input type="hidden" class="lvIndex" data-win-bind="value:lvIndex" />
             
-            <label>Type</label>
+            <label id="labelType">Type</label>
             <select class="type input-block" id="editFormTypeSelect" onchange="editFormDynamic()" required>
                     <option value="">--</option>
                     <option value="Fertilizer">Fertilizer</option>
@@ -128,11 +128,11 @@
                     <option value="Other">Other</option>
             </select>
          
-            <label>Name</label>
-            <select class="name input-block" id="editFormPurchaseName" required> </select>
+            <label id="labelName">Name</label>
+            <select class="name input-block" id="editFormPurchaseName" data-win-bind="value:name" required> </select>
 
-            <label>Quantifier</label>
-            <select class="quantifier input-block" id="editFormQuantifier" required> </select>
+            <label id="labelQuantifier">Quantifier</label>
+            <select class="quantifier input-block" id="editFormQuantifier" data-win-bind="value:quantifier" required> </select>
 
             <label>Quantity</label>
             <input type="number" class="quantity input-block" data-win-bind="value:quantity" required />

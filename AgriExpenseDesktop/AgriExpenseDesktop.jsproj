@@ -69,6 +69,7 @@
     <Content Include="css\labour.css" />
     <Content Include="css\purchases.css" />
     <Content Include="css\reports.css" />
+    <Content Include="css\resources.css" />
     <Content Include="cycles.html" />
     <Content Include="default.html" />
     <Content Include="employees.html" />

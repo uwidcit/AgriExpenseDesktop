@@ -195,6 +195,7 @@ function generateCsvFile()
     });
 }
 
+//object declaration. Used to store items in resourceUseArray
 function resourceUsePerCycle(rName, rQuantity, rQuantifier, rCost) {
     this.rName = rName;
     this.rQuantity = rQuantity;

@@ -1,5 +1,6 @@
 ﻿body { 
    background-image: -ms-linear-gradient(top left, #FFFFFF 0%, #0B8F14 100%);
+   color:black;
 }
 
 .fragment {
@@ -20,7 +21,7 @@
         .fragment header[role=banner] h2 {
             -ms-grid-column: 2;
             margin-top: 37px;
-            color: lightgray;
+            color: #312C2C;
         }
 
             .fragment header[role=banner] h1 {

@@ -20,7 +20,7 @@
         .fragment header[role=banner] h2 {
             -ms-grid-column: 2;
             margin-top: 37px;
-            color: lightgray;
+            color: #312C2C;
         }
 
         .fragment #addNewCycleTitle {
@@ -53,7 +53,7 @@
    -ms-grid-column: 1;
     padding-right: 30px;
     padding-left:10px;
-   background-image: -ms-linear-gradient(bottom, #CFFFBA 0%, #689F38 100%);
+   background-image: -ms-linear-gradient(top, #CFFFBA 0%, #689F38 100%);
 }
 
 .toDo aside hr {
@@ -66,7 +66,6 @@
    
     padding-right: 30px;
     padding-left:30px;
-   background-image: -ms-linear-gradient(bottom, #CFFFBA 0%, #689F38 100%);
     
 
 }

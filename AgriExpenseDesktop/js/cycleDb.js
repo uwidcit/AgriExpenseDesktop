@@ -1,4 +1,5 @@
-﻿
+﻿/// <reference path="addOtherPurchase.js" />
+
 
 
 //var cropCycleId;
@@ -51,6 +52,13 @@ function ViewModel() {
 
             listView.itemDataSource = dataList.dataSource;
             listView.onselectionchanged = self.selectionChanged;
+
+            //left click on a crop cycle
+            WinJS.UI.setOptions(listView, {
+                oniteminvoked: itemClick
+            });
+
+            
         });
     };
 
@@ -203,6 +211,19 @@ function ViewModel() {
         listView.selection.clear();
     };
 
+    var itemClick = function (e) {
+        e.detail.itemPromise.then(function (item) {
+            localStorage.setItem("cropCycleId", item.data.id); //Add Crop Cycle Id to local storage to access later
+            localStorage.setItem("cropCycleName", item.data.name);
+            localStorage.setItem("cropCycleCrop", item.data.crop);
+            localStorage.setItem("cropCycleTypeOfLand", item.data.typeOfLand);
+            localStorage.setItem("cropCycleLandQuantity", item.data.quantity);
+            localStorage.setItem("cropCycleStartDate", item.data.startDate);
+
+            window.location = 'addPurchases.html'; //navigate to page where they can select from purchases
+        });
+    };
+    
     this.getCropCycleInfo = function (e)
     {
         var
@@ -237,3 +258,4 @@ function ViewModel() {
 
    
 }
+

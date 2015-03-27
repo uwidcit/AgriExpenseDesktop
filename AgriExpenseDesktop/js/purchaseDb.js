@@ -256,6 +256,8 @@ function ViewModel() {
             selectionCount = listView.selection.count();
 
         if (selectionCount === 1) {
+
+            //get element to edit
             listView.selection.getItems().then(function (items) {
                 var
                     item = items[0],
@@ -270,6 +272,11 @@ function ViewModel() {
                     cost: item.data.cost,
                     lvIndex: item.index
                 };
+
+                
+                document.getElementById('labelType').innerText = "Type : " + toDo.type;
+                document.getElementById('labelName').innerText = "Name : " + toDo.name;
+                document.getElementById('labelQuantifier').innerText = "Quantifier : " + toDo.quantifier;
 
                 var process = WinJS.Binding.processAll(editFlyoutElement, toDo);
 
