@@ -52,7 +52,9 @@ var paymentArray = ["Hourly", "Daily", "Per Crop Cycle"];
 var cropCycleIdsArray = []; //crop cycle id's
 var cropCycleNamesArray = []; //name of crop cycles
 var cropCycleCropNamesArray = []; //names of crops in cycle
+
 var cropCycleResourceCountArray = []; //amount of resources in each cycle
 var resourceUseArray = []; //array of objects
+
 var cycleLabourCountArray=[]; //amount of employees in each cycle
 var cycleLabourArray = [];//array of objects

@@ -30,7 +30,7 @@ function ViewModel() {
         labourUsedListView = document.getElementById("labourCycleList").winControl,
         self = this,
         cycleDataList,
-        labourCycleDataList,
+        labourUsedDataList,
         resourcesUsedDataList;
 
     this.init = function () {
@@ -64,34 +64,7 @@ function ViewModel() {
             }
         });
 
-        myDatabase.purchaseList.getList(labourObjectStoreName, function (e) {
-            labourCycleDataList = new WinJS.Binding.List(e);
 
-            labourUsedListView.itemDataSource = labourCycleDataList.dataSource;
-
-            labourUsedListView.selection.selectAll();
-            var selectionCount = labourUsedListView.selection.count();
-
-            //put number of crop cycles in local storage
-            localStorage.setItem("cropCycleCount", selectionCount);
-
-            if (selectionCount > 0) {
-                cycleListView.selection.getItems().then(function (items) {
-                    items.forEach(function (item) { //iterate through all crop cycles
-                        var id = item.data.id;
-                        var name = item.data.name;
-                        var crop = item.data.crop;
-                        cropCycleIdsArray.push(id);
-                        cropCycleNamesArray.push(name); //insert name  into cropCyclesNamesArray
-                        cropCycleCropNamesArray.push(crop);
-                    });
-                });
-
-                //put list of crop cycle ids in local storage to access them in the method below
-                var cycleIds = cropCycleIdsArray;
-                localStorage.setItem('idsOfCropCycles', JSON.stringify(cycleIds));
-            }
-        });
 
         
         //do for loop to get resources used for that individual cycle
@@ -109,8 +82,6 @@ function ViewModel() {
                     
                     var selectionCountRU = resourcesUsedListView.selection.count();
                     
-
-                    console.log("value that ought to be pushed : " + selectionCountRU);
                     cropCycleResourceCountArray.push(selectionCountRU);
                     
 
@@ -129,6 +100,38 @@ function ViewModel() {
                     });
             });   
         }
+
+        
+        
+        //do for loop to get resources used for that individual cycle
+        for (var i = 0; i < localStorage.getItem("cropCycleCount") ; i++) {
+            var countL = 0;
+            var retrievedIdArray = JSON.parse(localStorage.getItem('idsOfCropCycles'));
+
+
+            myDatabase.purchaseList.getLabourForEachCycle(labourObjectStoreName, retrievedIdArray[i], function (e) {
+                labourUsedDataList = new WinJS.Binding.List(e);
+
+                labourUsedListView.itemDataSource = labourUsedDataList.dataSource;
+
+                labourUsedListView.selection.selectAll();
+
+                var selectionCountL = labourUsedListView.selection.count(); //amount of employees for that crop cycle
+                cycleLabourCountArray.push(selectionCountL);
+                
+
+                //put them in array in global stores
+                labourUsedListView.selection.getItems().then(function (items) {
+                    items.forEach(function (item) { //iterate through each item in the list (labour list according to crop cycle)
+                        var employeeName = item.data.personName;
+                        var employeeCost = item.data.cost;
+
+                        cycleLabourArray[countL] = new labourPerCycle(employeeName, employeeCost);
+                        countL++;
+                    });
+                }); 
+            }); 
+        } 
     };
 
 
@@ -141,13 +144,6 @@ function ViewModel() {
         };
     })();
 
-    this.selectionChanged = function (args) {
-        var
-            selectionCount = cycleListView.selection.count(),
-            selectionCommands = document.querySelectorAll(".appBarSelection"),
-            singleSelectionCommands = document.querySelectorAll(".appBarSingleSelection");
-    };
-
 
 
 }
@@ -157,7 +153,10 @@ function getTodaysDate() {
     var day = currentDate.getDate()
     var month = currentDate.getMonth() + 1
     var year = currentDate.getFullYear()
-    var dateInString = day + "-" + month + "-" + year;
+    var hours = currentDate.getHours();
+    var minutes = currentDate.getMinutes();
+
+    var dateInString = day + "-" + month + "-" + year + " " + hours + "-" + minutes;
 
     return dateInString;
 }
@@ -171,23 +170,51 @@ function generateCsvFile()
     var csvContent = "";
     
     var position = 0;
+    var lPosition = 0;
+    
 
     //Text in the file
     for (var i = 0; i < cropCycleNamesArray.length; i++) {
         csvContent = csvContent + " " + cropCycleNamesArray[i].toUpperCase() + " : " + cropCycleCropNamesArray[i].toUpperCase() + "\n";
         var amountOfResources = cropCycleResourceCountArray[i];
+        var amountOfEmployees = cycleLabourCountArray[i];
+        var costOfCycle = 0;
+       
+       
         var prevPostion = position;
-        console.log("amount of resources "+amountOfResources);
+        var LPrevPosition = lPosition;
+
+        csvContent = csvContent + "Items Used: \n\n"
         for (var j = position; j < amountOfResources+prevPostion; j++) {
             csvContent = csvContent + "Item Name: " +resourceUseArray[j].rName + "\n";
             csvContent = csvContent + "Quantity Used: " +resourceUseArray[j].rQuantity + " ";
             csvContent = csvContent + resourceUseArray[j].rQuantifier + "\n";
             csvContent = csvContent + "Cost in this cycle: $" + resourceUseArray[j].rCost + "\n";
             csvContent = csvContent+ "\n";
+            costOfCycle = costOfCycle + parseFloat(resourceUseArray[j].rCost);
+
             position++;
             
         }
-        csvContent = csvContent + "\n";
+
+        csvContent = csvContent + "Employees Hired for this Cycle: \n\n"
+        for (var m = lPosition; m < amountOfEmployees +LPrevPosition; m++) {
+            console.log("value of m : " +m);
+
+            csvContent = csvContent + "Employee Name: " + cycleLabourArray[m].employeeName + "\n";
+            csvContent = csvContent + "Employee Cost: " + cycleLabourArray[m].employeeCost + " \n\n";
+            costOfCycle = costOfCycle + parseFloat(cycleLabourArray[m].employeeCost);
+
+            lPosition++;
+
+        }
+
+
+        csvContent = csvContent + "Total Cost for this cycle : $" + costOfCycle + "\n\n";
+
+        //total cost for this cycle
+
+
     }
 
     var savePicker = new Windows.Storage.Pickers.FileSavePicker();

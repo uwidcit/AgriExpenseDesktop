@@ -333,8 +333,11 @@ function ViewModel() {
 
     //edit an item in purchaseObjectStore in the database
     this.editToDo = function () {
+
+        var listTypeToUse = localStorage.getItem("listTypeToUse");
+
         var
-            anchor = document.querySelector(".toDo"), //position to place the editForm on the screen
+            anchor = document.querySelector(".toDo"), //position to put the editForm on the screen
             selectionCount = listView.selection.count(); //count the number of items selected
 
         if (selectionCount === 1) { //only one item would be selected for this option to be available
@@ -350,19 +353,14 @@ function ViewModel() {
                     id: item.data.id,
                     type: item.data.type,
                     name: item.data.name,
-                    quantifier: item.data.quantifier,
-                    quantity: item.data.quantity,
-                    cost: item.data.cost,
                     lvIndex: item.index
                 };
 
-                //put the previous type, name and quantifier as part of the label because it cannot be done in the actual edit form because the form is dynamic
-                document.getElementById('labelType').innerText = "Type : " + toDo.type;
+                //put the previous name as part of the label because it cannot be done in the actual edit form because the form is dynamic
                 document.getElementById('labelName').innerText = "Name : " + toDo.name;
-                document.getElementById('labelQuantifier').innerText = "Quantifier : " + toDo.quantifier;
+             
 
                 var process = WinJS.Binding.processAll(editFlyoutElement, toDo);
-
                 process.then(function () {
                     editFlyout.show(anchor, "top", "center"); //where to position the editForm
                 });
@@ -375,13 +373,12 @@ function ViewModel() {
     this.submitEdit = function (e) {
         e.preventDefault();
 
+        var listTypeToUse = localStorage.getItem("listTypeToUse");
+
         var toDo = {
             id: document.querySelector("#editForm .id").value,
             type: document.querySelector("#editForm .type").value,
             name: document.querySelector("#editForm .name").value,
-            quantifier: document.querySelector("#editForm .quantifier").value,
-            quantity: document.querySelector("#editForm .quantity").value,
-            cost: document.querySelector("#editForm .cost").value,
             lvIndex: document.querySelector("#editForm .lvIndex").value
         };
 

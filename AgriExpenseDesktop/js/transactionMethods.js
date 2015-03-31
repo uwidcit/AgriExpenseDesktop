@@ -7,12 +7,12 @@
         var init = function (success) {
             var request = indexedDB.open(dbName, 25); //open database with name dbName (stored in global stores) and version 1
 
-            request.onsuccess = function () {
+            request.onsuccess = function () { //database successfully opened
                 myDatabase.data.db = request.result;
                 success();
             };
 
-            request.onerror = function (event) {
+            request.onerror = function (event) { //database did not open
                 console.log(event);
             };
 
