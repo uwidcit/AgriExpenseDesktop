@@ -3,7 +3,7 @@
 }
 
 .fragment {  
-    -ms-grid-columns: 1fr;
+    -ms-grid-columns: 1fr 20px;
     -ms-grid-rows: 128px 50px 500px 1fr;
     display: -ms-grid;
     height: 100%;

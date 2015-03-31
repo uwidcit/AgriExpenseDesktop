@@ -17,6 +17,7 @@ function onAddPurchasesPageLoad() {
             document.getElementById("cycleLandTypeID").innerHTML = "Land Type: " + cycleTypeOfLand;
             document.getElementById("cycleLandQuantityID").innerHTML = "Land Quantity: " + cycleLandQuantity;
             document.getElementById("cycleStartDateID").innerHTML = "Start Date: " + cycleStartDate;
+          //  document.getElementById("cycleTotalCost").innerHTML = "TotalCost: ";
 
         });
     });
@@ -51,6 +52,7 @@ function ViewModel()
         plantingMaterialListView = document.getElementById("plantingMaterialList").winControl,
         soilAmendmentListView = document.getElementById("soilAmendmentList").winControl,
         otherListView = document.getElementById("otherList").winControl,
+        labourListView = document.getElementById("labourList").winControl,
 
         appBar = document.getElementById("appBar").winControl,
         addMaterialFlyout = document.getElementById("addMaterialFlyout").winControl,
@@ -62,6 +64,7 @@ function ViewModel()
         plantingMaterialDataList,
         soilAmendmentDataList,
         otherDataList,
+        labourDataList,
         dataList;
 
     this.init = function ()
@@ -74,11 +77,13 @@ function ViewModel()
             listView.onselectionchanged = self.selectionChanged;
         });
 
-        myDatabase.purchaseList.getCycleList(resourceUseageObjectStoreName, "Chemical", localStorage.getItem("cropCycleId"), function (e) {
+        myDatabase.purchaseList.getDataForEachCycle(resourceUseageObjectStoreName, localStorage.getItem("cropCycleId"), function (e) {
             dataListRU = new WinJS.Binding.List(e);
             listView2.itemDataSource = dataListRU.dataSource;
-           
-        }); 
+      
+        });
+
+        
 
         //Filter by Material Type - Chemical
         myDatabase.purchaseList.getCycleList(resourceUseageObjectStoreName, "Chemical", localStorage.getItem("cropCycleId"), function (e) {
@@ -113,7 +118,13 @@ function ViewModel()
               otherDataList = new WinJS.Binding.List(e);
               otherListView.itemDataSource = otherDataList.dataSource;
           
-          });
+        });
+
+        myDatabase.purchaseList.getLabourForEachCycle(labourObjectStoreName, localStorage.getItem("cropCycleId"), function (e) {
+            labourDataList = new WinJS.Binding.List(e);
+            labourListView.itemDataSource = labourDataList.dataSource;
+
+        });
     
     };
 
@@ -288,7 +299,5 @@ function getValuesFromObjectStore(cropCyID, materialType)
         var resourceList = new WinJS.Binding.List(e);
         var newList = resourceList;
     });
-
-   
 
 }

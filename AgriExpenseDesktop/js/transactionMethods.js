@@ -5,7 +5,7 @@
         var indexedDB = window.indexedDB;
 
         var init = function (success) {
-            var request = indexedDB.open(dbName, 25); //open database with name dbName (stored in global stores) and version 1
+            var request = indexedDB.open(dbName, 27); //open database with name dbName (stored in global stores) and version 1
 
             request.onsuccess = function () { //database successfully opened
                 myDatabase.data.db = request.result;
@@ -157,7 +157,7 @@
                     otherChemicalStore.add(toDo);
                 }
 
-                for (var i = 0; i < fertilizerArray.length; i++) {
+                for (var i = 0; i < cropArray.length; i++) {
                     var toDo = {
                         type: "Planting Material",
                         name: cropArray[i]
@@ -166,7 +166,7 @@
                     otherPlantingMaterialStore.add(toDo);
                 }
 
-                for (var i = 0; i < fertilizerArray.length; i++) {
+                for (var i = 0; i < soilAmendmentArray.length; i++) {
                     var toDo = {
                         type: "Soil Amendment",
                         name: soilAmendmentArray[i]

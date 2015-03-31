@@ -19,7 +19,7 @@ function initializeLabourUI() {
     var viewModel = new ViewModel();
     viewModel.init();
     document.getElementById("addForm").addEventListener("submit", viewModel.submitAdd, false);
-
+    document.getElementById("deleteCommand").addEventListener("click", viewModel.deleteToDo, false); //execute deleteToDo method when delete command is selected
     
 }
 
@@ -29,6 +29,7 @@ function ViewModel() {
         labourListView = document.getElementById("labourList").winControl,
         employeeListView = document.getElementById("employeeList").winControl,
         addForm = document.getElementById("addForm"),
+        appBar = document.getElementById("appBar").winControl,
         self = this,
         employeeList,
         dataList;
@@ -37,15 +38,13 @@ function ViewModel() {
         myDatabase.purchaseList.getList(cycleObjectStoreName, function (e) {
             dataList = new WinJS.Binding.List(e);
             listView.itemDataSource = dataList.dataSource;
-
-            //  listView.onselectionchanged = self.selectionChanged;
         });
 
         myDatabase.purchaseList.getList(labourObjectStoreName, function (e) {
             dataList = new WinJS.Binding.List(e);
             labourListView.itemDataSource = dataList.dataSource;
 
-            //  listView.onselectionchanged = self.selectionChanged;
+            labourListView.onselectionchanged = self.selectionChanged;
         });
 
         myDatabase.purchaseList.getList(historicalLabourStoreName, function (e) {
@@ -97,48 +96,44 @@ function ViewModel() {
 
     this.selectionChanged = function (args) {
         var
-            selectionCount = listView.selection.count(),
+            selectionCount = labourListView.selection.count(),
             selectionCommands = document.querySelectorAll(".appBarSelection"),
             singleSelectionCommands = document.querySelectorAll(".appBarSingleSelection");
 
-        if (selectionCount > 1) {
-            //clear all selections somehow
+        if (selectionCount === 1) { //1 item selected
+            appBar.showCommands(selectionCommands);
 
+           // if (selectionCount > 1) { //more than one item selected
+               // appBar.hideCommands(singleSelectionCommands);
+          //  }
+
+            appBar.sticky = true;
+            appBar.show(); //show menu at the bottom
+        }
+        else {
+            appBar.hideCommands(selectionCommands);
+
+            appBar.sticky = false;
+            appBar.hide(); //hide menu at the bottom
         }
 
-        if (selectionCount === 1) {
-            //get information that is in cycle id - store in local storage or something
-            listView.selection.getItems().then(function (items) {
-                var
-                    item = items[0],
-                    cropCycleBlock = document.getElementById("purchasesItemTemplate");
-
-                var toDo = {
-                    id: item.data.id,
-                    name: item.data.name,
-                };
-
-                localStorage.setItem("selectedCropCycleId", toDo.id);
-
-            });
- 
-        }
+   
     };
 
     this.deleteToDo = function () {
         var dialog = new Windows.UI.Popups.MessageDialog("Are you sure you want to delete?");
 
         dialog.commands.append(new Windows.UI.Popups.UICommand("OK", function (command) {
-            var selectionCount = listView.selection.count();
+            var selectionCount = labourListView.selection.count();
             if (selectionCount > 0) {
-                listView.selection.getItems().then(function (items) {
+                labourListView.selection.getItems().then(function (items) {
                     items.forEach(function (item) {
                         var
                             dbKey = item.data.id,
                             lvKey = item.key;
 
-                        myDatabase.purchaseList.remove(dbKey, purchaseObjectStoreName, function () {
-                            listView.itemDataSource.remove(lvKey);
+                        myDatabase.purchaseList.remove(dbKey, labourObjectStoreName, function () {
+                            labourListView.itemDataSource.remove(lvKey);
                         });
                     });
                 });

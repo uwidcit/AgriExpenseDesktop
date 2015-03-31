@@ -4,7 +4,7 @@
 }
 
 .fragment {
-    -ms-grid-columns: 1fr;
+    -ms-grid-columns: 6fr 1fr;
     -ms-grid-rows: 128px 250px 1fr; /*1fr is for Materials used in this cycle*/
     display: -ms-grid;
     height: 100%;
@@ -52,9 +52,8 @@
     .fragment section[role=main] #cycleInfo {
         -ms-grid-column:1; /*250px*/
         -ms-grid-row:2; /*1fr*/
-        border-style:solid;
-        border-color:black;
-        background-color:#689F38;
+        
+        /*background-color:#689F38;*/
     }
 
     .fragment section[role=contentinfo] {
@@ -62,12 +61,10 @@
         height:100%;
         width:100%;
 
-       /* background-color:black; */
-
         margin-left: 120px;
         margin-right: 120px;
 
-        -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr; /*5 types of items*/
+        -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr 1fr; /*5 types of items and a blank one at the end*/
         -ms-grid-rows: 100px 10px 1fr;
         display:-ms-grid;
     }
@@ -102,6 +99,11 @@
         -ms-grid-row:2;
     }
 
+     .fragment section[role=contentinfo] #labourTitle {
+        -ms-grid-column:6;
+        -ms-grid-row:2;
+    }
+
     .fragment section[role=contentinfo] #chemicalList {
         -ms-grid-column:1;
         -ms-grid-row:3;
@@ -127,6 +129,11 @@
         -ms-grid-row:3;
     }
 
+    .fragment section[role=contentinfo] #labourList {
+        -ms-grid-column:6;
+        -ms-grid-row:3;
+    }
+
 
 
     .toDo .iList {
@@ -138,7 +145,7 @@
 
     .toDo .iList .item {
         height: 150px;
-        width: 230px;
+        width: 200px;
         padding: 10px;
         background-color: #FFFFFF;
         border-style:solid;
@@ -153,7 +160,8 @@
 
         .toDo .iList .item .item-sub {
             overflow: hidden;
-            margin-left: 15px;
+            margin-left: 1px;
+            font-size:12pt;
         }
 
 

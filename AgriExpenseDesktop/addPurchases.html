@@ -32,12 +32,19 @@
     <div id="previousPurchasesItemTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
         <div class="item">
             <div data-win-bind="textContent: resourceType" class="item-title"></div>
-            Name: <span data-win-bind="textContent: resourceName" class="item-sub"></span> <br />
-            Amount Added: <span data-win-bind="textContent: amountToAdd" class="item-sub"></span>
-                <span data-win-bind="textContent: quantifier" class="item-sub"></span> <br />
+            Name:<span data-win-bind="textContent:resourceName" class="item-sub"></span> <br />
+            Amount Added:<span data-win-bind="textContent:amountToAdd" class="item-sub"></span>
+                <span data-win-bind="textContent:quantifier" class="item-sub"></span> <br />
             
-            Cost: $<span data-win-bind="textContent: useCost" class="item-sub"></span> <br />
-            Date Added: <span data-win-bind="textContent: datePurchased" class="item-sub"></span> <br />
+            Cost: $<span data-win-bind="textContent:useCost" class="item-sub"></span> <br />
+            Date Added:<span data-win-bind="textContent:datePurchased" class="item-sub"></span> <br />
+        </div>
+    </div>
+
+    <div id="labourTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
+        <div class="item">
+            <span data-win-bind="textContent: personName" class="item-title"></span> <br />       
+            Cost: $<span data-win-bind="textContent: cost" class="item-sub"></span> <br />       
         </div>
     </div>
 
@@ -56,7 +63,7 @@
                     </div> 
 
                      <div id="addMaterialTitle">
-                        <h2>Add Materials to this Cycle (Right click on item to select)</h2>
+                        <h2>Add Materials to this Cycle: (Right click on item to select)</h2>
                     </div> 
 
                   <div id="cycleInfo">   
@@ -65,6 +72,7 @@
                     <p id="cycleLandTypeID"></p>
                     <p id="cycleLandQuantityID"></p>
                     <p id="cycleStartDateID"></p>
+                    <p id="cycleTotalCost"></p>
                   </div>
   
                     <div id="pList" class="pList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>               
@@ -78,6 +86,7 @@
             <div id="plantingMaterialTitle"><h3>Planting Materials: </h3></div>
             <div id="soilAmendmentTitle"><h3>Soil Amendments: </h3></div>
             <div id="otherTitle"><h3>Others: </h3></div>
+            <div id="labourTitle"><h3>Employees: </h3></div>
                  <!-- Items used in this cycle-->
                     <div id="ruList" style="display: none;" class="pList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div> 
                     <div id="chemicalList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div>
@@ -85,6 +94,7 @@
                     <div id="plantingMaterialList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div>
                     <div id="soilAmendmentList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div> 
                     <div id="otherList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div>            
+                    <div id="labourList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#labourTemplate') }"></div>            
        </section>
 
    </div> 
