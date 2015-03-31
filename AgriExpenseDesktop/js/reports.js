@@ -27,8 +27,10 @@ function ViewModel() {
     var
         cycleListView = document.getElementById("cycleList").winControl,
         resourcesUsedListView = document.getElementById("resourcesUsedList").winControl,
+        labourUsedListView = document.getElementById("labourCycleList").winControl,
         self = this,
         cycleDataList,
+        labourCycleDataList,
         resourcesUsedDataList;
 
     this.init = function () {
@@ -40,12 +42,10 @@ function ViewModel() {
 
             cycleListView.selection.selectAll();
             var selectionCount = cycleListView.selection.count();
-
-            
+           
             //put number of crop cycles in local storage
             localStorage.setItem("cropCycleCount", selectionCount);
             
-
             if (selectionCount > 0) {
                 cycleListView.selection.getItems().then(function (items) {
                     items.forEach(function (item) { //iterate through all crop cycles
@@ -62,7 +62,35 @@ function ViewModel() {
                 var cycleIds = cropCycleIdsArray;
                 localStorage.setItem('idsOfCropCycles', JSON.stringify(cycleIds));
             }
+        });
 
+        myDatabase.purchaseList.getList(labourObjectStoreName, function (e) {
+            labourCycleDataList = new WinJS.Binding.List(e);
+
+            labourUsedListView.itemDataSource = labourCycleDataList.dataSource;
+
+            labourUsedListView.selection.selectAll();
+            var selectionCount = labourUsedListView.selection.count();
+
+            //put number of crop cycles in local storage
+            localStorage.setItem("cropCycleCount", selectionCount);
+
+            if (selectionCount > 0) {
+                cycleListView.selection.getItems().then(function (items) {
+                    items.forEach(function (item) { //iterate through all crop cycles
+                        var id = item.data.id;
+                        var name = item.data.name;
+                        var crop = item.data.crop;
+                        cropCycleIdsArray.push(id);
+                        cropCycleNamesArray.push(name); //insert name  into cropCyclesNamesArray
+                        cropCycleCropNamesArray.push(crop);
+                    });
+                });
+
+                //put list of crop cycle ids in local storage to access them in the method below
+                var cycleIds = cropCycleIdsArray;
+                localStorage.setItem('idsOfCropCycles', JSON.stringify(cycleIds));
+            }
         });
 
         
@@ -201,5 +229,10 @@ function resourceUsePerCycle(rName, rQuantity, rQuantifier, rCost) {
     this.rQuantity = rQuantity;
     this.rQuantifier = rQuantifier;
     this.rCost = rCost;
+};
+
+function labourPerCycle(employeeName, employeeCost) {
+    this.employeeName = employeeName;
+    this.employeeCost = employeeCost;
 };
 

@@ -1,11 +1,11 @@
 ﻿var myDatabase = myDatabase || {};
     "use strict";
-
+    
     myDatabase.data = (function () {
         var indexedDB = window.indexedDB;
 
         var init = function (success) {
-            var request = indexedDB.open(dbName, 25);
+            var request = indexedDB.open(dbName, 25); //open database with name dbName (stored in global stores) and version 1
 
             request.onsuccess = function () {
                 myDatabase.data.db = request.result;
@@ -23,8 +23,7 @@
             request.onupgradeneeded = function (e) { //runs only when a new instance of the db is created
                 var db = e.target.result;
 
-                //This deletion section is for testing purposes only. It must be removed in the
-                //final product
+                //This deletion section is for testing purposes only. It must be removed in the final product
                 db.deleteObjectStore(purchaseObjectStoreName);
                 db.deleteObjectStore(cycleObjectStoreName);
                 db.deleteObjectStore(resourceUseageObjectStoreName);
@@ -176,12 +175,11 @@
                     otherSoilAmendmentStore.add(toDo);
                 }
 
-                //add list of all quantifiers to the Database
+                //read from the quantifier array and add to the database on startup
                 for (var i = 0; i < combinedQuantifierArray.length; i++) {
                     var toDo = {
                         name: combinedQuantifierArray[i]
                     };
-
                     otherQuantifierStore.add(toDo);
                 }
 
@@ -198,6 +196,8 @@
 
     myDatabase.purchaseList = (function () {
 
+
+        //get items from an object store and return it as a list
         var getList = function (oStoreName, success) {       
                 var
                     list = [],
@@ -221,6 +221,8 @@
 
         };
 
+
+        //get items from the cropCycle object store and filter by type and crop cycle id
         var getCycleList = function (oStoreName, materialType, cropCyId, success) {
          
             var
@@ -245,7 +247,7 @@
             }
         };
 
-        //used for generating reports
+        //Get data associated with each cycle and return it as a list. Used in generating the reports
         var getDataForEachCycle = function (oStoreName, cropCyId, success) {
 
             var
@@ -258,6 +260,30 @@
 
                 if (cursor) {
                     if ((cursor.value.cropCycleID == cropCyId)) {  //filter by cropcycle id
+                        list.push(cursor.value); //add item to list
+                    }
+                    cursor.continue();
+                }
+                else {
+                    success(list);
+                };
+
+            }
+        };
+
+        //used in getting information for the reports generated
+        var getLabourForEachCycle = function (oStoreName, cropCyId, success) {
+
+            var
+                list = [],
+                transaction = myDatabase.data.db.transaction(oStoreName),
+                store = transaction.objectStore(oStoreName);
+
+            store.openCursor().onsuccess = function (e) {
+                var cursor = e.target.result;
+
+                if (cursor) {
+                    if ((cursor.value.cycleID == cropCyId)) {  //filter by cropcycle id
                         list.push(cursor.value); //add item to list
                     }
                     cursor.continue();
@@ -418,9 +444,6 @@
             }
                
             
-
-
-
             request.onsuccess = function (e) {
                 toDo.id = e.target.result;
                 success(toDo);
@@ -505,6 +528,7 @@
             getList: getList,
             getCycleList: getCycleList,
             getDataForEachCycle: getDataForEachCycle,
+            getLabourForEachCycle: getLabourForEachCycle,
             add: add,
             update: update,
             remove: remove

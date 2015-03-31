@@ -1,19 +1,17 @@
-﻿body { 
-   background-image: -ms-linear-gradient(top left, #FFFFFF 0%, #0B8F14 100%);
-   color:black;
+﻿body {
+     background-image: -ms-linear-gradient(top left, #FFFFFF 0%, #0B8F14 100%);
 }
 
-.fragment {
-    /* Define a grid with rows for a banner and a body */
+.fragment {  
     -ms-grid-columns: 1fr;
-    -ms-grid-rows: 128px 500px 1fr;
+    -ms-grid-rows: 128px 50px 500px 1fr;
     display: -ms-grid;
     height: 100%;
     width: 100%;
-}
+} 
 
     .fragment header[role=banner] {
-        -ms-grid-columns: 120px 1fr;
+        -ms-grid-columns: 120px 1fr; /*The 120px is padding on the left*/
         -ms-grid-rows: 1fr;
         display: -ms-grid;
     }
@@ -21,36 +19,43 @@
         .fragment header[role=banner] h2 {
             -ms-grid-column: 2;
             margin-top: 37px;
-            color: #312C2C;
+            color:#312C2C; /*The word "Purchases" at the top*/
         }
 
-            .fragment header[role=banner] h1 {
-            -ms-grid-column: 2;
-            margin-top: 37px;
-            color: black;
-        }
+    .fragment #addNewPurchaseTitle {
+        -ms-grid-row:2;
+        padding-left:100px;
+        color:black;
+    }
+
+    .fragment #recentPurchasesTitle {
+        -ms-grid-row:2;
+        padding-left: 510px;
+        color:black;
+    }
+
 
     .fragment section[role=main] {
-        -ms-grid-row: 2;
+        -ms-grid-row: 3;
         height: 100%;
         width: 100%;
-        margin-left: 120px;
-        margin-right: 120px;
+        margin-left: 100px;
+        margin-right: 100px;
 
-        -ms-grid-columns: 350px 50px 1fr;
+        -ms-grid-columns: 350px 60px 1fr;
         -ms-grid-rows: 1fr;
         display: -ms-grid;
     }
 
 
 
-
-
-
 .toDo aside {
-   -ms-grid-column: 1;
+    -ms-grid-column: 1;
     padding-right: 30px;
-    padding-left:10px;
+    padding-left:30px;
+   
+    background-image: -ms-linear-gradient(bottom, #CFFFBA 0%, #689F38 100%);
+    color:black;
 }
 
 .toDo aside hr {
@@ -59,26 +64,28 @@
 }
 
 .toDo .displayListColumn {
-   -ms-grid-column:3;    /*3rd column*/
-    background-color:#8BC34A;
+    -ms-grid-column:3;    /*3rd column*/
+    
     padding-right: 30px;
     padding-left:30px;
 }
 
 .toDo .purchaseList {
     -ms-grid-column: 2;
-    height: 100%;
+    height: 25%;
     width: 100%;
 }
 
-    .toDo .purchaseList .item {
-         height: 150px;
+
+    .toDo .purchaseList .item { /*Boxes in List View*/
+        height: 50px;
         width: 250px;
         padding: 10px;
         background-color: #FFFFFF;
         color:#689F38;
+
         border-style: solid;
-        border-color: #689F38;
+        border-color: #07570C;
     }
 
         .toDo .purchaseList .item .item-title {
@@ -87,66 +94,10 @@
         }
 
         .toDo .purchaseList .item .item-sub {
-            overflow: hidden;
+           /* overflow: hidden; */
             margin-left: 15px;
         }
 
-
-
-
-
-.toDo .cycleList {
-    -ms-grid-column: 3;
-    height: 100%;
-    width: 100%;
-}
-
-    .toDo .cycleList .item {
-         height: 150px;
-        width: 300px;
-        padding: 10px;
-        background-color: #FFFFFF;
-        color:#689F38;
-        border-style: solid;
-        border-color: #689F38;
-    }
-
-        .toDo .cycleList .item .item-title {
-            font-weight: 600;
-            font-size: 15pt;
-        }
-
-        .toDo .cycleList .item .item-sub {
-            overflow: hidden;
-            margin-left: 15px;
-        }
-
-
-.toDo .pList {
-    -ms-grid-column: 3;
-    height: 100%;
-    width: 100%;
-}
-
-    .toDo .pList .item {
-        height: 150px;
-        width: 250px;
-        padding: 10px;
-        background-color: #FFFFFF;
-        color:#689F38;
-        border-style: solid;
-        border-color: #689F38;
-    }
-
-        .toDo .pList .item .item-title {
-            font-weight: 600;
-            font-size: 15pt;
-        }
-
-        .toDo .pList .item .item-sub {
-            overflow: hidden;
-            margin-left: 15px;
-        }
 
 
 .toDo form label, #updateFlyout form label {
@@ -163,8 +114,9 @@
 }
 
 
+/*Used for buttons*/
 .width-150px{
     width: 150px;
     display: inline-block;
 }
-
+    

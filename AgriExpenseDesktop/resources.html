@@ -9,16 +9,21 @@
     <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
     <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
     <script src="/js/transactionMethods.js"></script>
-    <!-- myPurchases references -->
 
     <link href="/css/resources.css" rel="stylesheet" />
     <script src="/js/default.js"></script>
+    <script src="/js/resourcesDb.js"></script>
+    <script src="/js/globalStores.js"></script>
 </head>
-<body>
+<body onload="onResourcesPageLoad()" >
     
     <div id="purchasesItemTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
-      
+         <div class="item">
+            <span style="display:none" data-win-bind="textContent: type" class="item-sub"></span>
+            <p>Name: <span data-win-bind="textContent: name" class="item-sub"></span></p>            
+        </div>
     </div>
+
     <div class="fragment toDo">
         <header role="banner">
             <h2 class="titlearea"><a href="default.html">Home</a> > Resources</h2> 
@@ -29,11 +34,26 @@
          <section role="main">
             <aside>
              
-                
+               
             </aside>
+             
+             
+            <div class="displayListColumn">
+                <div id="fertilizerList"  class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+                <div id="chemicalList"  class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+                <div id="plantingMaterialList"  class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+                <div id="soilAmendmentList"  class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+             </div>
           
         </section>
     
+    </div>
+
+    <div id="appBar" data-win-control="WinJS.UI.AppBar">
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'deleteCommand', label:'Delete', icon:'remove', section:'selection', hidden:'true', extraClass:'appBarSelection'}">
+        </button>
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'editCommand', label:'Edit', icon:'edit', section:'selection', hidden:'true', extraClass:'appBarSelection appBarSingleSelection'}">
+        </button>
     </div>
     
     

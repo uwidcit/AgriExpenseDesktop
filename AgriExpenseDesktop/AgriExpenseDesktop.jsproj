@@ -95,6 +95,7 @@
     <Content Include="js\purchaseDb.js" />
     <Content Include="js\quantifier.js" />
     <Content Include="js\reports.js" />
+    <Content Include="js\resourcesDb.js" />
     <Content Include="js\transactionMethods.js" />
     <Content Include="labour.html" />
     <Content Include="newQuantifier.html" />
