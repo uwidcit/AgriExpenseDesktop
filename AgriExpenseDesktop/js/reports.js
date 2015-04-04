@@ -1,10 +1,5 @@
-﻿var position = 0;
-var csvContent = "";
-
-var fertilizerCount = 0;
-var chemicalCount = 0;
-var plantingMaterialCount = 0;
-var soilAmendmentCount = 0;
+﻿var csvContent = "";
+var costOfCycle = 0;
 
 function onReportsPageLoad() {
     WinJS.UI.processAll().then(function () {
@@ -193,7 +188,7 @@ function generateCsvFile()
     var todaysDate = getTodaysDate();
    
     csvContent = "";
-    position = 0;
+    var position = 0;
     var lPosition = 0;
 
     
@@ -204,65 +199,65 @@ function generateCsvFile()
         csvContent = csvContent + "Cycle # " + cropCycleIdsArray[i] + " : " + cropCycleCropNamesArray[i].toUpperCase() + "\n";
         var amountOfResources = cropCycleResourceCountArray[i];
         var amountOfEmployees = cycleLabourCountArray[i];
-        var costOfCycle = 0;
        
-        fertilizerCount = 0;
-        chemicalCount = 0;
-        plantingMaterialCount = 0;
-        soilAmendmentCount = 0;
-
+        costOfCycle = 0;
        
-        var prevPostion = position;
         var LPrevPosition = lPosition;
 
         csvContent = csvContent + "Resource                                  Quantity Used                             Cost of Use                               Amount Purchased                    Cost of Purchase: \n\n"
 
-        for (var n = 0; n < amountOfResources + prevPostion; n++) {
-            if (resourceUseArray[n].rType == "Fertilizer") {
-                fertilizerCount++;
-            }
-            else if (resourceUseArray[n].rType == "Chemical") {
-                chemicalCount++;
-            }
-            else if (resourceUseArray[n].rType == "Planting Material") {
-                plantingMaterialCount++;
-            }
-            else if (resourceUseArray[n].rType == "Soil Amendment") {
-                soilAmendmentCount++;
-            }
-        }
+        var startPosition = position; //start position of each new cycle in resourceUse array
+        var endPosition = startPosition + amountOfResources; //end position + 1 of each cycle in resourceUse array
 
+//        console.log("start postion:" + startPosition + " end Position:" + endPosition);
+
+        var fertilizerCount = countResourceTypeForEachCycle("Fertilizer", startPosition, endPosition);
+        var chemicalCount = countResourceTypeForEachCycle("Chemical", startPosition, endPosition);
+        var plantingMaterialCount = countResourceTypeForEachCycle("Planting Material", startPosition, endPosition);
+        var soilAmendmentCount = countResourceTypeForEachCycle("Soil Amendment", startPosition, endPosition);
+        var otherCount = countResourceTypeForEachCycle("Other", startPosition, endPosition);
+
+        
+        //get each different type of material
         if (fertilizerCount > 0) {
             csvContent = csvContent + "Fertilizers\n";
+            filterResourcesByType("Fertilizer", amountOfResources, startPosition, endPosition);
         }
-       
-        filterResourcesByType("Fertilizer", amountOfResources, prevPostion);
 
-        if (chemicalCount > 0) {
+        if (chemicalCount > 0 ){
             csvContent = csvContent + "Chemicals\n";
+            filterResourcesByType("Chemical", amountOfResources, startPosition, endPosition);
         }
-
-        filterResourcesByType("Chemical", amountOfResources, prevPostion);
 
         if (plantingMaterialCount > 0) {
             csvContent = csvContent + "Planting Materials\n";
+            filterResourcesByType("Planting Material", amountOfResources, startPosition, endPosition);
         }
-
-        filterResourcesByType("Planting Material", amountOfResources, prevPostion);
 
         if (soilAmendmentCount > 0) {
-            csvContent = csvContent + "Soil Amendments\n"
+            csvContent = csvContent + "Soil Amendments\n";
+            filterResourcesByType("Soil Amendment", amountOfResources, startPosition, endPosition);
         }
 
-        filterResourcesByType("Soil Amendment", amountOfResources, prevPostion);
+        if (otherCount > 0) {
+            csvContent = csvContent + "Other\n";
+            filterResourcesByType("Other", amountOfResources, startPosition, endPosition);
+        }
+
+
+
+        position = endPosition;
+
+        
+
+        
 
 
 
 
 
 
-
-        csvContent = csvContent + "Employees Hired for this Cycle: \n\n"
+     //   csvContent = csvContent + "Employees Hired for this Cycle: \n\n"
         for (var m = lPosition; m < amountOfEmployees +LPrevPosition; m++) {
 
             csvContent = csvContent + "Employee Name: " + cycleLabourArray[m].employeeName + "\n";
@@ -334,60 +329,67 @@ function labourPerCycle(employeeName, employeeCost) {
 };
 
 
-function filterResourcesByType(resourceType, amountOfResources, prevPostion) {
+function filterResourcesByType(resourceType, amountOfResources, startPosition, endPosition) {
     //for each item in the crop cycle - filter by type
-    for (var j = position; j < amountOfResources + prevPostion; j++) {
+    for (var j = startPosition; j < endPosition; j++) {
 
-         if (resourceUseArray[j].rType == resourceType) {
+                 if (resourceUseArray[j].rType == resourceType) {
 
-        //add resource Name to csv file
-        var rNameLength = resourceUseArray[j].rName.length; //find length of "rName"
-        var paddingAmount = 52 - rNameLength; //calculate number of spaces as padding
-        csvContent = csvContent + resourceUseArray[j].rName;
-        for (var q = 0; q < paddingAmount; q++) { //add padding to name string
-            csvContent = csvContent + " ";
-        }
+                //add resource Name to csv file
+                var rNameLength = resourceUseArray[j].rName.length; //find length of "rName"
+                var paddingAmount = 52 - rNameLength; //calculate number of spaces as padding
+                csvContent = csvContent + resourceUseArray[j].rName;
+                for (var q = 0; q < paddingAmount; q++) { //add padding to name string
+                    csvContent = csvContent + " ";
+                }
 
-        //add quantity and quantifier to csv file
-        var rQuantityLength = resourceUseArray[j].rQuantity.length + resourceUseArray[j].rQuantifier.length + 1; //find length od quantity string
-        var paddingAmount = 52 - rQuantityLength; //calculate number of spaces to add as padding
-        csvContent = csvContent + resourceUseArray[j].rQuantity + " " + resourceUseArray[j].rQuantifier;
+                //add quantity and quantifier to csv file
+                var rQuantityLength = resourceUseArray[j].rQuantity.length + resourceUseArray[j].rQuantifier.length + 1; //find length od quantity string
+                var paddingAmount = 52 - rQuantityLength; //calculate number of spaces to add as padding
+                csvContent = csvContent + resourceUseArray[j].rQuantity + " " + resourceUseArray[j].rQuantifier;
 
-        for (var q = 0; q < paddingAmount; q++) { //add padding to quantity string
-            csvContent = csvContent + " ";
-        }
-
-
-        //add cost ofuse to csv file
-        var rCostOfUseLength = resourceUseArray[j].rCost.length; //find the length of the cost of use string
-        var paddingAmount = 52 - rCostOfUseLength; //calculate number of spaces to add as padding
-        csvContent = csvContent + resourceUseArray[j].rCost;
-
-        for (var q = 0; q < paddingAmount; q++) { //add padding to cost of use string
-            csvContent = csvContent + " ";
-        }
-
-        var amountPurchasedLength = resourceUseArray[j].amountPurchased.length + resourceUseArray[j].rQuantifier.length + 1; //find the length of the amountPurchased String
-        var paddingAmount = 52 - amountPurchasedLength; //calculate number of spaces to add
-        csvContent = csvContent + resourceUseArray[j].amountPurchased + " " + resourceUseArray[j].rQuantifier; //add padding at the end of this
-        for (var q = 0; q < paddingAmount; q++) {
-            csvContent = csvContent + " ";
-        }
+                for (var q = 0; q < paddingAmount; q++) { //add padding to quantity string
+                    csvContent = csvContent + " ";
+                }
 
 
-        csvContent = csvContent + "$" + resourceUseArray[j].costOfPurchase;
+                //add cost ofuse to csv file
+                var rCostOfUseLength = resourceUseArray[j].rCost.length; //find the length of the cost of use string
+                var paddingAmount = 52 - rCostOfUseLength; //calculate number of spaces to add as padding
+                csvContent = csvContent + resourceUseArray[j].rCost;
+
+                for (var q = 0; q < paddingAmount; q++) { //add padding to cost of use string
+                    csvContent = csvContent + " ";
+                }
+
+                var amountPurchasedLength = resourceUseArray[j].amountPurchased.length + resourceUseArray[j].rQuantifier.length + 1; //find the length of the amountPurchased String
+                var paddingAmount = 52 - amountPurchasedLength; //calculate number of spaces to add
+                csvContent = csvContent + resourceUseArray[j].amountPurchased + " " + resourceUseArray[j].rQuantifier; //add padding at the end of this
+                for (var q = 0; q < paddingAmount; q++) {
+                    csvContent = csvContent + " ";
+                }
 
 
-        csvContent = csvContent + "\n";
-        //costOfCycle = costOfCycle + parseFloat(resourceUseArray[j].rCost);
+                csvContent = csvContent + "$" + resourceUseArray[j].costOfPurchase;
 
-        position++;
+
+                csvContent = csvContent + "\n";
+                costOfCycle = costOfCycle + parseFloat(resourceUseArray[j].rCost);
+
+               
 
          }
 
     }
     
-
-
 }
 
+function countResourceTypeForEachCycle(resourceType, startPosition, endPosition) {
+    var count = 0;
+    for (var c = startPosition; c < endPosition; c++) {
+        if (resourceUseArray[c].rType == resourceType) {
+            count++;
+        }
+    }
+    return count;
+}
