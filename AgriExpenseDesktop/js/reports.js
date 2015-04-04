@@ -70,9 +70,7 @@ function ViewModel() {
         //do for loop to get resources used for that individual cycle
         for (var i = 0; i < localStorage.getItem("cropCycleCount") ; i++) {
             var count = 0;
-            var retrievedIdArray = JSON.parse(localStorage.getItem('idsOfCropCycles'));
-
-                   
+            var retrievedIdArray = JSON.parse(localStorage.getItem('idsOfCropCycles'));                
             myDatabase.purchaseList.getDataForEachCycle(resourceUseageObjectStoreName, retrievedIdArray[i], function (e) {
                     resourcesUsedDataList = new WinJS.Binding.List(e);
 
@@ -88,6 +86,7 @@ function ViewModel() {
                     //put them in array in global stores
                     resourcesUsedListView.selection.getItems().then(function (items) {
                         items.forEach(function (item) { //iterate through all crop cycles
+                            var resourceType = item.data.resourceType;
                             var resourceName = item.data.resourceName;
                             var amountToAdd = item.data.amountToAdd;
                             var quantifier = item.data.quantifier;
@@ -175,7 +174,7 @@ function generateCsvFile()
 
     //Text in the file
     for (var i = 0; i < cropCycleNamesArray.length; i++) {
-        csvContent = csvContent + " " + cropCycleNamesArray[i].toUpperCase() + " : " + cropCycleCropNamesArray[i].toUpperCase() + "\n";
+        csvContent = csvContent + "Cycle # " + cropCycleIdsArray[i] + " : " + cropCycleCropNamesArray[i].toUpperCase() + "\n";
         var amountOfResources = cropCycleResourceCountArray[i];
         var amountOfEmployees = cycleLabourCountArray[i];
         var costOfCycle = 0;
@@ -184,12 +183,35 @@ function generateCsvFile()
         var prevPostion = position;
         var LPrevPosition = lPosition;
 
-        csvContent = csvContent + "Items Used: \n\n"
-        for (var j = position; j < amountOfResources+prevPostion; j++) {
-            csvContent = csvContent + "Item Name: " +resourceUseArray[j].rName + "\n";
-            csvContent = csvContent + "Quantity Used: " +resourceUseArray[j].rQuantity + " ";
-            csvContent = csvContent + resourceUseArray[j].rQuantifier + "\n";
-            csvContent = csvContent + "Cost in this cycle: $" + resourceUseArray[j].rCost + "\n";
+        csvContent = csvContent + "Resource                                  Quantity Used                             Cost of Use                               Amount Purchased                    Cost of Purchase: \n\n"
+        for (var j = position; j < amountOfResources + prevPostion; j++) {
+            
+            //add resource Name to csv file
+            var rNameLength = resourceUseArray[j].rName.length; //find length of "rName"
+            var paddingAmount = 52 - rNameLength; //calculate amount of spaces as padding
+            csvContent = csvContent + resourceUseArray[j].rName; 
+            for (var q = 0; q < paddingAmount; q++) { //add padding to name string
+                csvContent = csvContent + " ";
+            }
+
+            //add quantity and quantifier to csv file
+            var rQuantityLength = resourceUseArray[j].rQuantity.length + resourceUseArray[j].rQuantifier.length + 1; //find length od quantity string
+            var paddingAmount = 52 - rQuantityLength; //calculate amount of spaces to add as padding
+            csvContent = csvContent + resourceUseArray[j].rQuantity + " " + resourceUseArray[j].rQuantifier;
+            for (var q = 0; q < paddingAmount; q++) { //add padding to quantity string
+                csvContent = csvContent + " ";
+            }
+
+            
+            //add cost ofuse to csv file
+            var rCostOfUseLength = resourceUseArray[j].rCost.length; //find the length of the cost of use string
+            var paddingAmount = 52 - rCostOfUseLength; //calculate amount of spaces to add as padding
+            csvContent = csvContent + resourceUseArray[j].rCost;
+            for (var q = 0; q < paddingAmount; q++) {
+                csvContent = csvContent + " ";
+            }
+
+            
             csvContent = csvContent+ "\n";
             costOfCycle = costOfCycle + parseFloat(resourceUseArray[j].rCost);
 
@@ -251,7 +273,8 @@ function generateCsvFile()
 }
 
 //object declaration. Used to store items in resourceUseArray
-function resourceUsePerCycle(rName, rQuantity, rQuantifier, rCost) {
+function resourceUsePerCycle(rType, rName, rQuantity, rQuantifier, rCost) {
+    this.rType = rType;
     this.rName = rName;
     this.rQuantity = rQuantity;
     this.rQuantifier = rQuantifier;

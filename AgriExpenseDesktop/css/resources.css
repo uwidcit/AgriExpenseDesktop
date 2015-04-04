@@ -114,8 +114,10 @@
 
 
 /*Used for buttons*/
-.width-150px{
-    width: 150px;
+.width-250px{
+    width: 250px;
     display: inline-block;
+    color:black;
+    border: 2px solid black;
 }
     

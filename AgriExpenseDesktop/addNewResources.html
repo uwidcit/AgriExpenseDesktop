@@ -10,7 +10,7 @@
     <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
     
     <script src="/js/transactionMethods.js"></script>
-    <script src="/js/otherItemTypeKnown.js"></script>
+    <script src="/js/addNewResources.js"></script>
     <script src="/js/dynamicPurchaseForm.js"></script>
     <script src="/js/globalStores.js"></script>
     <!-- myPurchases references -->
@@ -36,7 +36,7 @@
 
     <div class="fragment toDo"> <!--entire display-->
          <header role="banner">
-            <h2 class="titlearea"><a href="default.html">Home</a> > <a href="purchases.html">Purchases</a> > Add Other Purchase</h2>
+            <h2 class="titlearea"><a href="default.html">Home</a> > <a href="resources.html">Manage Resources</a> > Add Other Purchase</h2>
 
             <br /> <br />
             <a href="default.html" style="padding-left: 50px;"><img src="/images/home.png" alt="HOME" style="width:42px;height:42px;"></a>
@@ -73,7 +73,7 @@
 
            <div class="displayListColumn">
             <div id="otherPurchaseList" style="display: none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
-            <div id="purchaseListID" style="display: none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+            <div id="purchaseListID" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
             </div>
 
         </section>

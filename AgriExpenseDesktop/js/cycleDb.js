@@ -154,6 +154,7 @@ function ViewModel() {
         }
     };
 
+
     this.submitAdd = function (e) {
         e.preventDefault();
 
@@ -200,6 +201,7 @@ function ViewModel() {
 
             dataList.setAt(toDo.lvIndex, toDo);
         });
+     
     };
 
     this.cancelEdit = function (e) {
@@ -258,4 +260,3 @@ function ViewModel() {
 
    
 }
-

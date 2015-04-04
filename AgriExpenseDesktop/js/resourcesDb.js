@@ -20,8 +20,6 @@ function initializeResourcesUI() {
     var viewModel = new ViewModel();
     viewModel.init(); //get relevant information from the database and put it in lists
 
-    
-   // document.getElementById("addForm").addEventListener("submit", viewModel.submitAdd, false); //execute submitAdd method when submit button for addForm is clicked
    // document.getElementById("editForm").addEventListener("submit", viewModel.submitEdit, false); //execute submitEdit method when submit button for editForm is clicked
     document.getElementById("deleteCommand").addEventListener("click", viewModel.deleteToDo, false); //execute deleteToDo method when delete command is selected
   //  document.getElementById("editCommand").addEventListener("click", viewModel.editToDo, false); //execute editToDo method when edit command is selected.
@@ -35,6 +33,7 @@ function ViewModel() {
         chemicalListView = document.getElementById("chemicalList").winControl, //assign list of chemicals to chemcialListView
         plantingMaterialListView = document.getElementById("plantingMaterialList").winControl, //assign list of planting materials to plantingMaterialLIstView
         soilAmendmentListView = document.getElementById("soilAmendmentList").winControl, //assign list of soil amendments to soilAmendmentsListView
+       
 
         appBar = document.getElementById("appBar").winControl, //control for the menu that comes up on the bottom
        // editFlyout = document.getElementById("editFlyout").winControl, //control for the edit purchase form
@@ -141,7 +140,7 @@ function ViewModel() {
             soilAmendmentListView.onselectionchanged = self.selectionChanged;
         });
 
-        
+      
      
     };
 
@@ -400,4 +399,26 @@ function ViewModel() {
         editForm.reset();
         listView.selection.clear();
     };
+}
+
+
+
+function addNewFertilizer() {
+    localStorage.setItem("typeSelected", "Fertilizer");
+    window.location = "addNewResources.html";
+}
+
+function addNewChemical() {
+    localStorage.setItem("typeSelected", "Chemical");
+    window.location = "addNewResources.html";
+}
+
+function addNewPlantingMaterial() {
+    localStorage.setItem("typeSelected", "Planting Material");
+    window.location = "addNewResources.html";
+}
+
+function addNewSoilAmendment() {
+    localStorage.setItem("typeSelected", "Soil Amendment");
+    window.location = "addNewResources.html";
 }
