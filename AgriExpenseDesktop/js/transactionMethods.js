@@ -5,7 +5,7 @@
         var indexedDB = window.indexedDB;
 
         var init = function (success) {
-            var request = indexedDB.open(dbName, 27); //open database with name dbName (stored in global stores) and version 1
+            var request = indexedDB.open(dbName, 28); //open database with name dbName (stored in global stores) and version 1
 
             request.onsuccess = function () { //database successfully opened
                 myDatabase.data.db = request.result;
@@ -23,7 +23,7 @@
             request.onupgradeneeded = function (e) { //runs only when a new instance of the db is created
                 var db = e.target.result;
 
-                //This deletion section is for testing purposes only. It must be removed in the final product
+                //This deletion section is for testing purposes ONLY. It must be removed in the final product.
                 db.deleteObjectStore(purchaseObjectStoreName);
                 db.deleteObjectStore(cycleObjectStoreName);
                 db.deleteObjectStore(resourceUseageObjectStoreName);
@@ -221,6 +221,35 @@
 
         };
 
+        //used in generating reports - gets the information about a particualr purchase. Fields we are interested in are: quantity and cost
+        var getDetailsFromPurchase = function (oStoreName, purchaseID, success) {
+            var
+                list = [],
+                transaction = myDatabase.data.db.transaction(oStoreName),
+                store = transaction.objectStore(oStoreName);
+
+            store.openCursor().onsuccess = function (e) {
+                var cursor = e.target.result;
+
+                if (cursor) {
+                    if (cursor.value.id == purchaseID) {  //check if the purchaseID in the list of purchases is the one we're looking for
+                        list.push(cursor.value); //add to list
+
+                        //add this stuff to local storage
+                        localStorage.setItem("amountPurchased", cursor.value.quantity);
+                        localStorage.setItem("costOfPurchase", cursor.value.cost);
+                        
+                    }
+                    cursor.continue();
+                }
+                else {
+                    success(list);
+                };
+
+            }
+
+        };
+
 
         //get items from the cropCycle object store and filter by type and crop cycle id
         var getCycleList = function (oStoreName, materialType, cropCyId, success) {
@@ -322,6 +351,8 @@
                         name: toDo.name,
                         quantifier: toDo.quantifier,
                         quantity: toDo.quantity,
+                        amountRemaining: toDo.amountRemaining,
+                        initialAmount: toDo.initialAmount,
                         cost: toDo.cost
                     });
             }
@@ -464,6 +495,7 @@
                       name: toDo.name,
                       quantifier: toDo.quantifier,
                       quantity: toDo.quantity,
+                      amountRemaining: toDo.amountRemaining,
                       cost: toDo.cost
               });
 
@@ -529,6 +561,7 @@
             getCycleList: getCycleList,
             getDataForEachCycle: getDataForEachCycle,
             getLabourForEachCycle: getLabourForEachCycle,
+            getDetailsFromPurchase: getDetailsFromPurchase,
             add: add,
             update: update,
             remove: remove

@@ -23,7 +23,7 @@
         <div class="item">
             <div data-win-bind="textContent: type" class="item-title"></div>
             <p>Name: <span data-win-bind="textContent: name" class="item-sub"></span></p>
-            <p>Quantity Remaining: <span data-win-bind="textContent: quantity" class="item-sub"></span>
+            <p>Quantity Remaining: <span data-win-bind="textContent: amountRemaining" class="item-sub"></span>
                 <span data-win-bind="textContent: quantifier" class="item-sub"></span>
             </p>
         </div>
@@ -110,30 +110,28 @@
             <h2>Add Material to Cycle</h2>
             <input type="hidden" class="id" data-win-bind="value:id" />
             <input type="hidden" class="lvIndex" data-win-bind="value:lvIndex" />
-            <label>
-                Type
-            </label>
+
+            <label>Type</label>
             <input type="text" class="type input-block" data-win-bind="value:type" disabled />
-            <label>
-                Name
-            </label>
-            <textarea class="name input-block" data-win-bind="value:name" disabled></textarea>
-            <label>
-                Quantifier
-            </label>
+
+            <label>Name</label>
+            <input type="text" class="name input-block" data-win-bind="value:name" disabled />
+
+            <label>Quantifier</label>
             <input type="text" class="quantifier input-block" data-win-bind="value:quantifier" disabled />
-            <label>
-                Quantity Remaining
-            </label>
-            <input type="number" class="quantity input-block" data-win-bind="value:quantity" disabled />
-            <label>
-                Cost
-            </label>
+
+            
+            <input type="hidden" class="quantity input-block" data-win-bind="value:quantity" disabled />
+
+            <label>Quantity Remaining</label>
+            <input type="number" class="amountRemaining input-block" data-win-bind="value:amountRemaining" disabled />
+
+            <label>Cost</label>
             <input type="number" class="cost input-block" data-win-bind="value:cost" disabled />
-            <label>
-                Amount To Add
-            </label>
+
+            <label>Amount To Add</label>
             <input type="number" class="amountToAdd input-block" data-win-bind="value:amountToAdd" required />
+
             <label>Date Added</label>
                     <div id="dateDiv" data-win-control="WinJS.UI.DatePicker" class="datePurchased"></div>
             <div>

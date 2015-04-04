@@ -304,7 +304,7 @@ function ViewModel() {
             quantifier: document.querySelector("#addForm .quantifier").value,
             quantity: document.querySelector("#addForm .quantity").value,
             cost: document.querySelector("#addForm .cost").value,
-            amountRemaining: document.querySelector("#addForm .quantity").value //it would originally be the quantity purchased but will decrease as this item is used
+            amountRemaining: document.querySelector("#addForm .quantity").value, //it would originally be the quantity purchased but will decrease as this item is used
         };
 
         myDatabase.purchaseList.add(toDo, purchaseObjectStoreName, function (e) {

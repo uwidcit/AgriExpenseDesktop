@@ -190,6 +190,7 @@ function ViewModel()
                     name: item.data.name,
                     quantifier: item.data.quantifier,
                     quantity: item.data.quantity,
+                    amountRemaining: item.data.amountRemaining,
                     cost: item.data.cost,
                     amountToAdd: item.data.amountToAdd,
                     datePurchased: currentDate,
@@ -213,13 +214,13 @@ function ViewModel()
         var currentDate = dp.current;
 
         var cropCycleIdFromStorage = localStorage.getItem("cropCycleId"); //get crop cycle selected
-        var quantity = document.querySelector("#addMaterialForm .quantity").value;
+        var amountRemaining = document.querySelector("#addMaterialForm .amountRemaining").value;
         var cost = document.querySelector("#addMaterialForm .cost").value;
         var amountToAdd = document.querySelector("#addMaterialForm .amountToAdd").value;
-        var useCost = ((quantity / cost) * amountToAdd).toFixed(2); //calculate use cost of that quantity of material
-        var quantityLeft = quantity - amountToAdd;
+        var useCost = ((amountRemaining / cost) * amountToAdd).toFixed(2); //calculate use cost of that quantity of material
+        var quantityLeft = amountRemaining - amountToAdd;
 
-        if (amountToAdd <= quantity) {
+        if (amountToAdd <= amountRemaining) {
 
             var toDo = {
                 purchaseID: document.querySelector("#addMaterialForm .id").value,
@@ -253,11 +254,13 @@ function ViewModel()
                 type: document.querySelector("#addMaterialForm .type").value,
                 name: document.querySelector("#addMaterialForm .name").value,
                 quantifier: document.querySelector("#addMaterialForm .quantifier").value,
-                quantity: quantityLeft,
+                quantity: document.querySelector("#addMaterialForm .quantity").value,
+                amountRemaining: quantityLeft,
                 cost: document.querySelector("#addMaterialForm .cost").value,
                 lvIndex: document.querySelector("#addMaterialForm .lvIndex").value
             };
 
+           -
             //now edit quantity in purchase
             myDatabase.purchaseList.update(purchaseToDo, purchaseObjectStoreName, function (e) {
                 addMaterialFlyout.hide();
