@@ -150,7 +150,8 @@ function ViewModel() {
                     });
                 }); 
             }); 
-        } 
+        }
+       // populateTextArea();
     };
 
 
@@ -181,6 +182,9 @@ function getTodaysDate() {
 }
 
 
+function populateTextArea() {
+
+}
 
 
 function generateCsvFile()
@@ -209,7 +213,7 @@ function generateCsvFile()
         var startPosition = position; //start position of each new cycle in resourceUse array
         var endPosition = startPosition + amountOfResources; //end position + 1 of each cycle in resourceUse array
 
-//        console.log("start postion:" + startPosition + " end Position:" + endPosition);
+
 
         var fertilizerCount = countResourceTypeForEachCycle("Fertilizer", startPosition, endPosition);
         var chemicalCount = countResourceTypeForEachCycle("Chemical", startPosition, endPosition);
@@ -225,56 +229,67 @@ function generateCsvFile()
         }
 
         if (chemicalCount > 0 ){
-            csvContent = csvContent + "Chemicals\n";
+            csvContent = csvContent + "\nChemicals:\n";
             filterResourcesByType("Chemical", amountOfResources, startPosition, endPosition);
         }
 
         if (plantingMaterialCount > 0) {
-            csvContent = csvContent + "Planting Materials\n";
+            csvContent = csvContent + "\nPlanting Materials:\n";
             filterResourcesByType("Planting Material", amountOfResources, startPosition, endPosition);
         }
 
         if (soilAmendmentCount > 0) {
-            csvContent = csvContent + "Soil Amendments\n";
+            csvContent = csvContent + "\nSoil Amendments:\n";
             filterResourcesByType("Soil Amendment", amountOfResources, startPosition, endPosition);
         }
 
         if (otherCount > 0) {
-            csvContent = csvContent + "Other\n";
+            csvContent = csvContent + "\nOther:\n";
             filterResourcesByType("Other", amountOfResources, startPosition, endPosition);
         }
 
-
-
         position = endPosition;
 
-        
 
-        
-
-
-
-
-
-
-     //   csvContent = csvContent + "Employees Hired for this Cycle: \n\n"
+        //   Employees hired for this cycle
+        csvContent = csvContent + "\nLabour:\n";
+        var quantityOfEmployees = "1";
+        var amountPurchasedEmployees = "1";
         for (var m = lPosition; m < amountOfEmployees +LPrevPosition; m++) {
 
-            csvContent = csvContent + "Employee Name: " + cycleLabourArray[m].employeeName + "\n";
-            csvContent = csvContent + "Employee Cost: " + cycleLabourArray[m].employeeCost + " \n\n";
-            costOfCycle = costOfCycle + parseFloat(cycleLabourArray[m].employeeCost);
+            csvContent = csvContent + cycleLabourArray[m].employeeName; //Employee Name
+            //find amount of padding after employee name
+            var amountOfPadding = 52 - cycleLabourArray[m].employeeName.length;
+            for (var y = 0; y < amountOfPadding; y++) {
+                csvContent = csvContent + " ";
+            }
 
+            csvContent = csvContent + quantityOfEmployees; //employee quantity
+            for (var y = 0; y < 51; y++) {
+                csvContent = csvContent + " ";
+            }
+
+            csvContent = csvContent + "$"+cycleLabourArray[m].employeeCost;
+            var amountOfPadding = 52 - (cycleLabourArray[m].employeeCost.length + 1); //cost of use
+            for (var y = 0; y < amountOfPadding; y++) {
+                csvContent = csvContent + " ";
+            }
+
+            csvContent = csvContent + amountPurchasedEmployees; //amount purchased
+            for (var y = 0; y < 51; y++) { 
+                csvContent = csvContent + " ";
+            }
+
+            csvContent = csvContent + "$" + cycleLabourArray[m].employeeCost; //cost of purchase
+            csvContent = csvContent + "\n\n";
             lPosition++;
 
         }
 
-
-        csvContent = csvContent + "Total Cost for this cycle : $" + costOfCycle + "\n\n";
-
-        //total cost for this cycle
-
-
     }
+
+  
+    document.getElementById("textAreaPreview").innerHTML = csvContent;
 
     var savePicker = new Windows.Storage.Pickers.FileSavePicker();
 
@@ -309,7 +324,7 @@ function generateCsvFile()
         } else {
             WinJS.log && WinJS.log("Operation cancelled.", "sample", "status");
         }
-    });
+    }); 
 }
 
 //object declaration. Used to store items in resourceUseArray
@@ -375,9 +390,6 @@ function filterResourcesByType(resourceType, amountOfResources, startPosition, e
 
                 csvContent = csvContent + "\n";
                 costOfCycle = costOfCycle + parseFloat(resourceUseArray[j].rCost);
-
-               
-
          }
 
     }

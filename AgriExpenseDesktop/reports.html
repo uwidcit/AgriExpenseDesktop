@@ -43,31 +43,28 @@
         </header>
 
          <section role="main">
-            <aside>
+            <aside> 
 
-                <form>
+                <h2>Preview </h2>
+                <form id="reportPreview">
                      <div>
+                         <textarea rows="20" cols="100" name="comment" form="reportPreview" id="textAreaPreview"></textarea><br /> <br />
                         <button id="generateReportButton" type="button" class="width-150px" onclick="generateCsvFile()">Generate Report</button>
                     </div>
                 </form>
 
+                
 
                 <div class="displayListColumn">
                     <div id="cycleList" style="display:none" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
                     <div id="resourcesUsedList" style="display:none" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
                     <div id="labourCycleList" style="display:none" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
                     <div id="purchasesList" style="display:none" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
-
-                    <!-- Change this to be displayed-->
-                    <div id="reportList" style="display:none" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
-                </div>
-
-             
-                
+                </div>               
                 
             </aside>
           
-        </section>
+        </section> 
     
     </div>
     

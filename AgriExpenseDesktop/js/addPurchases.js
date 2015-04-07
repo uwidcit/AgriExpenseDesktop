@@ -1,8 +1,9 @@
-﻿
-function onAddPurchasesPageLoad() {
+﻿function onAddPurchasesPageLoad() {
     WinJS.UI.processAll().then(function () {
         initializeDb().done(function () {
             initializePurchaseUI();
+
+            localStorage.setItem("totalCycleCost", 0); //initialise the total cost of the cycle
 
             var cycleName = localStorage.getItem("cropCycleName");
             var cycleCrop = localStorage.getItem("cropCycleCrop");
@@ -16,8 +17,8 @@ function onAddPurchasesPageLoad() {
             document.getElementById("cycleCropID").innerHTML = "Crop: " + cycleCrop;
             document.getElementById("cycleLandTypeID").innerHTML = "Land Type: " + cycleTypeOfLand;
             document.getElementById("cycleLandQuantityID").innerHTML = "Land Quantity: " + cycleLandQuantity;
-            document.getElementById("cycleStartDateID").innerHTML = "Start Date: " + cycleStartDate;
-          //  document.getElementById("cycleTotalCost").innerHTML = "TotalCost: ";
+           // document.getElementById("cycleStartDateID").innerHTML = "Start Date: " + cycleStartDate;
+            document.getElementById("cycleTotalCost").innerHTML = "Expenses Summary: ";
 
         });
     });
@@ -69,6 +70,8 @@ function ViewModel()
 
     this.init = function ()
     {
+
+       
         myDatabase.purchaseList.getList(purchaseObjectStoreName, function (e)
         {
             dataList = new WinJS.Binding.List(e);
@@ -89,13 +92,35 @@ function ViewModel()
         myDatabase.purchaseList.getCycleList(resourceUseageObjectStoreName, "Chemical", localStorage.getItem("cropCycleId"), function (e) {
             chemicalDataList = new WinJS.Binding.List(e);
             chemicalListView.itemDataSource = chemicalDataList.dataSource;
-    
+
+            //iterate through list
+            chemicalDataList.forEach(chemicalCost);
+
+            function chemicalCost(value) {  
+                var chemCost = parseFloat(value.useCost);
+
+                var p = parseFloat(localStorage.getItem("totalCycleCost")) + chemCost;
+                localStorage.setItem("totalCycleCost", p);
+
+                document.getElementById("chemicalsUsed").innerHTML = "Chemicals: $" + chemCost;
+            }          
         });
 
         //Filter by Material Type - Fertilizer
         myDatabase.purchaseList.getCycleList(resourceUseageObjectStoreName, "Fertilizer", localStorage.getItem("cropCycleId"), function (e) {
             fertilizerDataList = new WinJS.Binding.List(e);
             fertilizerListView.itemDataSource = fertilizerDataList.dataSource;
+
+            //iterate through list
+            fertilizerDataList.forEach(fertilizerCost);
+
+            function fertilizerCost(value, index) {
+                var fertCost = parseFloat(value.useCost);
+                var p = parseFloat(localStorage.getItem("totalCycleCost")) + fertCost;
+                localStorage.setItem("totalCycleCost", p);
+
+                document.getElementById("fertilizersUsed").innerHTML = "Fertilizers: $" + fertCost;
+            }
             
         });
 
@@ -103,6 +128,17 @@ function ViewModel()
         myDatabase.purchaseList.getCycleList(resourceUseageObjectStoreName, "Planting Material", localStorage.getItem("cropCycleId"), function (e) {
             plantingMaterialDataList = new WinJS.Binding.List(e);
             plantingMaterialListView.itemDataSource = plantingMaterialDataList.dataSource;
+
+            //iterate through list
+            plantingMaterialDataList.forEach(plantingMaterialCost);
+
+            function plantingMaterialCost(value, index) {
+                var pmCost = parseFloat(value.useCost);
+                var p = parseFloat(localStorage.getItem("totalCycleCost")) + pmCost;
+                localStorage.setItem("totalCycleCost", p);
+
+                document.getElementById("plantingMaterialsUsed").innerHTML = "Planting Material: $" + pmCost;
+            }
             
         });
 
@@ -110,6 +146,16 @@ function ViewModel()
         myDatabase.purchaseList.getCycleList(resourceUseageObjectStoreName, "Soil Amendment", localStorage.getItem("cropCycleId"), function (e) {
             soilAmendmentDataList = new WinJS.Binding.List(e);
             soilAmendmentListView.itemDataSource = soilAmendmentDataList.dataSource;
+
+            soilAmendmentDataList.forEach(soilAmendmentCost);
+
+            function soilAmendmentCost(value, index) {
+                var saCost = parseFloat(value.useCost);
+                var p = parseFloat(localStorage.getItem("totalCycleCost")) + saCost;
+                localStorage.setItem("totalCycleCost", p);
+
+                document.getElementById("soilAmendmentsUsed").innerHTML = "Soil Amendments: $" + saCost;
+            }
           
           });
 
@@ -117,14 +163,34 @@ function ViewModel()
         myDatabase.purchaseList.getCycleList(resourceUseageObjectStoreName, "Other", localStorage.getItem("cropCycleId"), function (e) {
               otherDataList = new WinJS.Binding.List(e);
               otherListView.itemDataSource = otherDataList.dataSource;
-          
+
+              otherDataList.forEach(otherCost);
+
+              function otherCost(value, index) {
+                  var otherCost = parseFloat(value.useCost);
+                  var p = parseFloat(localStorage.getItem("totalCycleCost")) + otherCost;
+                  localStorage.setItem("totalCycleCost", p);
+
+                  document.getElementById("otherUsed").innerHTML = "Other: $" + otherCost;
+              }         
         });
 
         myDatabase.purchaseList.getLabourForEachCycle(labourObjectStoreName, localStorage.getItem("cropCycleId"), function (e) {
             labourDataList = new WinJS.Binding.List(e);
             labourListView.itemDataSource = labourDataList.dataSource;
 
+            labourDataList.forEach(labourCost);
+
+            function labourCost(value, index) {
+                var labourCost = parseFloat(value.cost);
+                var p = parseFloat(localStorage.getItem("totalCycleCost")) + labourCost;
+                localStorage.setItem("totalCycleCost", p);
+
+                document.getElementById("labourUsed").innerHTML = "Labour: $" + labourCost;
+            }
         });
+
+        
     
     };
 
@@ -300,7 +366,6 @@ function getValuesFromObjectStore(cropCyID, materialType)
     //get values for that crop cycle
     myDatabase.purchaseList.getCycleList(resourceUseageObjectStoreName, materialType, cropCyID, function (e) {
         var resourceList = new WinJS.Binding.List(e);
-        var newList = resourceList;
     });
 
 }

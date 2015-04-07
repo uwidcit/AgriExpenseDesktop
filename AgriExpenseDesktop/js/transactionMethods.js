@@ -277,6 +277,7 @@
         };
 
         //Get data associated with each cycle and return it as a list. Used in generating the reports
+        //also used for calculating total cost for each cycle
         var getDataForEachCycle = function (oStoreName, cropCyId, success) {
 
             var

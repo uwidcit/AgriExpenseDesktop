@@ -58,3 +58,4 @@ var resourceUseArray = []; //array of objects
 
 var cycleLabourCountArray=[]; //amount of employees in each cycle
 var cycleLabourArray = [];//array of objects
+

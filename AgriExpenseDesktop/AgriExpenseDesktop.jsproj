@@ -74,6 +74,7 @@
     <Content Include="cycles.html" />
     <Content Include="default.html" />
     <Content Include="employees.html" />
+    <Content Include="harvest.html" />
     <Content Include="images\home.png" />
     <Content Include="images\logo.png" />
     <Content Include="images\logo_agrinet.png" />

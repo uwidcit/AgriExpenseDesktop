@@ -53,7 +53,6 @@
         -ms-grid-column:1; /*250px*/
         -ms-grid-row:2; /*1fr*/
         
-        /*background-color:#689F38;*/
     }
 
     .fragment section[role=contentinfo] {
@@ -72,66 +71,79 @@
     .fragment section[role=contentinfo] #listInfoTitle {
         -ms-grid-column:1;
         -ms-grid-row:1;
+        padding-left:270px;
     }
 
     .fragment section[role=contentinfo] #chemicalTitle {
         -ms-grid-column:1;
         -ms-grid-row:2;
+        padding-left:270px;
     }
 
     .fragment section[role=contentinfo] #fertilizerTitle {
         -ms-grid-column:2;
         -ms-grid-row:2;
+         padding-left:270px;
     }
 
     .fragment section[role=contentinfo] #plantingMaterialTitle {
         -ms-grid-column:3;
         -ms-grid-row:2;
+         padding-left:270px;
     }
 
     .fragment section[role=contentinfo] #soilAmendmentTitle {
         -ms-grid-column:4;
         -ms-grid-row:2;
+         padding-left:270px;
     }
 
     .fragment section[role=contentinfo] #otherTitle {
         -ms-grid-column:5;
         -ms-grid-row:2;
+         padding-left:270px;
     }
 
      .fragment section[role=contentinfo] #labourTitle {
         -ms-grid-column:6;
         -ms-grid-row:2;
+         padding-left:270px;
     }
 
     .fragment section[role=contentinfo] #chemicalList {
         -ms-grid-column:1;
         -ms-grid-row:3;
+         padding-left:270px;
     }
 
     .fragment section[role=contentinfo] #fertilizerList {
         -ms-grid-column:2;
         -ms-grid-row:3;
+         padding-left:270px;
     }
 
     .fragment section[role=contentinfo] #plantingMaterialList {
         -ms-grid-column:3;
         -ms-grid-row:3;
+         padding-left:270px;
     }
 
     .fragment section[role=contentinfo] #soilAmendmentList {
         -ms-grid-column:4;
         -ms-grid-row:3;
+         padding-left:270px;
     }
 
     .fragment section[role=contentinfo] #otherList {
         -ms-grid-column:5;
         -ms-grid-row:3;
+         padding-left:270px;
     }
 
     .fragment section[role=contentinfo] #labourList {
         -ms-grid-column:6;
         -ms-grid-row:3;
+         padding-left:270px;
     }
 
 

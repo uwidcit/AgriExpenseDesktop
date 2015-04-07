@@ -37,14 +37,15 @@
         margin-left: 120px;
         margin-right: 120px;
 
-        -ms-grid-columns: 350px 50px 1fr;
+      /*  -ms-grid-columns: 350px 50px 1fr; */
+        -ms-grid-columns:1px 1fr;
         -ms-grid-rows: 1fr;
         display: -ms-grid;
     }
 
 
 .toDo aside {
-   -ms-grid-column: 1;
+   -ms-grid-column: 2;
     padding-right: 30px;
     padding-left:10px;
 }
@@ -52,7 +53,7 @@
 .toDo aside hr {
     margin-bottom: 20px;
     margin-top: 20px;
-}
+} 
 
 
 
