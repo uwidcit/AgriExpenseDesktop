@@ -12,6 +12,7 @@ var otherChemicalObjectStoreName = "chemicalObjectStore";
 var otherPlantingMaterialObjectStoreName = "plantingMaterialObjectStore";
 var otherSoilAmendmentObjectStoreName = "soilAmendmentObjectStore";
 var otherQuantifierObjectStoreName = "otherQuantiferObjectStore";
+var harvestObjectStoreName = "harvestObjectStore";
 
 
 

@@ -91,7 +91,12 @@
                     keyPath: "id",
                     autoIncrement: true
                 });
-               
+
+                var harvestStore = db.createObjectStore(harvestObjectStoreName, {
+                    keyPath: "id",
+                    autoIncrement: true
+                });
+
                 //create indexes on object stores
                 cycleStore.createIndex("name", "name", {
                     unique: false
@@ -134,6 +139,10 @@
                 });
 
                 otherQuantifierStore.createIndex("name", "name", {
+                    unique: false
+                });
+
+                harvestStore.createIndex("name", "name", {
                     unique: false
                 });
 
@@ -208,7 +217,7 @@
                     var cursor = e.target.result;
 
                     if (cursor) {
-                        if (cursor.value.quantity != '0') {  //check if the quantity remaining (in purchases) is more than 0, then add to the list
+                        if (cursor.value.amountRemaining != '0') {  //check if the quantity remaining (in purchases) is more than 0, then add to the list
                             list.push(cursor.value); //add to list
                         }
                         cursor.continue();
@@ -216,6 +225,48 @@
                     else {
                         success(list);
                 };
+
+            }
+
+        };
+
+        //used in addPurchases.js to get list of fertilizres, list of chemicals etc.
+        var getListByItemType = function (oStoreName, itemType, cropName, success) {
+            var
+                list = [],
+                transaction = myDatabase.data.db.transaction(oStoreName),
+                store = transaction.objectStore(oStoreName);
+
+            store.openCursor().onsuccess = function (e) {
+                var cursor = e.target.result;
+
+                //if the farmer is adding more Planting Material, filter by crop also
+                if (itemType == 'Planting Material') {
+
+                    if (cursor) {
+                        if ((cursor.value.amountRemaining != '0') && (cursor.value.type == itemType) && (cursor.value.name == cropName)) {  //check if the quantity remaining (in purchases) is more than 0, then add to the list
+                            list.push(cursor.value); //add to list
+                        }
+                        cursor.continue();
+                    }
+                    else {
+                        success(list);
+                    };
+                }
+
+                else { //just filer by type for all other types except Planting Material (which is done above)
+                    if (cursor) {
+                        if ((cursor.value.amountRemaining != '0') && (cursor.value.type == itemType)) {  //check if the quantity remaining (in purchases) is more than 0, then add to the list
+                            list.push(cursor.value); //add to list
+                        }
+                        cursor.continue();
+                    }
+                    else {
+                        success(list);
+                    };
+
+                }
+
 
             }
 
@@ -563,6 +614,7 @@
             getDataForEachCycle: getDataForEachCycle,
             getLabourForEachCycle: getLabourForEachCycle,
             getDetailsFromPurchase: getDetailsFromPurchase,
+            getListByItemType: getListByItemType,
             add: add,
             update: update,
             remove: remove

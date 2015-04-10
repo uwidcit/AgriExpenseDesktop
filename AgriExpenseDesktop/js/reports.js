@@ -21,7 +21,6 @@ function initializeDb() {
 function initializeReportsUI() {
     var viewModel = new ViewModel();
     viewModel.init();
-
 }
 
 
@@ -149,9 +148,10 @@ function ViewModel() {
                         countL++;
                     });
                 }); 
-            }); 
+            });
+            populateTextArea();
         }
-       // populateTextArea();
+       
     };
 
 
@@ -183,29 +183,24 @@ function getTodaysDate() {
 
 
 function populateTextArea() {
-
-}
-
-
-function generateCsvFile()
-{
     var todaysDate = getTodaysDate();
-   
+
     csvContent = "";
     var position = 0;
     var lPosition = 0;
 
-    
+   
 
     //Text in the file
     //for each crop cycle
     for (var i = 0; i < cropCycleNamesArray.length; i++) {
+        console.log("hi");
         csvContent = csvContent + "Cycle # " + cropCycleIdsArray[i] + " : " + cropCycleCropNamesArray[i].toUpperCase() + "\n";
         var amountOfResources = cropCycleResourceCountArray[i];
         var amountOfEmployees = cycleLabourCountArray[i];
-       
+
         costOfCycle = 0;
-       
+
         var LPrevPosition = lPosition;
 
         csvContent = csvContent + "Resource                                  Quantity Used                             Cost of Use                               Amount Purchased                    Cost of Purchase: \n\n"
@@ -221,14 +216,14 @@ function generateCsvFile()
         var soilAmendmentCount = countResourceTypeForEachCycle("Soil Amendment", startPosition, endPosition);
         var otherCount = countResourceTypeForEachCycle("Other", startPosition, endPosition);
 
-        
+
         //get each different type of material
         if (fertilizerCount > 0) {
             csvContent = csvContent + "Fertilizers\n";
             filterResourcesByType("Fertilizer", amountOfResources, startPosition, endPosition);
         }
 
-        if (chemicalCount > 0 ){
+        if (chemicalCount > 0) {
             csvContent = csvContent + "\nChemicals:\n";
             filterResourcesByType("Chemical", amountOfResources, startPosition, endPosition);
         }
@@ -255,7 +250,7 @@ function generateCsvFile()
         csvContent = csvContent + "\nLabour:\n";
         var quantityOfEmployees = "1";
         var amountPurchasedEmployees = "1";
-        for (var m = lPosition; m < amountOfEmployees +LPrevPosition; m++) {
+        for (var m = lPosition; m < amountOfEmployees + LPrevPosition; m++) {
 
             csvContent = csvContent + cycleLabourArray[m].employeeName; //Employee Name
             //find amount of padding after employee name
@@ -269,14 +264,14 @@ function generateCsvFile()
                 csvContent = csvContent + " ";
             }
 
-            csvContent = csvContent + "$"+cycleLabourArray[m].employeeCost;
+            csvContent = csvContent + "$" + cycleLabourArray[m].employeeCost;
             var amountOfPadding = 52 - (cycleLabourArray[m].employeeCost.length + 1); //cost of use
             for (var y = 0; y < amountOfPadding; y++) {
                 csvContent = csvContent + " ";
             }
 
             csvContent = csvContent + amountPurchasedEmployees; //amount purchased
-            for (var y = 0; y < 51; y++) { 
+            for (var y = 0; y < 51; y++) {
                 csvContent = csvContent + " ";
             }
 
@@ -288,9 +283,15 @@ function generateCsvFile()
 
     }
 
-  
     document.getElementById("textAreaPreview").innerHTML = csvContent;
+}
 
+
+function generateCsvFile()
+{
+    var todaysDate = getTodaysDate();
+    
+    populateTextArea();
     var savePicker = new Windows.Storage.Pickers.FileSavePicker();
 
     savePicker.suggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.documentsLibrary;

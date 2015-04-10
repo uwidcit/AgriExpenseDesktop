@@ -222,7 +222,7 @@ function ViewModel() {
             localStorage.setItem("cropCycleLandQuantity", item.data.quantity);
             localStorage.setItem("cropCycleStartDate", item.data.startDate);
 
-            window.location = 'addPurchases.html'; //navigate to page where they can select from purchases
+            window.location = 'cycleUsage.html'; //navigate to page where they can select from purchases
         });
     };
     

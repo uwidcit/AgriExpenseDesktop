@@ -38,7 +38,6 @@ function initializePurchaseUI()
     viewModel.init();
 
     document.getElementById("addMaterialForm").addEventListener("submit", viewModel.submitEdit, false);
-    document.getElementById("addMaterialCommand").addEventListener("click", viewModel.addMaterialToDo, false);
     document.querySelector("#addMaterialForm .cancel").addEventListener("click", viewModel.cancelEdit, false);
 }
 
@@ -55,7 +54,6 @@ function ViewModel()
         otherListView = document.getElementById("otherList").winControl,
         labourListView = document.getElementById("labourList").winControl,
 
-        appBar = document.getElementById("appBar").winControl,
         addMaterialFlyout = document.getElementById("addMaterialFlyout").winControl,
         addMaterialForm = document.getElementById("addMaterialForm"),
         self = this,
@@ -72,12 +70,16 @@ function ViewModel()
     {
 
        
-        myDatabase.purchaseList.getList(purchaseObjectStoreName, function (e)
-        {
+        myDatabase.purchaseList.getListByItemType(purchaseObjectStoreName, localStorage.getItem("typeButtonClick"), localStorage.getItem("cropCycleCrop"), function (e) {
             dataList = new WinJS.Binding.List(e);
 
             listView.itemDataSource = dataList.dataSource;
             listView.onselectionchanged = self.selectionChanged;
+
+            //left click on one of the items to add
+            WinJS.UI.setOptions(listView, {
+                oniteminvoked: addMaterialToDoLeftClick
+            });
         });
 
         myDatabase.purchaseList.getDataForEachCycle(resourceUseageObjectStoreName, localStorage.getItem("cropCycleId"), function (e) {
@@ -93,16 +95,17 @@ function ViewModel()
             chemicalDataList = new WinJS.Binding.List(e);
             chemicalListView.itemDataSource = chemicalDataList.dataSource;
 
+            var cCost = 0;
             //iterate through list
             chemicalDataList.forEach(chemicalCost);
 
             function chemicalCost(value) {  
                 var chemCost = parseFloat(value.useCost);
-
+                cCost = cCost + chemCost;
                 var p = parseFloat(localStorage.getItem("totalCycleCost")) + chemCost;
                 localStorage.setItem("totalCycleCost", p);
 
-                document.getElementById("chemicalsUsed").innerHTML = "Chemicals: $" + chemCost;
+                document.getElementById("chemicalsUsed").innerHTML = "Chemicals: $" + cCost;
             }          
         });
 
@@ -111,15 +114,18 @@ function ViewModel()
             fertilizerDataList = new WinJS.Binding.List(e);
             fertilizerListView.itemDataSource = fertilizerDataList.dataSource;
 
+            var fCost = 0;
             //iterate through list
             fertilizerDataList.forEach(fertilizerCost);
 
+            
             function fertilizerCost(value, index) {
                 var fertCost = parseFloat(value.useCost);
+                fCost = fCost + fertCost;
                 var p = parseFloat(localStorage.getItem("totalCycleCost")) + fertCost;
                 localStorage.setItem("totalCycleCost", p);
 
-                document.getElementById("fertilizersUsed").innerHTML = "Fertilizers: $" + fertCost;
+                document.getElementById("fertilizersUsed").innerHTML = "Fertilizers: $" + fCost;
             }
             
         });
@@ -129,15 +135,17 @@ function ViewModel()
             plantingMaterialDataList = new WinJS.Binding.List(e);
             plantingMaterialListView.itemDataSource = plantingMaterialDataList.dataSource;
 
+            var pCost = 0;
             //iterate through list
             plantingMaterialDataList.forEach(plantingMaterialCost);
 
             function plantingMaterialCost(value, index) {
                 var pmCost = parseFloat(value.useCost);
+                pCost = pCost + pmCost;
                 var p = parseFloat(localStorage.getItem("totalCycleCost")) + pmCost;
                 localStorage.setItem("totalCycleCost", p);
 
-                document.getElementById("plantingMaterialsUsed").innerHTML = "Planting Material: $" + pmCost;
+                document.getElementById("plantingMaterialsUsed").innerHTML = "Planting Material: $" + pCost;
             }
             
         });
@@ -147,14 +155,17 @@ function ViewModel()
             soilAmendmentDataList = new WinJS.Binding.List(e);
             soilAmendmentListView.itemDataSource = soilAmendmentDataList.dataSource;
 
+            var sCost = 0;
+            //iterate through list
             soilAmendmentDataList.forEach(soilAmendmentCost);
 
             function soilAmendmentCost(value, index) {
                 var saCost = parseFloat(value.useCost);
+                sCost = sCost + saCost;
                 var p = parseFloat(localStorage.getItem("totalCycleCost")) + saCost;
                 localStorage.setItem("totalCycleCost", p);
 
-                document.getElementById("soilAmendmentsUsed").innerHTML = "Soil Amendments: $" + saCost;
+                document.getElementById("soilAmendmentsUsed").innerHTML = "Soil Amendments: $" + sCost;
             }
           
           });
@@ -164,14 +175,17 @@ function ViewModel()
               otherDataList = new WinJS.Binding.List(e);
               otherListView.itemDataSource = otherDataList.dataSource;
 
+              var oCost = 0;
+            //iterate through list
               otherDataList.forEach(otherCost);
 
               function otherCost(value, index) {
                   var otherCost = parseFloat(value.useCost);
+                  oCost = oCost + otherCost;
                   var p = parseFloat(localStorage.getItem("totalCycleCost")) + otherCost;
                   localStorage.setItem("totalCycleCost", p);
 
-                  document.getElementById("otherUsed").innerHTML = "Other: $" + otherCost;
+                  document.getElementById("otherUsed").innerHTML = "Other: $" + oCost;
               }         
         });
 
@@ -179,14 +193,17 @@ function ViewModel()
             labourDataList = new WinJS.Binding.List(e);
             labourListView.itemDataSource = labourDataList.dataSource;
 
+            var lCost = 0;
+            //iterate through list
             labourDataList.forEach(labourCost);
 
             function labourCost(value, index) {
                 var labourCost = parseFloat(value.cost);
+                lCost = lCost + labourCost;
                 var p = parseFloat(localStorage.getItem("totalCycleCost")) + labourCost;
                 localStorage.setItem("totalCycleCost", p);
 
-                document.getElementById("labourUsed").innerHTML = "Labour: $" + labourCost;
+                document.getElementById("labourUsed").innerHTML = "Labour: $" + lCost;
             }
         });
 
@@ -208,68 +225,51 @@ function ViewModel()
     this.selectionChanged = function (args)
     {
         var
-            selectionCount = listView.selection.count(),
-            selectionCommands = document.querySelectorAll(".appBarSelection"),
-            singleSelectionCommands = document.querySelectorAll(".appBarSingleSelection");
-
-        if (selectionCount > 0)
-        {
-            appBar.showCommands(selectionCommands);
-
-            if (selectionCount > 1)
-            {
-                appBar.hideCommands(singleSelectionCommands);
-            }
-
-            appBar.sticky = true;
-            appBar.show();
-        }
-        else
-        {
-            appBar.hideCommands(selectionCommands);
-
-            appBar.sticky = false;
-            appBar.hide();
-        }
+            selectionCount = listView.selection.count();
     };
 
+    var addMaterialToDoLeftClick = function (e) {
+        e.detail.itemPromise.then(function (item) {
 
+            var dp = document.getElementById("dateDiv").winControl;
+            var currentDate = dp.current;
 
-    this.addMaterialToDo = function ()
-    {
-        var dp = document.getElementById("dateDiv").winControl;
-        var currentDate = dp.current;
+            listView.selection.set(item.index);
+           
+            var
+             anchor = document.querySelector(".toDo"),
+             selectionCount = listView.selection.count();
 
-        var
-            anchor = document.querySelector(".toDo"),
-            selectionCount = listView.selection.count();
+            if (selectionCount === 1) {
+                listView.selection.getItems().then(function (items) {
+                    var
+                        item = items[0],
+                        addMaterialFlyoutElement = document.getElementById("addMaterialFlyout");
 
-        if (selectionCount === 1) {
-            listView.selection.getItems().then(function (items) {
-                var
-                    item = items[0],
-                    addMaterialFlyoutElement = document.getElementById("addMaterialFlyout");
+                    var toDo = {
+                        id: item.data.id,
+                        type: item.data.type,
+                        name: item.data.name,
+                        quantifier: item.data.quantifier,
+                        quantity: item.data.quantity,
+                        amountRemaining: item.data.amountRemaining,
+                        cost: item.data.cost,
+                        amountToAdd: item.data.amountToAdd,
+                        datePurchased: currentDate,
+                        lvIndex: item.index
+                    };
 
-                var toDo = {
-                    id: item.data.id,
-                    type: item.data.type,
-                    name: item.data.name,
-                    quantifier: item.data.quantifier,
-                    quantity: item.data.quantity,
-                    amountRemaining: item.data.amountRemaining,
-                    cost: item.data.cost,
-                    amountToAdd: item.data.amountToAdd,
-                    datePurchased: currentDate,
-                    lvIndex: item.index
-                };
+                    var process = WinJS.Binding.processAll(addMaterialFlyoutElement, toDo);  //display addMaterial form with values disabled
 
-                var process = WinJS.Binding.processAll(addMaterialFlyoutElement, toDo);  //display addMaterial form with values disabled
-
-                process.then(function () {
-                    addMaterialFlyout.show(anchor, "top", "center");
+                    process.then(function () {
+                        addMaterialFlyout.show(anchor, "top", "center");
+                    });
                 });
-            });
-        }
+            }
+
+            
+            
+        });
     };
 
 
@@ -280,10 +280,11 @@ function ViewModel()
         var currentDate = dp.current;
 
         var cropCycleIdFromStorage = localStorage.getItem("cropCycleId"); //get crop cycle selected
+        var quantityPurchased = document.querySelector("#addMaterialForm .quantity").value;
         var amountRemaining = document.querySelector("#addMaterialForm .amountRemaining").value;
         var cost = document.querySelector("#addMaterialForm .cost").value;
         var amountToAdd = document.querySelector("#addMaterialForm .amountToAdd").value;
-        var useCost = ((amountRemaining / cost) * amountToAdd).toFixed(2); //calculate use cost of that quantity of material
+        var useCost = ((quantityPurchased / cost) * amountToAdd).toFixed(2); //calculate use cost of that quantity of material
         var quantityLeft = amountRemaining - amountToAdd;
 
         if (amountToAdd <= amountRemaining) {
@@ -327,10 +328,10 @@ function ViewModel()
             };
 
            -
-            //now edit quantity in purchase
+            //now edit remaining quantity in purchase
             myDatabase.purchaseList.update(purchaseToDo, purchaseObjectStoreName, function (e) {
                 addMaterialFlyout.hide();
-                appBar.hide();
+              //  appBar.hide();
                 addMaterialForm.reset();
                 listView.selection.clear();
 
@@ -354,7 +355,6 @@ function ViewModel()
         e.preventDefault();
 
         addMaterialFlyout.hide();
-        appBar.hide();
         addMaterialForm.reset();
         listView.selection.clear();
     };

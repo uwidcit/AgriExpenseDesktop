@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Default Page</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+    
+    <script src="/js/transactionMethods.js"></script>
+    <script src="/js/cycleUsage.js"></script>
+    <script src="/js/globalStores.js"></script>
+    <!-- myPurchases references -->
+
+    <link href="/css/cycleUsage.css" rel="stylesheet" />
+    <script src="/js/default.js"></script>
+</head>
+<body onload="onCyclesPageLoad()">
+    
+       <div id="previousPurchasesItemTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
+            <div class="item">
+                Name:<span data-win-bind="textContent:resourceName" class="item-sub"></span> <br />
+                Amount Added:<span data-win-bind="textContent:amountToAdd" class="item-sub"></span>
+                    <span data-win-bind="textContent:quantifier" class="item-sub"></span> <br />
+            
+                Cost: $<span data-win-bind="textContent:useCost" class="item-sub"></span> <br />
+                Date Added:<span data-win-bind="textContent:datePurchased" class="item-sub"></span> <br />
+            </div>
+      </div>
+
+        <div id="labourTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
+            <div class="item">
+                <span data-win-bind="textContent: personName" class="item-title"></span> <br />       
+                Cost: $<span data-win-bind="textContent: cost" class="item-sub"></span> <br />       
+            </div>
+       </div>
+
+    <div class="fragment toDo">
+        <header role="banner">
+            <h2 class="titlearea"><a href="default.html">Home</a> > <a href="cycles.html">Crop Cycles</a> > Cycle Usage</h2>
+
+            <br /> <br />
+            <a href="default.html" style="padding-left: 50px;"><img src="/images/home.png" alt="HOME" style="width:42px;height:42px;"></a>
+
+        </header>
+
+        <div id ="addNewCycleTitle">
+          <h2> This Cycle </h2>
+       </div>
+
+        <div id="recentCyclesTitle">
+            <h2>Items Used</h2>
+        </div>
+
+        <section role="main">
+            <aside>
+
+                <div id="cycleInfo">   
+                    <p id="cycleNameID"></p>
+                    <p id="cycleCropID"></p>
+                    <p id="cycleLandTypeID"></p>
+                    <p id="cycleLandQuantityID"></p>
+                    <p id="cycleStartDateID"></p><br />
+                    <h2 id="cycleTotalCost"></h2>
+                    <p id="fertilizersUsed"></p>
+                    <p id="chemicalsUsed"></p>
+                    <p id="plantingMaterialsUsed"></p>
+                    <p id="soilAmendmentsUsed"></p>
+                    <p id="otherUsed"></p>
+                    <p id="labourUsed"></p> <br />
+                    <button style="border:solid; border-color:black;color:black;" onclick="location.href='harvest.html'">Calculate Sales</button>
+                  </div>
+
+                
+            </aside>
+
+            <div class="displayListColumn">
+                    <div id="cycleList" style="display:none;" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+                    <div id="ruList" style="display: none;" class="pList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div> 
+             </div>
+
+             <div class="chemicalListColumn">
+                 Chemicals <button onclick="chemicalButtonClick()">Add More Chemicals</button>
+                 <div id="chemicalList"  class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div>
+             </div>      
+                              
+             <div class="fertilizerListColumn">
+                 Fertilizers <button onclick="fertilizerButtonClick()">Add More Fertilizers</button>
+                 <div id="fertilizerList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div>
+             </div>  
+             <div class="plantingMaterialListColumn">
+                 Planting Materials <button onclick="plantingMaterialButtonClick()">Add More Planting Material</button>
+                 <div id="plantingMaterialList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }">No Planting Materials Added</div>
+             </div>
+             <div class="soilAmendmentListColumn">
+                 Soil Amendments <button onclick="soilAmendmentButtonClick()">Add More Soil Amendments</button>
+                 <div id="soilAmendmentList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }">No Soil Amendments Added</div> 
+             </div>   
+            <div class="otherListColumn">
+                Other <button onclick="otherButtonClick()">Add More Other</button>
+                 <div id="otherList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }">No Other Items Added</div>            
+            </div>
+            <div class="labourListColumn">
+                Labour <button onclick="location.href='labour.html'">Add More Employees</button>
+                 <div id="labourList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#labourTemplate') }">No Employees Added</div>            
+            </div>        
+          
+
+        </section>
+    </div>
+    <div id="appBar" data-win-control="WinJS.UI.AppBar">
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'deleteCommand', label:'Delete', icon:'remove', section:'selection', hidden:'true', extraClass:'appBarSelection'}">
+        </button>
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'editCommand', label:'Edit', icon:'edit', section:'selection', hidden:'true', extraClass:'appBarSelection appBarSingleSelection'}">
+        </button>
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'addMaterialCommand', label:'Add Material', icon:'edit', section:'selection', hidden:'true', extraClass:'appBarSelection appBarSingleSelection'}">
+        </button>
+    </div>
+    
+
+
+
+  
+</body>
+</html>
