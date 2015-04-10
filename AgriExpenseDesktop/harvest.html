@@ -10,11 +10,11 @@
     <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
     
     <script src="/js/transactionMethods.js"></script>
-    <script src="/js/cycleDb.js"></script>
+    <script src="/js/harvest.js"></script>
     <script src="/js/globalStores.js"></script>
     <!-- myPurchases references -->
 
-    <link href="/css/cycles.css" rel="stylesheet" />
+    <link href="/css/harvest.css" rel="stylesheet" />
     <script src="/js/default.js"></script>
 </head>
 <body onload="onCyclesPageLoad()">
@@ -31,7 +31,7 @@
     </div>
     <div class="fragment toDo">
         <header role="banner">
-            <h2 class="titlearea"><a href="default.html">Home</a> > Crop Cycles</h2>
+            <h2 class="titlearea"><a href="default.html">Home</a> > <a href="cycles.html">Crop Cycles</a> > <a href="cycleUsage.html">Cycle Usage</a> > Harvest</h2>
 
             <br /> <br />
             <a href="default.html" style="padding-left: 50px;"><img src="/images/home.png" alt="HOME" style="width:42px;height:42px;"></a>
@@ -39,143 +39,81 @@
         </header>
 
         <div id ="addNewCycleTitle">
-          <h2> Add New Crop Cycle </h2>
+          <h2> This Cycle </h2>
        </div>
 
         <div id="recentCyclesTitle">
-            <h2>Recent Crop Cycles</h2>
+            <h2>Edit Harvest Details</h2>
         </div>
 
         <section role="main">
             <aside>
 
-                <form id="addForm">
-                    <br /><br />
-                    <label>Name</label>
-                    <input type="text" class="name input-block" required />
-                    <label>Crop</label>
-                    <select id="cropSelect" class="crop input-block"></select>
-                    <script>
-
-                        //add blank element to the top of list
-                        var select = document.getElementById("cropSelect");
-                        var opt = "";
-                        var el = document.createElement("option");
-                        el.textContent = opt;
-                        el.value = opt;
-                        select.appendChild(el);
-
-                        var select = document.getElementById("cropSelect");
-                        for (var i = 0; i < cropArray.length; i++) {
-                            var opt = cropArray[i];
-                            var el = document.createElement("option");
-                            el.textContent = opt;
-                            el.value = opt;
-                            select.appendChild(el);
-                        }
-                    </script>
-                  
-
-                    <label>Type of Land</label>
-                    <select id="landTypeSelect" class="typeOfLand input-block"></select>
-                    <script>
-
-                        //add blank element to the top of list
-                        var select = document.getElementById("landTypeSelect");
-                        var opt = "";
-                        var el = document.createElement("option");
-                        el.textContent = opt;
-                        el.value = opt;
-                        select.appendChild(el);
-
-                        for (var i = 0; i < landTypeArray.length; i++) {
-                            var opt = landTypeArray[i];
-                            var el = document.createElement("option");
-                            el.textContent = opt;
-                            el.value = opt;
-                            select.appendChild(el);
-                        }
-                    </script>
-                
+            <div id="cycleInfo">   
+                    <p id="cycleNameID"></p>
+                    <p id="cycleCropID"></p>
+                    <p id="cycleLandTypeID"></p>
+                    <p id="cycleLandQuantityID"></p>
+                    <p id="cycleStartDateID"></p><br />
    
-                   
-                    <label>Land Quantity</label>
-                    <input type="text" class="quantity input-block" required />
-                    <label>Start Date</label>
-                    <div id="dateDiv" data-win-control="WinJS.UI.DatePicker" class="startDate"></div>
+                    <h2 id="profitAmount"></h2>
                     
-                    <br /> <br />
-                    <div>
-                        <button type="submit" class="width-150px">Add</button>
-                    </div>
-                </form>
+                  </div>
+
+                
+             <!-- After form is submitted, calculate profit and put it here-->
+            <!-- Put Harvest Deets on Previous Page-->
 
                 
             </aside>
-
-            <div class="displayListColumn">
-                <div id="cycleList" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
-            </div>
-
-        </section>
-    </div>
-    <div id="appBar" data-win-control="WinJS.UI.AppBar">
-        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'deleteCommand', label:'Delete', icon:'remove', section:'selection', hidden:'true', extraClass:'appBarSelection'}">
-        </button>
-        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'editCommand', label:'Edit', icon:'edit', section:'selection', hidden:'true', extraClass:'appBarSelection appBarSingleSelection'}">
-        </button>
-        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'addMaterialCommand', label:'Add Material', icon:'edit', section:'selection', hidden:'true', extraClass:'appBarSelection appBarSingleSelection'}">
-        </button>
-    </div>
-    <div id="editFlyout" data-win-control="WinJS.UI.Flyout">
-
-
-        <form id="editForm">
-            <h2>Edit Cycle</h2>
-            <input type="hidden" class="id" data-win-bind="value:id" />
-            <input type="hidden" class="lvIndex" data-win-bind="value:lvIndex" />
-            
-            <label>Name</label>
-            <input type="text" class="name input-block" data-win-bind="value:name" required />
-
-            <label>Crop</label>
-                    <select id="cropSelectEdit" class="crop input-block" required></select>
-                    <!-- populate select box with list of crops-->
+          
+             <div class="displayListColumn">
+                <form id="harvestForm">
+                    <br /><br />
+                   
+                    <label>Measurement</label>
+                    <select id="harvestSelect" class="measurement input-block"></select>
                     <script>
 
                         //add blank element to the top of list
-                        var select = document.getElementById("cropSelectEdit");
+                        var select = document.getElementById("harvestSelect");
                         var opt = "";
                         var el = document.createElement("option");
                         el.textContent = opt;
                         el.value = opt;
                         select.appendChild(el);
 
-                        for (var i = 0; i < cropArray.length; i++) {
-                            var opt = cropArray[i];
+                        var select = document.getElementById("harvestSelect");
+                        for (var i = 0; i < harvestQuantifierArray.length; i++) {
+                            var opt = harvestQuantifierArray[i];
                             var el = document.createElement("option");
                             el.textContent = opt;
                             el.value = opt;
                             select.appendChild(el);
                         }
                     </script>
-            <label>
-                Type Of Land
-            </label>
-            <input type="text" class="typeOfLand input-block" data-win-bind="value:typeOfLand" required />
-            <label>
-                Land Quantity
-            </label>
-            <input type="text" class="quantity input-block" data-win-bind="value:quantity" required />
-            <label>
-                Start Date
-            </label>
-            <div id="startDateEdit" data-win-control="WinJS.UI.DatePicker" class="startDate"></div>
-            <div>
-                <button type="submit">Save</button>
-                <button class="cancel">Cancel</button>
+                    <label>Amount Harvested</label>
+                    <input type="number" class="amountHarvested input-block" required />
+
+                    <label>Cost Per Crop</label>
+                    <input type="number" class="costPerCrop input-block" required />
+
+                    <label>Harvest Date</label>
+                    <div id="harvestDate" data-win-control="WinJS.UI.DatePicker" class="harvestDate"></div>
+                    
+                    <br /> <br />
+                    <div>
+                        <button type="submit" class="width-150px">Submit</button>
+                    </div>
+                </form>
             </div>
-        </form>
+           
+
+        </section>
+
+       
     </div>
+    
+
 </body>
 </html>

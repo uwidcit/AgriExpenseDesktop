@@ -42,8 +42,9 @@
         margin-left: 120px;
         margin-right: 120px;
 
-        -ms-grid-columns: 350px 50px 350px 350px;
+        -ms-grid-columns: 350px 50px 360px 360px;
         -ms-grid-rows: 1fr 1fr 1fr;
+        
         display: -ms-grid;
     }
 
@@ -51,7 +52,7 @@
 
 .toDo aside {
    -ms-grid-column: 1;
-   -ms-grid-row-span:3; /*aside will span all three rows*/
+   -ms-grid-row-span:11; /*aside will span all three rows*/
     padding-right: 30px;
     padding-left:10px;
     color:black;
@@ -62,9 +63,14 @@
     margin-top: 20px;
 }
 
+
+
+
 .toDo .chemicalListColumn {
    -ms-grid-column:3;    /*3rd column*/
    -ms-grid-row:1;
+   border-style:solid;
+   border-color:black;
    
 }
 
@@ -78,15 +84,15 @@
    -ms-grid-row:3; 
 }
 .toDo .soilAmendmentListColumn {
-   -ms-grid-column:4;    /*3rd column*/
+   -ms-grid-column:4;    /*4th column*/
    -ms-grid-row:1; 
 }
 .toDo .otherListColumn {
-   -ms-grid-column:4;    /*3rd column*/
+   -ms-grid-column:4;    /*4th column*/
    -ms-grid-row:2; 
 }
 .toDo .labourListColumn {
-   -ms-grid-column:4;    /*3rd column*/
+   -ms-grid-column:4;    /*4th column*/
    -ms-grid-row:3; 
 }
 

@@ -49,6 +49,8 @@ var purchaseTypeArray = ["Chemical", "Fertlizer", "Planting Material", "Soil Ame
 var labourArray = [""];
 var paymentArray = ["Hourly", "Daily", "Per Crop Cycle"];
 
+var harvestQuantifierArray = ["100's", "5lb Bundle", "Bag", "Bundle", "Head", "Kg", "Lb"];
+
 //For genertaing reports - Parallel Arrays
 var cropCycleIdsArray = []; //crop cycle id's
 var cropCycleNamesArray = []; //name of crop cycles

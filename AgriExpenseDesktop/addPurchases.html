@@ -62,7 +62,7 @@
                     </div> 
 
                      <div id="addMaterialTitle">
-                        <h2>Add Materials to this Cycle: (Right click on item to select)</h2>
+                        <h2>Add Materials to this Cycle</h2>
                     </div> 
 
                   <div id="cycleInfo">   
@@ -71,46 +71,26 @@
                     <p id="cycleLandTypeID"></p>
                     <p id="cycleLandQuantityID"></p>
                     <p id="cycleStartDateID"></p><br />
+                    
                     <h2 id="cycleTotalCost"></h2>
+
                     <p id="fertilizersUsed"></p>
                     <p id="chemicalsUsed"></p>
                     <p id="plantingMaterialsUsed"></p>
                     <p id="soilAmendmentsUsed"></p>
                     <p id="otherUsed"></p>
                     <p id="labourUsed"></p> <br />
-                    <button style="border:solid; border-color:black;color:black;" onclick="location.href='harvest.html'">Calculate Sales</button>
+                    
                   </div>
   
                     <div id="pList" class="pList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>               
             </section>
-            
-        <section role="contentinfo">
-            <div id="listInfoTitle">
-                <br /><br /><h2>Items Used: </h2></div> 
-            <div id="chemicalTitle"><h3>Chemicals </h3></div>
-            <div id="fertilizerTitle"><h3>Fertlizers </h3></div>
-            <div id="plantingMaterialTitle"><h3>Planting Materials </h3></div>
-            <div id="soilAmendmentTitle"><h3>Soil Amendments </h3></div>
-            <div id="otherTitle"><h3>Others </h3></div>
-            <div id="labourTitle"><h3>Employees </h3></div>
-                 <!-- Items used in this cycle-->
-                    <div id="ruList" style="display: none;" class="pList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div> 
-                    <div id="chemicalList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div>
-                    <div id="fertilizerList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div>
-                    <div id="plantingMaterialList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div>
-                    <div id="soilAmendmentList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div> 
-                    <div id="otherList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div>            
-                    <div id="labourList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#labourTemplate') }"></div>            
-       </section>
+            <div id="ruList" style="display: none;" class="pList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div> 
+
 
    </div> 
     
-<!--   
-    <div id="appBar" data-win-control="WinJS.UI.AppBar">
-       
-        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'addMaterialCommand', label:'Add Material', icon:'edit', section:'selection', hidden:'true', extraClass:'appBarSelection appBarSingleSelection'}">
-        </button>
-    </div> -->
+
         
     <div id="addMaterialFlyout" data-win-control="WinJS.UI.Flyout">
         <form id="addMaterialForm">

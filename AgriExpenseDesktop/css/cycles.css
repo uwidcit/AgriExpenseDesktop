@@ -49,11 +49,11 @@
 
 
 
-.toDo aside {
+.toDo aside { /*add form*/
    -ms-grid-column: 1;
     padding-right: 30px;
     padding-left:10px;
-    background-image: -ms-linear-gradient(bottom, #CFFFBA 0%, #689F38 100%);
+    color:black;
 }
 
 .toDo aside hr {
@@ -67,7 +67,6 @@
     padding-right: 30px;
     padding-left:30px;
    
-    /*overflow-x: scroll;*/
 }
 
 
@@ -80,7 +79,7 @@
 
     .toDo .cycleList .item {
          height: 150px;
-        width: 300px;
+        width: 250px;
         padding: 10px;
         background-color: #FFFFFF;
         color:#689F38;

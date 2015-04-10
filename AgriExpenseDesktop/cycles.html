@@ -100,7 +100,7 @@
    
                    
                     <label>Land Quantity</label>
-                    <input type="text" class="quantity input-block" required />
+                    <input type="number" class="quantity input-block" required />
                     <label>Start Date</label>
                     <div id="dateDiv" data-win-control="WinJS.UI.DatePicker" class="startDate"></div>
                     
@@ -123,8 +123,6 @@
         <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'deleteCommand', label:'Delete', icon:'remove', section:'selection', hidden:'true', extraClass:'appBarSelection'}">
         </button>
         <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'editCommand', label:'Edit', icon:'edit', section:'selection', hidden:'true', extraClass:'appBarSelection appBarSingleSelection'}">
-        </button>
-        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'addMaterialCommand', label:'Add Material', icon:'edit', section:'selection', hidden:'true', extraClass:'appBarSelection appBarSingleSelection'}">
         </button>
     </div>
     <div id="editFlyout" data-win-control="WinJS.UI.Flyout">
@@ -166,7 +164,7 @@
             <label>
                 Land Quantity
             </label>
-            <input type="text" class="quantity input-block" data-win-bind="value:quantity" required />
+            <input type="number" class="quantity input-block" data-win-bind="value:quantity" required />
             <label>
                 Start Date
             </label>

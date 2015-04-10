@@ -5,7 +5,7 @@
 
 .fragment {
     -ms-grid-columns: 6fr 1fr;
-    -ms-grid-rows: 128px 250px 1fr; /*1fr is for Materials used in this cycle*/
+    -ms-grid-rows: 128px 500px 1fr; /*1fr is for Materials used in this cycle*/
     display: -ms-grid;
     height: 100%;
     width: 100%;
@@ -55,126 +55,7 @@
         
     }
 
-    .fragment section[role=contentinfo] {
-        -ms-grid-row:3; /*1fr from the top of this file*/
-        height:100%;
-        width:100%;
 
-        margin-left: 120px;
-        margin-right: 120px;
-
-        -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr 1fr; /*5 types of items and a blank one at the end*/
-        -ms-grid-rows: 100px 10px 1fr;
-        display:-ms-grid;
-    }
-
-    .fragment section[role=contentinfo] #listInfoTitle {
-        -ms-grid-column:1;
-        -ms-grid-row:1;
-        padding-left:270px;
-    }
-
-    .fragment section[role=contentinfo] #chemicalTitle {
-        -ms-grid-column:1;
-        -ms-grid-row:2;
-        padding-left:270px;
-    }
-
-    .fragment section[role=contentinfo] #fertilizerTitle {
-        -ms-grid-column:2;
-        -ms-grid-row:2;
-         padding-left:270px;
-    }
-
-    .fragment section[role=contentinfo] #plantingMaterialTitle {
-        -ms-grid-column:3;
-        -ms-grid-row:2;
-         padding-left:270px;
-    }
-
-    .fragment section[role=contentinfo] #soilAmendmentTitle {
-        -ms-grid-column:4;
-        -ms-grid-row:2;
-         padding-left:270px;
-    }
-
-    .fragment section[role=contentinfo] #otherTitle {
-        -ms-grid-column:5;
-        -ms-grid-row:2;
-         padding-left:270px;
-    }
-
-     .fragment section[role=contentinfo] #labourTitle {
-        -ms-grid-column:6;
-        -ms-grid-row:2;
-         padding-left:270px;
-    }
-
-    .fragment section[role=contentinfo] #chemicalList {
-        -ms-grid-column:1;
-        -ms-grid-row:3;
-         padding-left:270px;
-    }
-
-    .fragment section[role=contentinfo] #fertilizerList {
-        -ms-grid-column:2;
-        -ms-grid-row:3;
-         padding-left:270px;
-    }
-
-    .fragment section[role=contentinfo] #plantingMaterialList {
-        -ms-grid-column:3;
-        -ms-grid-row:3;
-         padding-left:270px;
-    }
-
-    .fragment section[role=contentinfo] #soilAmendmentList {
-        -ms-grid-column:4;
-        -ms-grid-row:3;
-         padding-left:270px;
-    }
-
-    .fragment section[role=contentinfo] #otherList {
-        -ms-grid-column:5;
-        -ms-grid-row:3;
-         padding-left:270px;
-    }
-
-    .fragment section[role=contentinfo] #labourList {
-        -ms-grid-column:6;
-        -ms-grid-row:3;
-         padding-left:270px;
-    }
-
-
-
-    .toDo .iList {
-    -ms-grid-column: 3;
-    -ms-grid-row:2;
-    height: 100%;
-    width: 100%;
-}
-
-    .toDo .iList .item {
-        height: 130px;
-        width: 200px;
-        padding: 10px;
-        background-color: #FFFFFF;
-        border-style:solid;
-        border-color:#689F38;
-        color:#689F38;
-    }
-
-        .toDo .iList .item .item-title {
-            font-weight: 600;
-            font-size: 15pt;
-        }
-
-        .toDo .iList .item .item-sub {
-            overflow: hidden;
-            margin-left: 1px;
-            font-size:12pt;
-        }
 
 
 .toDo .pList {
@@ -182,6 +63,7 @@
        
     -ms-grid-column: 3;
     -ms-grid-row:2;
+
     height: 100%;
     width: 100%;
 }
@@ -219,4 +101,3 @@
     padding-left: 0;
     box-sizing: border-box;
 }
-

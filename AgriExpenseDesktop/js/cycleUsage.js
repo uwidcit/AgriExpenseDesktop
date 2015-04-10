@@ -1,14 +1,11 @@
-﻿/// <reference path="addOtherPurchase.js" />
-
-
-
-//var cropCycleId;
-
+﻿
 
 function onCyclesPageLoad() {
     WinJS.UI.processAll().then(function () {
         initializeDb().done(function () {
             initializeCycleUI();
+
+            localStorage.setItem("totalCycleCost", 0); //initialise the total cost of the cycle
 
             var cycleName = localStorage.getItem("cropCycleName");
             var cycleCrop = localStorage.getItem("cropCycleCrop");
@@ -22,7 +19,7 @@ function onCyclesPageLoad() {
             document.getElementById("cycleCropID").innerHTML = "Crop: " + cycleCrop;
             document.getElementById("cycleLandTypeID").innerHTML = "Land Type: " + cycleTypeOfLand;
             document.getElementById("cycleLandQuantityID").innerHTML = "Land Quantity: " + cycleLandQuantity;
-            // document.getElementById("cycleStartDateID").innerHTML = "Start Date: " + cycleStartDate;
+             document.getElementById("cycleStartDateID").innerHTML = "Start Date: " + cycleStartDate;
             document.getElementById("cycleTotalCost").innerHTML = "Expenses Summary: ";
 
         });
@@ -112,6 +109,7 @@ function ViewModel() {
                 localStorage.setItem("totalCycleCost", p);
 
                 document.getElementById("fertilizersUsed").innerHTML = "Fertilizers: $" + fCost;
+
             }
 
         });

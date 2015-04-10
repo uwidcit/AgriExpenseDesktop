@@ -5,7 +5,7 @@
         var indexedDB = window.indexedDB;
 
         var init = function (success) {
-            var request = indexedDB.open(dbName, 28); //open database with name dbName (stored in global stores) and version 1
+            var request = indexedDB.open(dbName, 30); //open database with name dbName (stored in global stores) and version 1
 
             request.onsuccess = function () { //database successfully opened
                 myDatabase.data.db = request.result;
@@ -34,7 +34,8 @@
                 db.deleteObjectStore(otherChemicalObjectStoreName);
                 db.deleteObjectStore(otherPlantingMaterialObjectStoreName);
                 db.deleteObjectStore(otherSoilAmendmentObjectStoreName);
-                db.deleteObjectStore(otherQuantifierObjectStoreName); 
+                db.deleteObjectStore(otherQuantifierObjectStoreName);
+                db.deleteObjectStore(harvestObjectStoreName);
                 
                 //create all object stores
                 var purchaseStore = db.createObjectStore(purchaseObjectStoreName, {
@@ -523,6 +524,19 @@
                    store = transaction.objectStore(oStoreName),
                    request = store.add({
                        name: toDo.name //quantifier name
+                   });
+            }
+
+            else if (oStoreName == harvestObjectStoreName) {
+                var
+                   transaction = myDatabase.data.db.transaction(oStoreName, "readwrite"),
+                   store = transaction.objectStore(oStoreName),
+                   request = store.add({
+                       harvestType: toDo.harvestType,
+                       harvestAmount: toDo.harvestAmount,
+                       costPerCrop: toDo.costPerCrop,
+                       harvestDate: toDo.harvestDate,
+                       cropCycleId: toDo.cropCycleId
                    });
             }
                

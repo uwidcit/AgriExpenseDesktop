@@ -283,7 +283,7 @@ function populateTextArea() {
 
     }
 
-    document.getElementById("textAreaPreview").innerHTML = csvContent;
+ //   document.getElementById("textAreaPreview").innerHTML = csvContent;
 }
 
 

@@ -30,7 +30,6 @@ function initializeCycleUI() {
     document.getElementById("editForm").addEventListener("submit", viewModel.submitEdit, false);
     document.getElementById("deleteCommand").addEventListener("click", viewModel.deleteToDo, false);
     document.getElementById("editCommand").addEventListener("click", viewModel.editToDo, false);
-    document.getElementById("addMaterialCommand").addEventListener("click", viewModel.getCropCycleInfo, false);
     document.querySelector("#editForm .cancel").addEventListener("click", viewModel.cancelEdit, false);
 }
 
@@ -159,7 +158,14 @@ function ViewModel() {
         e.preventDefault();
 
         var dp = document.getElementById("dateDiv").winControl;
-        var currentDate = dp.current;
+        var year = dp.current.getFullYear().toString();
+        var month1 = dp.current.getMonth() + 1;
+        var month = month1.toString();
+        var date = dp.current.getDate().toString();
+
+        var stringDate = date + " / " + month + " / " + year;
+        var currentDate = stringDate;
+        
 
         var toDo = {
             name: document.querySelector("#addForm .name").value,
@@ -181,7 +187,13 @@ function ViewModel() {
         e.preventDefault();
 
         var dp = document.getElementById("startDateEdit").winControl;
-        var currentDate = dp.current;
+        var year = dp.current.getFullYear().toString();
+        var month1 = dp.current.getMonth() + 1;
+        var month = month1.toString();
+        var date = dp.current.getDate().toString();
+
+        var stringDate = date + " / " + month + " / " + year;
+        var currentDate = stringDate;
 
         var toDo = {
             id: document.querySelector("#editForm .id").value,
