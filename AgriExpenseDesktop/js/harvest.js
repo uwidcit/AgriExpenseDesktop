@@ -1,14 +1,8 @@
-﻿/// <reference path="addOtherPurchase.js" />
-
-
-
-//var cropCycleId;
-
-
-function onCyclesPageLoad() {
+﻿
+function onHarvestPageLoad() {
     WinJS.UI.processAll().then(function () {
         initializeDb().done(function () {
-            initializeCycleUI();
+            initializeHarvestUI();
 
             var cycleName = localStorage.getItem("cropCycleName");
             var cycleCrop = localStorage.getItem("cropCycleCrop");
@@ -22,7 +16,7 @@ function onCyclesPageLoad() {
             document.getElementById("cycleCropID").innerHTML = "Crop: " + cycleCrop;
             document.getElementById("cycleLandTypeID").innerHTML = "Land Type: " + cycleTypeOfLand;
             document.getElementById("cycleLandQuantityID").innerHTML = "Land Quantity: " + cycleLandQuantity;
-            // document.getElementById("cycleStartDateID").innerHTML = "Start Date: " + cycleStartDate;
+            document.getElementById("cycleStartDateID").innerHTML = "Start Date: " + cycleStartDate;
 
         });
     });
@@ -36,7 +30,7 @@ function initializeDb() {
     });
 }
 
-function initializeCycleUI() {
+function initializeHarvestUI() {
     var viewModel = new ViewModel();
     viewModel.init();
 
@@ -49,14 +43,59 @@ function ViewModel() {
     var
         harvestForm = document.getElementById("harvestForm"),
         self = this,
+        harvestList,
         dataList;
 
     this.init = function () {
 
         myDatabase.purchaseList.getList(harvestObjectStoreName, function (e) {
-         dataList = new WinJS.Binding.List(e);
+         dataList = new WinJS.Binding.List(e);       
+        });
+
+        myDatabase.purchaseList.getHarvestForEachCycle(harvestObjectStoreName, localStorage.getItem("cropCycleId"), function (e) {
+            harvestList = new WinJS.Binding.List(e); //harvestList should have at most one item in it
+
+
+            var harvestAmountCalculated = localStorage.getItem("harvestAlreadyPresent");
+
+            if (harvestAmountCalculated == "yes") {
+                
+                //an entry already exixts for this cycle
+                harvestList.forEach(countItems);
+
+                function countItems(value, index) { //it should have at MOST one item
+                    localStorage.setItem("itemIndex", index);
+
+                    var profit = parseFloat(value.profit);
+                    console.log("profit : " + profit);
+
+                    console.log("direct profit : " + value.profit);
+
+                    if (profit < 0) {
+                        var loss = profit * (-1);
+                        document.getElementById("profitAmount").innerHTML = "Loss: $ " + loss;
+
+                    }
+                    else {
+                        document.getElementById("profitAmount").innerHTML = "Profit: $ " + profit;
+                    }
+
+                } //end countItems
+
+            }
+            else { //no entry exists
+                document.getElementById("profitAmount").innerHTML = "Harvest Details Not Entered";
+            }
+
+
+        });
+
+      
+
         
-     });  
+
+
+
     };
 
 
@@ -73,43 +112,79 @@ function ViewModel() {
     this.submitAdd = function (e) {
         e.preventDefault();
 
-        var dp = document.getElementById("harvestDate").winControl;
-        var currentDate = dp.current;
+        var harvestPresent = localStorage.getItem("harvestAlreadyPresent");
 
-        var toDo = {
-            harvestType: document.querySelector("#harvestForm .measurement").value,
-            harvestAmount: document.querySelector("#harvestForm .amountHarvested").value,
-            costPerCrop: document.querySelector("#harvestForm .costPerCrop").value,
-            harvestDate: currentDate,
-            cropCycleId: localStorage.getItem("cropCycleId")
-        };
+        if (harvestPresent == "no") {
+            console.log("no");
 
-        var cycleTotalCost = parseFloat(localStorage.getItem("totalCycleCost"));
-        var amountOfMoneyMade = toDo.harvestAmount * toDo.costPerCrop;
-        var profit = amountOfMoneyMade - cycleTotalCost; //need to store this value in the database and then get it from there
+            var dp = document.getElementById("harvestDate").winControl;
+            var currentDate = dp.current;
+            var cycleTotalCost = parseFloat(localStorage.getItem("totalCycleCost"));
+            var amountOfMoneyMade = (document.querySelector("#harvestForm .amountHarvested").value) * (document.querySelector("#harvestForm .costPerCrop").value);
+            var profit = amountOfMoneyMade - cycleTotalCost; //need to store this value in the database and then get it from there.
 
-        if (profit < 0) {
-            var loss = profit * (-1);
-            document.getElementById("profitAmount").innerHTML = "Loss: $ " + loss;
+            var toDo = {
+                harvestType: document.querySelector("#harvestForm .measurement").value,
+                harvestAmount: document.querySelector("#harvestForm .amountHarvested").value,
+                costPerCrop: document.querySelector("#harvestForm .costPerCrop").value,
+                harvestDate: currentDate,
+                profit: profit,
+                cropCycleId: localStorage.getItem("cropCycleId")
+            };
 
+            myDatabase.purchaseList.add(toDo, harvestObjectStoreName, function (e) {
+                harvestList.push(e);
+
+                harvestForm.reset();
+                window.location = "harvest.html"; //refresh page
+            });
         }
-        else {
-            document.getElementById("profitAmount").innerHTML = "Profit: $ " + profit;
-        }
+    
+        else if (harvestPresent == "yes") {
+            //Need to Update
 
-        //Add To Database
+            console.log("yes, so we need to update");
 
+            var dp = document.getElementById("harvestDate").winControl;
+            var currentDate = dp.current;
+            var cycleTotalCost = parseFloat(localStorage.getItem("totalCycleCost"));
+            var amountOfMoneyMade = (document.querySelector("#harvestForm .amountHarvested").value) * (document.querySelector("#harvestForm .costPerCrop").value);
+            var profit = amountOfMoneyMade - cycleTotalCost;
 
-      /*  myDatabase.purchaseList.add(toDo, harvestObjectStoreName, function (e) {
-            dataList.push(e);
+            var toDoEdit = {
+                id: parseInt(localStorage.getItem("harvestIdOfEntry")),
+                harvestType: document.querySelector("#harvestForm .measurement").value,
+                harvestAmount: document.querySelector("#harvestForm .amountHarvested").value,
+                costPerCrop: document.querySelector("#harvestForm .costPerCrop").value,
+                harvestDate: currentDate,
+                profit: profit,
+                cropCycleId: parseInt(localStorage.getItem("cropCycleId")),
+                lvIndex: parseInt(localStorage.getItem("itemIndex"))
+            };
+            
+            //update entry
+            
+            myDatabase.purchaseList.update(toDoEdit, harvestObjectStoreName, function (e) {
+                harvestList.setAt(toDoEdit.lvIndex, toDoEdit);
 
-            //calculate profit details here:
+                window.location = "harvest.html"
+            });
+
            
-        
 
-           // harvestForm.reset();
-           // window.location = "harvest.html"; //refresh page
-        }); */
+        }
+
+       
+
+
+
+
+
+
+       
+
+
+      
 
 
     };

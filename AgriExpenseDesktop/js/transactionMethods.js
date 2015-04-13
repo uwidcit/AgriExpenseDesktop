@@ -377,6 +377,35 @@
             }
         };
 
+        var getHarvestForEachCycle = function (oStoreName, cropCyId, success) {
+
+            //initialise harvestAlreadyPresent and harvestIdOfEntry variable
+            localStorage.setItem("harvestAlreadyPresent", "no");
+            localStorage.setItem("harvestIdOfEntry", 0);
+            var
+                list = [],
+                transaction = myDatabase.data.db.transaction(oStoreName),
+                store = transaction.objectStore(oStoreName);
+
+            store.openCursor().onsuccess = function (e) {
+                var cursor = e.target.result;
+
+                if (cursor) {
+                    if ((cursor.value.cropCycleId == cropCyId)) {  //filter by cropcycle id
+                        //add something to local storage to check if an entry already exists
+                        localStorage.setItem("harvestAlreadyPresent", "yes");
+                        localStorage.setItem("harvestIdOfEntry", cursor.value.id);
+                        list.push(cursor.value); //add item to list
+                    }
+                    cursor.continue();
+                }
+                else {
+                    success(list);
+                };
+
+            }
+        };
+
        
 
         //search for an item in an object store in the database
@@ -536,6 +565,7 @@
                        harvestAmount: toDo.harvestAmount,
                        costPerCrop: toDo.costPerCrop,
                        harvestDate: toDo.harvestDate,
+                       profit: toDo.profit,
                        cropCycleId: toDo.cropCycleId
                    });
             }
@@ -543,6 +573,7 @@
             
             request.onsuccess = function (e) {
                 toDo.id = e.target.result;
+                console.log("this id : " + toDo.id);
                 success(toDo);
             };
         };
@@ -605,6 +636,25 @@
                 };
             }
 
+            else if (oStoreName == harvestObjectStoreName) {
+                var
+                  transaction = myDatabase.data.db.transaction(oStoreName, "readwrite"),
+                  store = transaction.objectStore(oStoreName),
+                  request = store.put({
+                      id: parseInt(toDo.id, 10),
+                      harvestType: toDo.harvestType,
+                      harvestAmount: toDo.harvestAmount,
+                      costPerCrop: toDo.costPerCrop,
+                      harvestDate: toDo.harvestDate,
+                      profit: toDo.profit,
+                      cropCycleId: toDo.cropCycleId
+                  });
+
+                request.onsuccess = function () {
+                    success(toDo);
+                };
+            }
+
           
         };
 
@@ -627,6 +677,7 @@
             getCycleList: getCycleList,
             getDataForEachCycle: getDataForEachCycle,
             getLabourForEachCycle: getLabourForEachCycle,
+            getHarvestForEachCycle: getHarvestForEachCycle,
             getDetailsFromPurchase: getDetailsFromPurchase,
             getListByItemType: getListByItemType,
             add: add,
