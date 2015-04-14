@@ -1,9 +1,4 @@
-﻿/// <reference path="addOtherPurchase.js" />
-
-
-
-//var cropCycleId;
-
+﻿
 
 function onCyclesPageLoad() {
     WinJS.UI.processAll().then(function () {
@@ -143,6 +138,9 @@ function ViewModel() {
                     startDate: item.data.startDate,
                     lvIndex: item.index
                 };
+
+                document.getElementById('labelCropName').innerText = "Crop : " + "(Previous: " + toDo.crop + ")";
+                document.getElementById('labelLandType').innerText = "Land Type : " + "(Previous: " + toDo.typeOfLand + ")";
 
                 var process = WinJS.Binding.processAll(editFlyoutElement, toDo);
 

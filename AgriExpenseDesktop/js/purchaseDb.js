@@ -280,9 +280,9 @@ function ViewModel() {
                 };
 
                 //put the previous type, name and quantifier as part of the label because it cannot be done in the actual edit form because the form is dynamic
-                document.getElementById('labelType').innerText = "Type : " + toDo.type;
-                document.getElementById('labelName').innerText = "Name : " + toDo.name;
-                document.getElementById('labelQuantifier').innerText = "Quantifier : " + toDo.quantifier;
+                document.getElementById('labelType').innerText = "Type : " + "(Previous: "+toDo.type+")";
+                document.getElementById('labelName').innerText = "Name : " + "(Previous: "+toDo.name+")";
+                document.getElementById('labelQuantifier').innerText = "Quantifier : " +"(Previous: " +toDo.quantifier+")";
 
                 var process = WinJS.Binding.processAll(editFlyoutElement, toDo);
 

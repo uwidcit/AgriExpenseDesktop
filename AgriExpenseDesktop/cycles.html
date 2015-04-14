@@ -136,7 +136,7 @@
             <label>Name</label>
             <input type="text" class="name input-block" data-win-bind="value:name" required />
 
-            <label>Crop</label>
+            <label id="labelCropName">Crop</label>
                     <select id="cropSelectEdit" class="crop input-block" required></select>
                     <!-- populate select box with list of crops-->
                     <script>
@@ -157,18 +157,34 @@
                             select.appendChild(el);
                         }
                     </script>
-            <label>
-                Type Of Land
-            </label>
-            <input type="text" class="typeOfLand input-block" data-win-bind="value:typeOfLand" required />
-            <label>
-                Land Quantity
-            </label>
+
+            <label id="labelLandType">Type Of Land</label>
+            <select id="landTypeSelectEdit" class="typeOfLand input-block" required></select>
+                      <script>
+
+                          //add blank element to the top of list
+                          var select = document.getElementById("landTypeSelectEdit");
+                          var opt = "";
+                          var el = document.createElement("option");
+                          el.textContent = opt;
+                          el.value = opt;
+                          select.appendChild(el);
+
+                          for (var i = 0; i < landTypeArray.length; i++) {
+                              var opt = landTypeArray[i];
+                              var el = document.createElement("option");
+                              el.textContent = opt;
+                              el.value = opt;
+                              select.appendChild(el);
+                          }
+                    </script>
+
+            <label>Land Quantity</label>
             <input type="number" class="quantity input-block" data-win-bind="value:quantity" required />
-            <label>
-                Start Date
-            </label>
+
+            <label>Start Date</label>
             <div id="startDateEdit" data-win-control="WinJS.UI.DatePicker" class="startDate"></div>
+
             <div>
                 <button type="submit">Save</button>
                 <button class="cancel">Cancel</button>
