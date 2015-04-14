@@ -22,7 +22,7 @@
     <div id="purchasesItemTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
         <div class="item">
              <p>Name: <span data-win-bind="textContent: name" class="item-title"></span></p>
-             <p>Id: <span data-win-bind="textContent: id" class="item-sub"></span></p>
+             <p style="display:none;">Id: <span data-win-bind="textContent: id" class="item-sub"></span></p>
              <p>Crop: <span data-win-bind="textContent: crop" class="item-sub"></span></p>
              <p>Type of Land: <span data-win-bind="textContent: typeOfLand" class="item-sub"></span></p>
              <p>Quantity of Land: <span data-win-bind="textContent: quantity" class="item-sub"></span></p>
@@ -31,12 +31,12 @@
     </div>
     <div class="fragment toDo">
          <header role="banner">
-            <h2 class="titlearea">Home > Hire Labour > Choose Crop Cycle</h2>
+             <h2 class="titlearea"><a href="default.html">Home</a> > <a href="labour.html">Labour</a> > Choose Crop Cycle</h2> 
             <br /> <br />
             <a href="default.html" style="padding-left: 50px;"><img src="/images/home.png" alt="HOME" style="width:42px;height:42px;"></a>
         </header>
 
-        <div id ="selectCropCycleTitle"><h2> Select Crop Cycle (Right Click to Select) </h2></div>
+        <div id ="selectCropCycleTitle"><h2> Select Crop Cycle</h2></div>
 
         <section role="main">
             

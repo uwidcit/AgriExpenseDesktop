@@ -58,43 +58,55 @@ function ViewModel() {
 
             var harvestAmountCalculated = localStorage.getItem("harvestAlreadyPresent");
 
-            if (harvestAmountCalculated == "yes") {
-                
-                //an entry already exixts for this cycle
+            if (harvestAmountCalculated == "yes") { //an entry already exixts for this cycle
                 harvestList.forEach(countItems);
-
                 function countItems(value, index) { //it should have at MOST one item
+
+                    //re-calculate harvest profit since more items may have been added to the cycle
+                    var cycleTotalCost = parseFloat(localStorage.getItem("totalCycleCost"));
+                    var amountOfMoneyMade = value.harvestAmount * value.costPerCrop;
+                    var profit = cycleTotalCost - amountOfMoneyMade;
+
                     localStorage.setItem("itemIndex", index);
-
-                    var profit = parseFloat(value.profit);
-                    console.log("profit : " + profit);
-
-                    console.log("direct profit : " + value.profit);
-
+                    //var profit = parseFloat(value.profit);
+                    
                     if (profit < 0) {
                         var loss = profit * (-1);
                         document.getElementById("profitAmount").innerHTML = "Loss: $ " + loss;
-
                     }
                     else {
                         document.getElementById("profitAmount").innerHTML = "Profit: $ " + profit;
                     }
 
+
+                    //update database
+
+                    var toDoEdit = {
+                        id: parseInt(localStorage.getItem("harvestIdOfEntry")),
+                        harvestType: value.harvestType,
+                        harvestAmount: value.harvestAmount,
+                        costPerCrop: value.costPerCrop,
+                        harvestDate: value.harvestDate,
+                        profit: profit,
+                        cropCycleId: parseInt(localStorage.getItem("cropCycleId")),
+                        lvIndex: value.lvIndex
+                    };
+
+                    myDatabase.purchaseList.update(toDoEdit, harvestObjectStoreName, function (e) {
+                        harvestList.setAt(toDoEdit.lvIndex, toDoEdit);
+                       // window.location = "harvest.html"
+                    });
+
                 } //end countItems
+
+
 
             }
             else { //no entry exists
                 document.getElementById("profitAmount").innerHTML = "Harvest Details Not Entered";
             }
 
-
         });
-
-      
-
-        
-
-
 
     };
 

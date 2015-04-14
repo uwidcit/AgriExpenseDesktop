@@ -84,30 +84,25 @@ function ViewModel() {
         
     };
 
-    var deleteItemLeftClick = function (e) {
-        
+    var deleteItemLeftClick = function (e) {        
         e.detail.itemPromise.then(function (item) {
             
             listView.selection.set(item.index);
-
             var dialog = new Windows.UI.Popups.MessageDialog("Are you sure you want to delete?");
-
             dialog.commands.append(new Windows.UI.Popups.UICommand("OK", function (command) {
              
-                            var
-                                dbKey = item.data.id,
-                                lvKey = item.key;
+                 var
+                     dbKey = item.data.id,
+                     lvKey = item.key;
 
-                            myDatabase.purchaseList.remove(dbKey, resourceUseageObjectStoreName, function () {
-                                listView.itemDataSource.remove(lvKey);
-                            });
+                 myDatabase.purchaseList.remove(dbKey, resourceUseageObjectStoreName, function () {
+                     listView.itemDataSource.remove(lvKey);
+                 });
             }));
 
             dialog.commands.append(new Windows.UI.Popups.UICommand("Cancel", null));
-
             dialog.defaultCommandIndex = 1;
             dialog.cancelCommandIndex = 1;
-
             dialog.showAsync();
 
         }); 

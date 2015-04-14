@@ -597,7 +597,6 @@
             
             request.onsuccess = function (e) {
                 toDo.id = e.target.result;
-                console.log("this id : " + toDo.id);
                 success(toDo);
             };
         };

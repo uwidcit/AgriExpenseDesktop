@@ -36,6 +36,10 @@ function ViewModel() {
 
             listView.itemDataSource = dataList.dataSource;
             listView.onselectionchanged = self.selectionChanged;
+
+            WinJS.UI.setOptions(listView, {
+                oniteminvoked: selectItemLeftClick
+            });
         });
     };
 
@@ -79,7 +83,7 @@ function ViewModel() {
               
 
                 //Store entry in labourStore in database
-                var dialog = new Windows.UI.Popups.MessageDialog("Are you sure you want to hire " + toDo2.personName + " for crop cycle "+toDo2.cycleID+"?");
+                var dialog = new Windows.UI.Popups.MessageDialog("Are you sure you want to hire " + toDo2.personName + " for " + toDo.name+"?");
                 dialog.commands.append(new Windows.UI.Popups.UICommand("Yes", function (command) {
                     myDatabase.purchaseList.add(toDo2, labourObjectStoreName, function (e) {
                         dataList.push(e);
@@ -105,21 +109,11 @@ function ViewModel() {
     };
 
 
-
-   
-
-
-  
-
-    this.cancelEdit = function (e) {
-        e.preventDefault();
-
-        editFlyout.hide();
-        appBar.hide();
-        editForm.reset();
-        listView.selection.clear();
+    var selectItemLeftClick = function (e) {
+        e.detail.itemPromise.then(function (item) {
+            listView.selection.set(item.index);
+        });
     };
-
 
 
 

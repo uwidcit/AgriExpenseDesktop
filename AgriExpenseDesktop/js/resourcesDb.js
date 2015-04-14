@@ -20,10 +20,8 @@ function initializeResourcesUI() {
     var viewModel = new ViewModel();
     viewModel.init(); //get relevant information from the database and put it in lists
 
-   // document.getElementById("editForm").addEventListener("submit", viewModel.submitEdit, false); //execute submitEdit method when submit button for editForm is clicked
     document.getElementById("deleteCommand").addEventListener("click", viewModel.deleteToDo, false); //execute deleteToDo method when delete command is selected
-  //  document.getElementById("editCommand").addEventListener("click", viewModel.editToDo, false); //execute editToDo method when edit command is selected.
-  //  document.querySelector("#editForm .cancel").addEventListener("click", viewModel.cancelEdit, false); //execute cancelEdit methos when cancel button on edit form is clicked
+ 
 }
 
 function ViewModel() {
@@ -36,7 +34,6 @@ function ViewModel() {
        
 
         appBar = document.getElementById("appBar").winControl, //control for the menu that comes up on the bottom
-       // editFlyout = document.getElementById("editFlyout").winControl, //control for the edit purchase form
         self = this,
         fertilizerDataList,
         chemicalDataList,
@@ -67,6 +64,10 @@ function ViewModel() {
 
             fertlizerListView.selection.clear(); //de-select all items from the list
             fertlizerListView.onselectionchanged = self.selectionChanged; //get item that the user selects
+
+            WinJS.UI.setOptions(fertlizerListView, {
+                oniteminvoked: deleteFertilizerItemLeftClick
+            });
         });
 
         //get list of all additional chemicals (chemicals added by the farmer) from otherChemicalObjectStore stored in the database
@@ -91,6 +92,10 @@ function ViewModel() {
             chemicalListView.selection.clear();
             chemicalListView.onselectionchanged = self.selectionChanged;
 
+            WinJS.UI.setOptions(chemicalListView, {
+                oniteminvoked: deleteChemicalItemLeftClick
+            });
+
         });
 
         //get list of all additional planting materials (planting materials added by the farmer) from otherPlantingMaterialObjectStore stored in the database
@@ -114,6 +119,10 @@ function ViewModel() {
 
             plantingMaterialListView.selection.clear();
             plantingMaterialListView.onselectionchanged = self.selectionChanged;
+
+            WinJS.UI.setOptions(plantingMaterialListView, {
+                oniteminvoked: deletePlantingMaterialItemLeftClick
+            });
         });
 
 
@@ -138,6 +147,11 @@ function ViewModel() {
 
             soilAmendmentListView.selection.clear();
             soilAmendmentListView.onselectionchanged = self.selectionChanged;
+
+            WinJS.UI.setOptions(soilAmendmentListView, {
+                oniteminvoked: deleteSoilAmendmentItemLeftClick
+            });
+           
         });
 
       
@@ -168,36 +182,27 @@ function ViewModel() {
         if ((selectionCountF > 0) && (selectionCountC === 0) && (selectionCountPM === 0) && (selectionCountSA === 0)) {
             localStorage.setItem("listTypeToUse", "fertlizerListView");
             selectionCount = selectionCountF;
-            console.log("list : " + localStorage.getItem("listTypeToUse"));
-           
         }
 
         if ((selectionCountF === 0) && (selectionCountC > 0) && (selectionCountPM === 0) && (selectionCountSA === 0)) {
             localStorage.setItem("listTypeToUse", "chemicalListView");
             selectionCount = selectionCountC;
-            console.log("list : " + localStorage.getItem("listTypeToUse"));
-
         }
 
         if ((selectionCountF === 0) && (selectionCountC === 0) && (selectionCountPM > 0) && (selectionCountSA === 0)) {
             localStorage.setItem("listTypeToUse", "plantingMaterialListView");
             selectionCount = selectionCountPM;
-            console.log("list : " + localStorage.getItem("listTypeToUse"));
-
         }
 
         if ((selectionCountF === 0) && (selectionCountC === 0) && (selectionCountPM === 0) && (selectionCountSA > 0)) {
             localStorage.setItem("listTypeToUse", "soilAmendmentListView");
             selectionCount = selectionCountSA;
-            console.log("list : " + localStorage.getItem("listTypeToUse"));
         }
         
         var
             //selectionCount = fertlizerListView.selection.count(), //get number of items selected
             selectionCommands = document.querySelectorAll(".appBarSelection"), //commands if more than one item is selected
             singleSelectionCommands = document.querySelectorAll(".appBarSingleSelection"); //commands if only one item is selected
-
-        console.log("selection count : " + selectionCount);
 
         if (selectionCount === 1) { //1 item selected
             appBar.showCommands(selectionCommands);
@@ -211,6 +216,37 @@ function ViewModel() {
             appBar.sticky = false;
             appBar.hide(); //hide menu at the bottom
         }
+    };
+
+    var deleteFertilizerItemLeftClick = function (e) {
+        e.detail.itemPromise.then(function (item) {
+
+            fertlizerListView.selection.set(item.index);
+        });
+    };
+
+    var deleteChemicalItemLeftClick = function (e) {
+        e.detail.itemPromise.then(function (item) {
+
+            chemicalListView.selection.set(item.index);
+
+        });
+    };
+
+    var deletePlantingMaterialItemLeftClick = function (e) {
+        e.detail.itemPromise.then(function (item) {
+
+            plantingMaterialListView.selection.set(item.index);
+
+        });
+    };
+
+    var deleteSoilAmendmentItemLeftClick = function (e) {
+        e.detail.itemPromise.then(function (item) {
+
+            soilAmendmentListView.selection.set(item.index);
+
+        });
     };
 
     //delete an item from an object store in the database
@@ -329,76 +365,6 @@ function ViewModel() {
 
     };
 
-
-    //edit an item in purchaseObjectStore in the database
-    this.editToDo = function () {
-
-        var listTypeToUse = localStorage.getItem("listTypeToUse");
-
-        var
-            anchor = document.querySelector(".toDo"), //position to put the editForm on the screen
-            selectionCount = listView.selection.count(); //count the number of items selected
-
-        if (selectionCount === 1) { //only one item would be selected for this option to be available
-
-            //get element to edit
-            listView.selection.getItems().then(function (items) {
-                var
-                    item = items[0], //item selected would be the first item since only one item can be returned
-                    editFlyoutElement = document.getElementById("editFlyout");
-
-                //get values in edit form
-                var toDo = {
-                    id: item.data.id,
-                    type: item.data.type,
-                    name: item.data.name,
-                    lvIndex: item.index
-                };
-
-                //put the previous name as part of the label because it cannot be done in the actual edit form because the form is dynamic
-                document.getElementById('labelName').innerText = "Name : " + toDo.name;
-             
-
-                var process = WinJS.Binding.processAll(editFlyoutElement, toDo);
-                process.then(function () {
-                    editFlyout.show(anchor, "top", "center"); //where to position the editForm
-                });
-            });
-        }
-    };
-
-
-
-    this.submitEdit = function (e) {
-        e.preventDefault();
-
-        var listTypeToUse = localStorage.getItem("listTypeToUse");
-
-        var toDo = {
-            id: document.querySelector("#editForm .id").value,
-            type: document.querySelector("#editForm .type").value,
-            name: document.querySelector("#editForm .name").value,
-            lvIndex: document.querySelector("#editForm .lvIndex").value
-        };
-
-        myDatabase.purchaseList.update(toDo, purchaseObjectStoreName, function (e) {
-            editFlyout.hide();
-            appBar.hide();
-            editForm.reset();
-            listView.selection.clear();
-
-            dataList.setAt(toDo.lvIndex, toDo);
-        });
-    };
-
-    this.cancelEdit = function (e) {
-        e.preventDefault();
-
-        editFlyout.hide();
-        appBar.hide();
-        editForm.reset();
-        listView.selection.clear();
-    };
 }
 
 

@@ -63,6 +63,10 @@ function ViewModel() {
 
             listView.itemDataSource = dataList.dataSource; //put list of purchases in the list view in "purchases.html"
             listView.onselectionchanged = self.selectionChanged; //execute selectionChanged method when an item is selected
+
+            WinJS.UI.setOptions(listView, {
+                oniteminvoked: selectItemLeftClick
+            });
         });
 
         //get list of "other" purchases from other purchase object store in the database i.e. purchases of type "Other"
@@ -224,6 +228,12 @@ function ViewModel() {
         }
     };
 
+    var selectItemLeftClick = function (e) {
+        e.detail.itemPromise.then(function (item) {
+            listView.selection.set(item.index);
+        });
+    };
+
     //delete an item from an object store in the database
     this.deleteToDo = function () {
         var dialog = new Windows.UI.Popups.MessageDialog("Are you sure you want to delete?");
@@ -275,6 +285,7 @@ function ViewModel() {
                     name: item.data.name,
                     quantifier: item.data.quantifier,
                     quantity: item.data.quantity,
+                    amountRemaining: item.data.amountRemaining,
                     cost: item.data.cost,
                     lvIndex: item.index
                 };
@@ -325,6 +336,7 @@ function ViewModel() {
             name: document.querySelector("#editForm .name").value,
             quantifier: document.querySelector("#editForm .quantifier").value,
             quantity: document.querySelector("#editForm .quantity").value,
+            amountRemaining: document.querySelector("#editForm .quantity").value, //would be initially set to whatever quantity the farmer changes it to
             cost: document.querySelector("#editForm .cost").value,
             lvIndex: document.querySelector("#editForm .lvIndex").value
         };

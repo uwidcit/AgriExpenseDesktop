@@ -39,6 +39,10 @@ function ViewModel() {
 
             listView.itemDataSource = dataList.dataSource;
             listView.onselectionchanged = self.selectionChanged;
+
+            WinJS.UI.setOptions(listView, {
+                oniteminvoked: appBarOptionsLeftClick
+            });
         });
     };
 
@@ -51,6 +55,13 @@ function ViewModel() {
             timer = setTimeout(callback, ms);
         };
     })();
+
+    var appBarOptionsLeftClick = function (e) {
+        e.detail.itemPromise.then(function (item) {
+
+            listView.selection.set(item.index);
+        });
+    };
 
     this.selectionChanged = function (args) {
         var

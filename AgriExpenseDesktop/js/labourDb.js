@@ -45,6 +45,10 @@ function ViewModel() {
             labourListView.itemDataSource = dataList.dataSource;
 
             labourListView.onselectionchanged = self.selectionChanged;
+
+            WinJS.UI.setOptions(labourListView, {
+                oniteminvoked: appBarOptionsLeftClick
+            });
         });
 
         myDatabase.purchaseList.getList(historicalLabourStoreName, function (e) {
@@ -74,16 +78,8 @@ function ViewModel() {
                     lselect.appendChild(el);
                 }
             }
-
-
-
-
         });
-
-
-
     };
-
 
 
     var delay = (function () {
@@ -93,6 +89,12 @@ function ViewModel() {
             timer = setTimeout(callback, ms);
         };
     })();
+
+    var appBarOptionsLeftClick = function (e) {
+        e.detail.itemPromise.then(function (item) {
+            labourListView.selection.set(item.index);
+        });
+    };
 
     this.selectionChanged = function (args) {
         var
@@ -199,13 +201,7 @@ function ViewModel() {
             localStorage.setItem("time", toDo.time);
             localStorage.setItem("cost", toDo.cost);
 
-            window.location = 'chooseCropCycle.html'; //navigate to page where they can select from purchases
-
-
-    
+            window.location = 'chooseCropCycle.html'; //navigate to page where they can select from purchases  
         }
-       
-
     };
-
 };
