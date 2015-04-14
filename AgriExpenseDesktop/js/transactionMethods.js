@@ -255,7 +255,7 @@
                     };
                 }
 
-                else { //just filer by type for all other types except Planting Material (which is done above)
+                else { //just filter by type for all other types except Planting Material (which is done above)
                     if (cursor) {
                         if ((cursor.value.amountRemaining != '0') && (cursor.value.type == itemType)) {  //check if the quantity remaining (in purchases) is more than 0, then add to the list
                             list.push(cursor.value); //add to list
@@ -268,6 +268,30 @@
 
                 }
 
+
+            }
+
+        };
+
+        //used in deleteItemUsed.js to get list of fertilizres, list of chemicals etc.
+        var getListByItemTypeAndCycle = function (oStoreName, itemType, cropCycleId, success) {
+            var
+                list = [],
+                transaction = myDatabase.data.db.transaction(oStoreName),
+                store = transaction.objectStore(oStoreName);
+
+            store.openCursor().onsuccess = function (e) {
+                var cursor = e.target.result;
+            
+                if (cursor) {
+                  if ((cursor.value.resourceType == itemType) && (cropCycleId == cursor.value.cropCycleID)) { //filter by certain criteria
+                       list.push(cursor.value); //add to list
+                   }
+                    cursor.continue();
+                }
+                else {
+                    success(list);
+                };
 
             }
 
@@ -680,6 +704,7 @@
             getHarvestForEachCycle: getHarvestForEachCycle,
             getDetailsFromPurchase: getDetailsFromPurchase,
             getListByItemType: getListByItemType,
+            getListByItemTypeAndCycle: getListByItemTypeAndCycle,
             add: add,
             update: update,
             remove: remove

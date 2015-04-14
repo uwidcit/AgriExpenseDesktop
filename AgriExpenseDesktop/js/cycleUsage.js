@@ -19,7 +19,7 @@ function onCyclesPageLoad() {
             document.getElementById("cycleCropID").innerHTML = "Crop: " + cycleCrop;
             document.getElementById("cycleLandTypeID").innerHTML = "Land Type: " + cycleTypeOfLand;
             document.getElementById("cycleLandQuantityID").innerHTML = "Land Quantity: " + cycleLandQuantity;
-             document.getElementById("cycleStartDateID").innerHTML = "Start Date: " + cycleStartDate;
+            document.getElementById("cycleStartDateID").innerHTML = "Start Date: " + cycleStartDate;
             document.getElementById("cycleTotalCost").innerHTML = "Expenses Summary: ";
 
         });
@@ -90,6 +90,8 @@ function ViewModel() {
 
                 document.getElementById("chemicalsUsed").innerHTML = "Chemicals: $" + cCost;
             }
+
+
         });
 
         //Filter by Material Type - Fertilizer
@@ -228,9 +230,12 @@ function ViewModel() {
         }
     };
 
+
+
     this.deleteToDo = function () {
         var dialog = new Windows.UI.Popups.MessageDialog("Are you sure you want to delete?");
 
+        //change listview to the appropriate list view
         dialog.commands.append(new Windows.UI.Popups.UICommand("OK", function (command) {
             var selectionCount = listView.selection.count();
             if (selectionCount > 0) {
@@ -240,7 +245,7 @@ function ViewModel() {
                             dbKey = item.data.id,
                             lvKey = item.key;
 
-                        myDatabase.purchaseList.remove(dbKey, cycleObjectStoreName, function () {
+                        myDatabase.purchaseList.remove(dbKey, resourceUseageObjectStoreName, function () {
                             listView.itemDataSource.remove(lvKey);
                         });
                     });
@@ -264,10 +269,22 @@ function fertilizerButtonClick() {
     window.location = "addPurchases.html";
 }
 
+function deleteFertilizerButtonClick() {
+    localStorage.setItem("deleteTypeButtonClick", "Fertilizer");
+
+    window.location = "deleteItemUsed.html";
+}
+
 function chemicalButtonClick() {
     localStorage.setItem("typeButtonClick", "Chemical");
 
     window.location = "addPurchases.html";
+}
+
+function deleteChemicalButtonClick() {
+    localStorage.setItem("deleteTypeButtonClick", "Chemical");
+
+    window.location = "deleteItemUsed.html";
 }
 
 function plantingMaterialButtonClick() {
@@ -276,14 +293,32 @@ function plantingMaterialButtonClick() {
     window.location = "addPurchases.html";
 }
 
+function deletePlantingMaterialButtonClick() {
+    localStorage.setItem("deleteTypeButtonClick", "Planting Material");
+
+    window.location = "deleteItemUsed.html";
+}
+
 function soilAmendmentButtonClick() {
     localStorage.setItem("typeButtonClick", "Soil Amendment");
 
     window.location = "addPurchases.html";
 }
 
+function deleteSoilAmendmentButtonClick() {
+    localStorage.setItem("deleteTypeButtonClick", "Soil Amendment");
+
+    window.location = "deleteItemUsed.html";
+}
+
 function otherButtonClick() {
     localStorage.setItem("typeButtonClick", "Other");
 
     window.location = "addPurchases.html";
+}
+
+function deleteOtherButtonClick() {
+    localStorage.setItem("deleteTypeButtonClick", "Other");
+
+    window.location = "deleteItemUsed.html";
 }

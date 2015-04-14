@@ -162,8 +162,8 @@ function ViewModel() {
                 lvIndex: parseInt(localStorage.getItem("itemIndex"))
             };
             
+           
             //update entry
-            
             myDatabase.purchaseList.update(toDoEdit, harvestObjectStoreName, function (e) {
                 harvestList.setAt(toDoEdit.lvIndex, toDoEdit);
 

@@ -1,0 +1,103 @@
+﻿body {
+    background-image: -ms-linear-gradient(top left, #FFFFFF 0%, #0B8F14 100%);
+    color:black;
+}
+
+.fragment {
+    -ms-grid-columns: 6fr 1fr;
+    -ms-grid-rows: 128px 500px 1fr; 
+    display: -ms-grid;
+    height: 100%;
+    width: 100%;
+}
+
+    .fragment header[role=banner] {
+       -ms-grid-columns:120px 1fr; /*120px is padding left*/
+       -ms-grid-rows:1fr;
+       display:-ms-grid;
+
+    }
+
+        .fragment header[role=banner] h2 {
+           -ms-grid-row:1;/*128px*/
+            -ms-grid-column: 2;
+            margin-top: 37px;
+            color: #312C2C;
+        }
+
+    .fragment section[role=main] {
+        -ms-grid-row:2; /*250px*/
+        height:100%;
+        width:100%;
+        
+        margin-left: 120px;
+        margin-right: 120px;
+
+        -ms-grid-columns: 250px 30px 1fr;
+        -ms-grid-rows: 40px 1fr; /*1fr=250px*/
+        display: -ms-grid;
+    }
+
+
+    .fragment section[role=main] #cycleInfoTitle{
+        -ms-grid-column:1;
+        -ms-grid-row:1;
+    }
+
+    .fragment section[role=main] #addMaterialTitle{
+        -ms-grid-column:3;
+        -ms-grid-row:1;
+    }
+
+    .fragment section[role=main] #cycleInfo {
+        -ms-grid-column:1; /*250px*/
+        -ms-grid-row:2; /*1fr*/
+        
+    }
+
+
+
+
+.toDo .pList {
+    
+       
+    -ms-grid-column: 3;
+    -ms-grid-row:2;
+
+    height: 100%;
+    width: 100%;
+}
+
+    .toDo .pList .item {
+        height: 120px;
+        width: 250px;
+        padding: 10px;
+        background-color: #FFFFFF;
+        border-style:solid;
+        border-color:#689F38;
+        color:#689F38;
+    }
+
+        .toDo .pList .item .item-title {
+            font-weight: 600;
+            font-size: 15pt;
+        }
+
+        .toDo .pList .item .item-sub {
+            overflow: hidden;
+            margin-left: 15px;
+        }
+
+
+.toDo form label, #updateFlyout form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-block {
+    display: block;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+    box-sizing: border-box;
+}

@@ -134,8 +134,6 @@ function ViewModel() {
                 });
             }
 
-
-
         });
     };
 

@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Default Page</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+    
+    <script src="/js/transactionMethods.js"></script>
+    <script src="/js/deleteItemUsed.js"></script>
+    <script src="/js/globalStores.js"></script>
+    <!-- myPurchases references -->
+
+    <link href="/css/deleteItemUsed.css" rel="stylesheet" />
+    <script src="/js/default.js"></script>
+</head>
+<body onload="onAddPurchasesPageLoad()">
+    
+
+
+    <div id="previousPurchasesItemTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
+        <div class="item">
+            Name:<span data-win-bind="textContent:resourceName" class="item-sub"></span> <br />
+            Amount Added:<span data-win-bind="textContent:amountToAdd" class="item-sub"></span>
+                <span data-win-bind="textContent:quantifier" class="item-sub"></span> <br />
+            
+            Cost: $<span data-win-bind="textContent:useCost" class="item-sub"></span> <br />
+            Date Added:<span data-win-bind="textContent:datePurchased" class="item-sub"></span> <br />
+        </div>
+    </div>
+
+
+    <div class="fragment toDo"> 
+
+        <header role="banner">
+            <h2 class="titlearea"><a href="default.html">Home</a> > <a href="cycles.html">Crop Cycles</a> > <a href="cycleUsage.html">Cycle Usage</a> > Add Materials </h2> 
+            <br /> <br />
+            <a href="default.html" style="padding-left: 50px;"><img src="/images/home.png" alt="HOME" style="width:42px;height:42px;"></a>
+        </header>
+            
+        <section role="main">                         
+                    <!-- display stats here i.e. filter by cycleid -->
+                    <div id="cycleInfoTitle">
+                        <h2>Cycle Details: </h2>
+                    </div> 
+
+                     <div id="addMaterialTitle">
+                        <h2>Add Materials to this Cycle</h2>
+                    </div> 
+
+                  <div id="cycleInfo">   
+                    <p id="cycleNameID"></p>
+                    <p id="cycleCropID"></p>
+                    <p id="cycleLandTypeID"></p>
+                    <p id="cycleLandQuantityID"></p>
+                    <p id="cycleStartDateID"></p><br />
+                    
+                    <h2 id="cycleTotalCost"></h2>
+
+                    <p id="fertilizersUsed"></p>
+                    <p id="chemicalsUsed"></p>
+                    <p id="plantingMaterialsUsed"></p>
+                    <p id="soilAmendmentsUsed"></p>
+                    <p id="otherUsed"></p>
+                    <p id="labourUsed"></p> <br />
+                    
+                  </div>
+  
+                    <div id="pList" class="pList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div>               
+            </section>
+            <div id="ruList" style="display: none;" class="pList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div> 
+
+
+   </div> 
+    
+
+</body>
+</html>

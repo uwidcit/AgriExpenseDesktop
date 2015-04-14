@@ -69,8 +69,8 @@
 .toDo .chemicalListColumn {
    -ms-grid-column:3;    /*3rd column*/
    -ms-grid-row:1;
-   border-style:solid;
-   border-color:black;
+ /*  border-style:solid;
+   border-color:black; */
    
 }
 
