@@ -20,7 +20,7 @@ function onCyclesPageLoad() {
             document.getElementById("cycleLandTypeID").innerHTML = "Land Type: " + cycleTypeOfLand;
             document.getElementById("cycleLandQuantityID").innerHTML = "Land Quantity: " + cycleLandQuantity;
             document.getElementById("cycleStartDateID").innerHTML = "Start Date: " + cycleStartDate;
-            document.getElementById("cycleTotalCost").innerHTML = "Expenses Summary: ";
+            document.getElementById("cycleTotalCost").innerHTML = "Expenses Summary ";
 
         });
     });
@@ -37,14 +37,13 @@ function initializeDb() {
 function initializeCycleUI() {
     var viewModel = new ViewModel();
     viewModel.init();
-    document.getElementById("deleteCommand").addEventListener("click", viewModel.deleteToDo, false);
+    //document.getElementById("deleteCommand").addEventListener("click", viewModel.deleteToDo, false);
 }
 
 
 function ViewModel() {
     var
         listView = document.getElementById("cycleList").winControl,
-        appBar = document.getElementById("appBar").winControl,
                 
         chemicalListView = document.getElementById("chemicalList").winControl,
         fertilizerListView = document.getElementById("fertilizerList").winControl,
@@ -208,26 +207,7 @@ function ViewModel() {
 
     this.selectionChanged = function (args) {
         var
-            selectionCount = listView.selection.count(),
-            selectionCommands = document.querySelectorAll(".appBarSelection"),
-            singleSelectionCommands = document.querySelectorAll(".appBarSingleSelection");
-
-        if (selectionCount > 0) {
-            appBar.showCommands(selectionCommands);
-
-            if (selectionCount > 1) {
-                appBar.hideCommands(singleSelectionCommands);
-            }
-
-            appBar.sticky = true;
-            appBar.show();
-        }
-        else {
-            appBar.hideCommands(selectionCommands);
-
-            appBar.sticky = false;
-            appBar.hide();
-        }
+            selectionCount = listView.selection.count();
     };
 
 

@@ -61,6 +61,7 @@
     <Content Include="addPurchases.html" />
     <None Include="AgriExpenseDesktop_StoreKey.pfx" />
     <Content Include="chooseCropCycle.html" />
+    <Content Include="css\addNewResources.css" />
     <Content Include="css\addPurchases.css" />
     <Content Include="css\chooseCropCycle.css" />
     <Content Include="css\cycles.css" />

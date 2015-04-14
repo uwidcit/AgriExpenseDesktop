@@ -99,7 +99,13 @@ function ViewModel() {
         e.detail.itemPromise.then(function (item) {
 
             var dp = document.getElementById("dateDiv").winControl;
-            var currentDate = dp.current;
+            var year = dp.current.getFullYear().toString();
+            var month1 = dp.current.getMonth() + 1;
+            var month = month1.toString();
+            var date = dp.current.getDate().toString();
+
+            var stringDate = date + " / " + month + " / " + year;
+            var currentDate = stringDate;
 
             listView.selection.set(item.index);
 
@@ -142,7 +148,14 @@ function ViewModel() {
         e.preventDefault();
 
         var dp = document.getElementById("dateDiv").winControl;
-        var currentDate = dp.current;
+        var year = dp.current.getFullYear().toString();
+        var month1 = dp.current.getMonth() + 1;
+        var month = month1.toString();
+        var date = dp.current.getDate().toString();
+
+        var stringDate = date + " / " + month + " / " + year;
+        var currentDate = stringDate;
+
 
         var cropCycleIdFromStorage = localStorage.getItem("cropCycleId"); //get crop cycle selected
         var quantityPurchased = document.querySelector("#addMaterialForm .quantity").value;

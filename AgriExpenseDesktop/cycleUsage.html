@@ -70,58 +70,85 @@
                     <p id="soilAmendmentsUsed"></p>
                     <p id="otherUsed"></p>
                     <p id="labourUsed"></p> <br />
-                    <button style="border:solid; border-color:black;color:black;" onclick="location.href='harvest.html'">Calculate Sales</button>
+                    <button class="calculateSalesButton" onclick="location.href='harvest.html'">Calculate Sales</button>
                   </div>
 
                 
             </aside>
 
-            <div class="displayListColumn">
-                    <div id="cycleList" style="display:none;" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
-                    <div id="ruList" style="display: none;" class="pList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div> 
-             </div>
+            <!--<div class="scrollContent" style="overflow:auto;"> -->
+                <div class="displayListColumn">
+                        <div id="cycleList" style="display:none;" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+                        <div id="ruList" style="display: none;" class="pList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div> 
+                 </div>
 
-             <div class="chemicalListColumn">
-                <button onclick="chemicalButtonClick()">Add More Chemicals</button> <button onclick="deleteChemicalButtonClick()">Delete Chemicals Used</button>
-                 <div id="chemicalList"  class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div> 
-             </div>      
+                 <div class="chemicalListColumn">                
+                     <div id="chemicalList"  class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div> 
+                 </div>      
+
+                <div class="chemicalButtons">
+                    Chemicals <br />
+                    <button class="cycleUsageButton" onclick="chemicalButtonClick()">Add More Chemicals</button> <br />
+                    <button class="cycleUsageButton" onclick="deleteChemicalButtonClick()">Delete Chemicals Used</button>
+                </div>
                               
-             <div class="fertilizerListColumn">
-                 <button onclick="fertilizerButtonClick()">Add More Fertilizers</button><button onclick="deleteFertilizerButtonClick()">Delete Fertilizers Used</button>
-                 <div id="fertilizerList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div>
-             </div>  
+                 <div class="fertilizerListColumn">
+                     <div id="fertilizerList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div>
+                 </div>  
 
-             <div class="plantingMaterialListColumn">
-                 <button onclick="plantingMaterialButtonClick()">Add More Planting Material</button><button onclick="deletePlantingMaterialButtonClick()">Delele PM</button>
-                 <div id="plantingMaterialList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }">No Planting Materials Added</div>
-             </div>
+                <div class="fertilizerButtons">
+                    Fertilizers<br />
+                    <button class="cycleUsageButton" onclick="fertilizerButtonClick()">Add More Fertilizers</button><br />
+                    <button class="cycleUsageButton" onclick="deleteFertilizerButtonClick()">Delete Fertilizers Used</button>
+                </div>
 
-             <div class="soilAmendmentListColumn">
-                 <button onclick="soilAmendmentButtonClick()">Add More Soil Amendments</button><button onclick="deleteSoilAmendmentButtonClick()">Delete SA</button>
-                 <div id="soilAmendmentList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }">No Soil Amendments Added</div>                  
-             </div>
+                 <div class="plantingMaterialListColumn">
+                     <div id="plantingMaterialList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }">No Planting Materials Added</div>
+                 </div>
+
+                <div class="plantingMaterialButtons">
+                    Planting Materials <br />
+                     <button class="cycleUsageButton" onclick="plantingMaterialButtonClick()">Add More Planting Material</button> <br />
+                    <button class="cycleUsageButton" onclick="deletePlantingMaterialButtonClick()">Delele Planting Materials Used</button>
+                </div>
+
+                 <div class="soilAmendmentListColumn">
+                     <div id="soilAmendmentList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }">No Soil Amendments Added</div>                  
+                 </div>
+
+                <div class="soilAmendmentButtons">
+                    Soil Amendments <br />
+                     <button class="cycleUsageButton" onclick="soilAmendmentButtonClick()">Add More Soil Amendments</button> <br />
+                    <button class="cycleUsageButton" onclick="deleteSoilAmendmentButtonClick()">Delete Soil Amendments Used</button>
+                </div>
                
-            <div class="otherListColumn">
-                <button onclick="otherButtonClick()">Add More Other</button><button onclick="deleteOtherButtonClick()">Delete Other</button>
-                 <div id="otherList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }">No Other Items Added</div>             
-            </div>
+                <div class="otherListColumn">
+             
+                     <div id="otherList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }">No Other Items Added</div>             
+                </div>
 
-            <div class="labourListColumn">
-                <button onclick="location.href='labour.html'">Add More Employees</button><button onclick="location.href='labour.html'">Delete Employees</button>
-                 <div id="labourList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#labourTemplate') }">No Employees Added</div>                           
-            </div>        
+                <div class="otherButtons">
+                    Other <br />
+                    <button class="cycleUsageButton" onclick="otherButtonClick()">Add More Other Materials</button> <br />
+                    <button class="cycleUsageButton" onclick="deleteOtherButtonClick()">Delete Other Materials Used</button>
+                </div>
+
+                <div class="labourListColumn">
+           
+                     <div id="labourList" class="iList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#labourTemplate') }">No Employees Added</div>                           
+                </div>        
+
+                <div class="labourButtons">
+                    Labour <br />
+                    <button class="cycleUsageButton" onclick="location.href='labour.html'">Add Employees</button><br />
+                    <button class="cycleUsageButton" onclick="location.href='labour.html'">Delete Employees</button>
+                </div>
           
+        <!--    </div>  -->
 
         </section>
     </div>
-    <div id="appBar" data-win-control="WinJS.UI.AppBar">
-        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'deleteCommand', label:'Delete', icon:'remove', section:'selection', hidden:'true', extraClass:'appBarSelection'}">
-        </button>
-        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'editCommand', label:'Edit', icon:'edit', section:'selection', hidden:'true', extraClass:'appBarSelection appBarSingleSelection'}">
-        </button>
-        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'addMaterialCommand', label:'Add Material', icon:'edit', section:'selection', hidden:'true', extraClass:'appBarSelection appBarSingleSelection'}">
-        </button>
-    </div>
+
     
 
 

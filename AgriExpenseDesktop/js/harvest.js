@@ -65,7 +65,7 @@ function ViewModel() {
                     //re-calculate harvest profit since more items may have been added to the cycle
                     var cycleTotalCost = parseFloat(localStorage.getItem("totalCycleCost"));
                     var amountOfMoneyMade = value.harvestAmount * value.costPerCrop;
-                    var profit = cycleTotalCost - amountOfMoneyMade;
+                    var profit = amountOfMoneyMade - cycleTotalCost;
 
                     localStorage.setItem("itemIndex", index);
                     //var profit = parseFloat(value.profit);

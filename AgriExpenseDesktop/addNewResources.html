@@ -15,7 +15,7 @@
     <script src="/js/globalStores.js"></script>
     <!-- myPurchases references -->
 
-    <link href="/css/purchases.css" rel="stylesheet" />
+    <link href="/css/addNewResources.css" rel="stylesheet" />
     <script src="/js/default.js"></script>
     
 </head>
@@ -47,10 +47,7 @@
           <h2> Add New Item </h2>
        </div>
 
-        <div id="recentPurchasesTitle">
-            <h2>Recent Purchases</h2>
-        </div>
-
+     
         <section role="main">
             <aside>
 
@@ -58,7 +55,7 @@
                 <form id="addForm">
                     <br />
                     <label>Type</label>
-                    <input id="inputType" type="text" class="type input-block" disabled /><br /><br />
+                    <input style="border-color:black; color:black;" id="inputType" type="text" class="type input-block" disabled /><br /><br />
                     <label>Name</label>
                     <input id="inputName" type="text" class="name input-block" required /><br /><br />
                     
@@ -73,7 +70,7 @@
 
            <div class="displayListColumn">
             <div id="otherPurchaseList" style="display: none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
-            <div id="purchaseListID" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+            <div id="purchaseListID" style="display:none;" class="purchaseList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
             </div>
 
         </section>

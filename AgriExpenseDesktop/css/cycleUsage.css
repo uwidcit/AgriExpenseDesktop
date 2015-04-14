@@ -1,11 +1,12 @@
 ﻿body { 
    background-image: -ms-linear-gradient(top left, #FFFFFF 0%, #0B8F14 100%);
+   color:black;
 }
 
 .fragment {
     /* Define a grid with rows for a banner and a body */
     -ms-grid-columns: 1fr;
-    -ms-grid-rows: 128px 50px 500px 1fr;
+    -ms-grid-rows: 128px 50px 600px 1fr;
     display: -ms-grid;
     height: 100%;
     width: 100%;
@@ -43,7 +44,7 @@
         margin-right: 120px;
 
         -ms-grid-columns: 350px 50px 360px 360px;
-        -ms-grid-rows: 1fr 1fr 1fr;
+        -ms-grid-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
         
         display: -ms-grid;
     }
@@ -67,35 +68,83 @@
 
 
 .toDo .chemicalListColumn {
+   -ms-grid-column:4;    /*4th column*/
+   -ms-grid-row:1;
+   border-bottom-style:solid;
+   border-bottom-color:gray;
+}
+
+.toDo .chemicalButtons {
    -ms-grid-column:3;    /*3rd column*/
    -ms-grid-row:1;
- /*  border-style:solid;
-   border-color:black; */
-   
+   border-bottom-style:solid;
+   border-bottom-color:gray;
 }
 
 .toDo .fertilizerListColumn {
-   -ms-grid-column:3;    /*3rd column*/
+   -ms-grid-column:4;    /*4th column*/
    -ms-grid-row:2; 
+   border-bottom-style:solid;
+   border-bottom-color:gray;
+}
+
+.toDo .fertilizerButtons {
+   -ms-grid-column:3;    /*3rd column*/
+   -ms-grid-row:2;
+   border-bottom-style:solid;
+   border-bottom-color:gray;
 }
 
 .toDo .plantingMaterialListColumn {
-   -ms-grid-column:3;    /*3rd column*/
+   -ms-grid-column:4;    /*4th column*/
    -ms-grid-row:3; 
+   border-bottom-style:solid;
+   border-bottom-color:gray;
 }
+
+.toDo .plantingMaterialButtons {
+   -ms-grid-column:3;    /*3rd column*/
+   -ms-grid-row:3;
+   border-bottom-style:solid;
+   border-bottom-color:gray;
+}
+
 .toDo .soilAmendmentListColumn {
    -ms-grid-column:4;    /*4th column*/
-   -ms-grid-row:1; 
+   -ms-grid-row:4; 
+   border-bottom-style:solid;
+   border-bottom-color:gray;
+}
+
+.toDo .soilAmendmentButtons {
+   -ms-grid-column:3;    /*3rd column*/
+   -ms-grid-row:4;
+   border-bottom-style:solid;
+   border-bottom-color:gray;
 }
 .toDo .otherListColumn {
    -ms-grid-column:4;    /*4th column*/
-   -ms-grid-row:2; 
-}
-.toDo .labourListColumn {
-   -ms-grid-column:4;    /*4th column*/
-   -ms-grid-row:3; 
+   -ms-grid-row:5;
+   border-bottom-style:solid;
+   border-bottom-color:gray;
 }
 
+.toDo .otherButtons {
+   -ms-grid-column:3;    /*3rd column*/
+   -ms-grid-row:5;
+   border-bottom-style:solid;
+   border-bottom-color:gray;
+}
+
+.toDo .labourListColumn {
+   -ms-grid-column:4;    /*4th column*/
+   -ms-grid-row:6;
+}
+
+.toDo .labourButtons {
+   -ms-grid-column:3;    /*3rd column*/
+   -ms-grid-row:6;
+}
 
 
 .toDo .iList {
@@ -105,11 +154,12 @@
 }
 
     .toDo .iList .item {
-         height: 80px;
+         height: 70px;
         width: 300px;
-        padding: 10px; /*padding on all sides of each individual box*/
+        padding: 5px; /*padding on all sides of each individual box*/
         background-color: #FFFFFF;
         color:#689F38;
+        font-size:9pt;
 
         border-style: solid;
         border-color: #07570C;
@@ -117,12 +167,13 @@
 
         .toDo .iList .item .item-title {
             font-weight: 600;
-            font-size: 15pt;
+            font-size: 9pt;
         }
 
         .toDo .iList .item .item-sub {
             overflow: hidden;
-            margin-left: 15px;
+            margin-left: 1px;
+            font-size: 9pt;
         }
 
 
@@ -141,8 +192,16 @@
 }
 
 
-.width-150px{
-    width: 150px;
-    display: inline-block;
+.cycleUsageButton{
+    width: 300px;
+    border-color:gray;
+    color:black;
+    border-radius:25px;
+}
+
+.calculateSalesButton {
+    width:250px;
+    border-color:black;
+    color:black;
 }
 
