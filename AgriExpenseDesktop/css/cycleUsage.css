@@ -43,7 +43,7 @@
         margin-left: 120px;
         margin-right: 120px;
 
-        -ms-grid-columns: 350px 50px 360px 360px;
+        -ms-grid-columns: 350px 50px 200px 1fr;
         -ms-grid-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
         
         display: -ms-grid;
@@ -192,11 +192,17 @@
 }
 
 
-.cycleUsageButton{
-    width: 300px;
-    border-color:gray;
-    color:black;
-    border-radius:25px;
+.addMoreButton{
+    height:60px;
+    width:60px;
+    cursor: pointer;
+}
+
+.deleteItemsButton{
+    height:60px;
+    width:60px;
+    padding-left:30px;
+    cursor: pointer;
 }
 
 .calculateSalesButton {

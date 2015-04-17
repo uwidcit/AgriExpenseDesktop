@@ -58,11 +58,18 @@
             <aside>
 
                 <div id="cycleInfo">   
+                    
+                    <button onclick="selectCycleEdit()" style="border:none;"> <img src="/images/edit.png" alt="edit icon" style="width:40px;height:40px;"/></button>
+                    <button onclick="selectCycleDelete()" style="border:none;"> <img src="/images/icon-delete-black.png" alt="edit icon" style="width:40px;height:40px;"/></button>
+
+
                     <p id="cycleNameID"></p>
                     <p id="cycleCropID"></p>
                     <p id="cycleLandTypeID"></p>
                     <p id="cycleLandQuantityID"></p>
                     <p id="cycleStartDateID"></p><br />
+                    
+
                     <h2 id="cycleTotalCost"></h2>
                     <p id="fertilizersUsed"></p>
                     <p id="chemicalsUsed"></p>
@@ -71,12 +78,12 @@
                     <p id="otherUsed"></p>
                     <p id="labourUsed"></p> <br />
                     <button class="calculateSalesButton" onclick="location.href='harvest.html'">Calculate Sales</button>
+                    
                   </div>
 
                 
             </aside>
 
-            <!--<div class="scrollContent" style="overflow:auto;"> -->
                 <div class="displayListColumn">
                         <div id="cycleList" style="display:none;" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
                         <div id="ruList" style="display: none;" class="pList" data-win-control="WinJS.UI.FlipView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }"></div> 
@@ -88,8 +95,8 @@
 
                 <div class="chemicalButtons">
                     Chemicals <br />
-                    <button class="cycleUsageButton" onclick="chemicalButtonClick()">Add More Chemicals</button> <br />
-                    <button class="cycleUsageButton" onclick="deleteChemicalButtonClick()">Delete Chemicals Used</button>
+                    <input class="addMoreButton" type="image" id="addChemicalImage" onclick="chemicalButtonClick()" src="/images/add.png"/>
+                    <input class="deleteItemsButton" type="image" id="deleteChemicalImage" onclick="deleteChemicalButtonClick()" src="/images/icon-delete-black.png"/> <br />
                 </div>
                               
                  <div class="fertilizerListColumn">
@@ -98,8 +105,8 @@
 
                 <div class="fertilizerButtons">
                     Fertilizers<br />
-                    <button class="cycleUsageButton" onclick="fertilizerButtonClick()">Add More Fertilizers</button><br />
-                    <button class="cycleUsageButton" onclick="deleteFertilizerButtonClick()">Delete Fertilizers Used</button>
+                     <input class="addMoreButton" type="image" id="addFertilizerImage" onclick="fertilizerButtonClick()" src="/images/add.png"/>
+                    <input class="deleteItemsButton" type="image" id="deleteFertilizerImage" onclick="deleteFertilizerButtonClick()" src="/images/icon-delete-black.png"/> <br />
                 </div>
 
                  <div class="plantingMaterialListColumn">
@@ -107,9 +114,9 @@
                  </div>
 
                 <div class="plantingMaterialButtons">
-                    Planting Materials <br />
-                     <button class="cycleUsageButton" onclick="plantingMaterialButtonClick()">Add More Planting Material</button> <br />
-                    <button class="cycleUsageButton" onclick="deletePlantingMaterialButtonClick()">Delele Planting Materials Used</button>
+                    Planting Material <br />
+                    <input class="addMoreButton" type="image" id="addPlantingMaterialImage" onclick="plantingMaterialButtonClick()" src="/images/add.png"/>
+                    <input class="deleteItemsButton" type="image" id="deletePlantingMaterialImage" onclick="deletePlantingMaterialButtonClick()" src="/images/icon-delete-black.png"/> <br />
                 </div>
 
                  <div class="soilAmendmentListColumn">
@@ -118,34 +125,31 @@
 
                 <div class="soilAmendmentButtons">
                     Soil Amendments <br />
-                     <button class="cycleUsageButton" onclick="soilAmendmentButtonClick()">Add More Soil Amendments</button> <br />
-                    <button class="cycleUsageButton" onclick="deleteSoilAmendmentButtonClick()">Delete Soil Amendments Used</button>
+                    <input class="addMoreButton" type="image" id="addSoilAmendmentImage" onclick="soilAmendmentButtonClick()" src="/images/add.png"/>
+                    <input class="deleteItemsButton" type="image" id="deleteSoilAmendmentImage" onclick="deleteSoilAmendmentButtonClick()" src="/images/icon-delete-black.png"/> <br />
                 </div>
                
                 <div class="otherListColumn">
-             
                      <div id="otherList" class="iList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#previousPurchasesItemTemplate') }">No Other Items Added</div>             
                 </div>
 
                 <div class="otherButtons">
                     Other <br />
-                    <button class="cycleUsageButton" onclick="otherButtonClick()">Add More Other Materials</button> <br />
-                    <button class="cycleUsageButton" onclick="deleteOtherButtonClick()">Delete Other Materials Used</button>
+                    <input class="addMoreButton" type="image" id="addOtherImage" onclick="otherButtonClick()" src="/images/add.png"/>
+                    <input class="deleteItemsButton" type="image" id="deleteOtherImage" onclick="deleteOtherButtonClick()" src="/images/icon-delete-black.png"/> <br />
                 </div>
 
                 <div class="labourListColumn">
-           
                      <div id="labourList" class="iList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#labourTemplate') }">No Employees Added</div>                           
                 </div>        
 
                 <div class="labourButtons">
                     Labour <br />
-                    <button class="cycleUsageButton" onclick="location.href='labour.html'">Add Employees</button><br />
-                    <button class="cycleUsageButton" onclick="location.href='labour.html'">Delete Employees</button>
+                    <input class="addMoreButton" type="image" id="addLabourImage" onclick="location.href='labour.html'" src="/images/add.png"/>
+                    <input class="deleteItemsButton" type="image" id="deleteLabourImage" onclick="location.href = 'labour.html'" src="/images/icon-delete-black.png"/> <br />
+
                 </div>
           
-        <!--    </div>  -->
-
         </section>
     </div>
 

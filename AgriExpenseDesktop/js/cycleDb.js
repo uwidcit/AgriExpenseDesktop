@@ -4,7 +4,6 @@ function onCyclesPageLoad() {
     WinJS.UI.processAll().then(function () {
         initializeDb().done(function () {
             initializeCycleUI();
-
         });
     });
 }
@@ -46,13 +45,35 @@ function ViewModel() {
 
             listView.itemDataSource = dataList.dataSource;
             listView.onselectionchanged = self.selectionChanged;
+        
 
             //left click on a crop cycle
             WinJS.UI.setOptions(listView, {
                 oniteminvoked: itemClick
             });
 
-            
+            var getSelection = localStorage.getItem("cycleSelected");
+            if (getSelection == "yes") {
+               
+                var ind = parseInt(localStorage.getItem("cropCycleIndex"));
+                listView.selection.set(ind);
+
+              /*  //check if edit OR delete
+                if (localStorage.getItem("cycleEdit" == "yes")) {
+                    // viewModel.editToDo();
+                    console.log("hi");
+               
+                    localStorage.setItem("cycleEdit", "no");
+                } */
+               
+
+
+                localStorage.setItem("cycleSelected", "no"); //reset boolean variable
+            }
+            else if (getSelection == "no") { 
+               //do nothing
+            }
+
         });
     };
 
@@ -226,6 +247,7 @@ function ViewModel() {
     var itemClick = function (e) {
         e.detail.itemPromise.then(function (item) {
             localStorage.setItem("cropCycleId", item.data.id); //Add Crop Cycle Id to local storage to access later
+            localStorage.setItem("cropCycleIndex", item.index);
             localStorage.setItem("cropCycleName", item.data.name);
             localStorage.setItem("cropCycleCrop", item.data.crop);
             localStorage.setItem("cropCycleTypeOfLand", item.data.typeOfLand);
@@ -235,38 +257,5 @@ function ViewModel() {
             window.location = 'cycleUsage.html'; //navigate to page where they can select from purchases
         });
     };
-    
-    this.getCropCycleInfo = function (e)
-    {
-        var
-           anchor = document.querySelector(".toDo"),
-           selectionCount = listView.selection.count();
-
-        if (selectionCount === 1)
-        {
-            listView.selection.getItems().then(function (items)
-            {
-                var
-                    item = items[0];
-
-                var toDo = {
-                    id: item.data.id,
-                    name: item.data.name,
-                    lvIndex: item.index
-                };
-
-                localStorage.setItem("cropCycleId", item.data.id); //Add Crop Cycle Id to local storage to access later
-                localStorage.setItem("cropCycleName", item.data.name);
-                localStorage.setItem("cropCycleCrop", item.data.crop);
-                localStorage.setItem("cropCycleTypeOfLand", item.data.typeOfLand);
-                localStorage.setItem("cropCycleLandQuantity", item.data.quantity);
-                localStorage.setItem("cropCycleStartDate", item.data.startDate);
-
-                window.location = 'addPurchases.html'; //navigate to page where they can select from purchases
-            });
-        }
-       
-    }
-
    
 }

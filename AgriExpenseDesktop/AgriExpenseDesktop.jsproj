@@ -81,7 +81,10 @@
     <Content Include="deleteItemUsed.html" />
     <Content Include="employees.html" />
     <Content Include="harvest.html" />
+    <Content Include="images\add.png" />
+    <Content Include="images\edit.png" />
     <Content Include="images\home.png" />
+    <Content Include="images\icon-delete-black.png" />
     <Content Include="images\logo.png" />
     <Content Include="images\logo_agrinet.png" />
     <Content Include="images\logo_agrinet_small.png" />

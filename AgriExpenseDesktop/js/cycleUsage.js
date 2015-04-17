@@ -6,8 +6,12 @@ function onCyclesPageLoad() {
             initializeCycleUI();
 
             localStorage.setItem("totalCycleCost", 0); //initialise the total cost of the cycle
+            localStorage.setItem("cycleSelected", "no"); //initialise edit/delete cycle Button
+            localStorage.setItem("cycleEdit", "no"); //initialise edit cycle Button
+            localStorage.setItem("cycleDelete", "no"); //initialise edit cycle Button
 
             var cycleName = localStorage.getItem("cropCycleName");
+            var cycleIndex = localStorage.getItem("cropCycleIndex");
             var cycleCrop = localStorage.getItem("cropCycleCrop");
             var cycleTypeOfLand = localStorage.getItem("cropCycleTypeOfLand");
             var cycleLandQuantity = localStorage.getItem("cropCycleLandQuantity");
@@ -63,6 +67,7 @@ function ViewModel() {
         dataList;
 
     this.init = function () {
+
         myDatabase.purchaseList.getList(cycleObjectStoreName, function (e) {
             dataList = new WinJS.Binding.List(e);
             dataList.reverse();
@@ -223,7 +228,6 @@ function ViewModel() {
     };
 
 
-
     this.deleteToDo = function () {
         var dialog = new Windows.UI.Popups.MessageDialog("Are you sure you want to delete?");
 
@@ -313,4 +317,18 @@ function deleteOtherButtonClick() {
     localStorage.setItem("deleteTypeButtonClick", "Other");
 
     window.location = "deleteItemUsed.html";
+}
+
+function selectCycleEdit() {
+    localStorage.setItem("cycleSelected", "yes");
+    localStorage.setItem("cycleEdit", "yes");
+   
+    window.location = "cycles.html"
+}
+
+function selectCycleDelete() {
+    localStorage.setItem("cycleSelected", "yes");
+    localStorage.setItem("cycleDelete", "yes");
+
+    window.location = "cycles.html"
 }
