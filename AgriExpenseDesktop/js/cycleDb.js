@@ -52,11 +52,14 @@ function ViewModel() {
                 oniteminvoked: itemClick
             });
 
+            //if the cycle has been selected to be edited or deleted from cycleUsage.html
             var getSelection = localStorage.getItem("cycleSelected");
             if (getSelection == "yes") {
                
                 var ind = parseInt(localStorage.getItem("cropCycleIndex"));
-                listView.selection.set(ind);
+                listView.selection.set(ind); //select cycle in list
+
+                //cycle was selected to be edited
                 if (localStorage.getItem("cycleEdit") == "yes") {
                         var
                          anchor = document.querySelector(".toDo"),
@@ -91,6 +94,7 @@ function ViewModel() {
 
                 }
 
+                //cycle was selected to be deleted
                 if (localStorage.getItem("cycleDelete") == "yes") {
                         var dialog = new Windows.UI.Popups.MessageDialog("Are you sure you want to delete?");
 
@@ -119,9 +123,10 @@ function ViewModel() {
                         dialog.showAsync();
                 }
 
+                //reset boolean variables
                 localStorage.setItem("cycleEdit", "no");
                 localStorage.setItem("cycleDelete", "no");
-                localStorage.setItem("cycleSelected", "no"); //reset boolean variable
+                localStorage.setItem("cycleSelected", "no"); 
             }
 
 

@@ -47,7 +47,9 @@
         </header>
 
         <div id ="addNewCycleTitle">
-          <h2> This Cycle </h2>
+         <img src="/images/edit.png" class="editCycleClass" onclick="selectCycleEdit()" alt="Edit" title="Edit Crop Cycle">
+         <img src="/images/icon-delete-black.png" class="deleteCycleClass" onclick="selectCycleDelete()" alt="Delete" title="Delete Crop Cycle">
+             
        </div>
 
         <div id="recentCyclesTitle">
@@ -58,11 +60,6 @@
             <aside>
 
                 <div id="cycleInfo">   
-                    
-                    <button onclick="selectCycleEdit()" style="border:none;"> <img src="/images/edit.png" alt="edit icon" style="width:40px;height:40px;"/></button>
-                    <button onclick="selectCycleDelete()" style="border:none;"> <img src="/images/icon-delete-black.png" alt="edit icon" style="width:40px;height:40px;"/></button>
-
-
                     <p id="cycleNameID"></p>
                     <p id="cycleCropID"></p>
                     <p id="cycleLandTypeID"></p>
@@ -95,8 +92,8 @@
 
                 <div class="chemicalButtons">
                     Chemicals <br />
-                    <input class="addMoreButton" type="image" id="addChemicalImage" onclick="chemicalButtonClick()" src="/images/add.png"/>
-                    <input class="deleteItemsButton" type="image" id="deleteChemicalImage" onclick="deleteChemicalButtonClick()" src="/images/icon-delete-black.png"/> <br />
+                    <img src="/images/add.png" class="addMoreButton" onclick="chemicalButtonClick()" alt="Add More Chemicals" title="Add More Chemicals">
+                    <img src="/images/icon-delete-black.png" class="deleteItemsButton" onclick="deleteChemicalButtonClick()" alt="Delete Chemicals" title="Delete Chemicals Used"> <br />
                 </div>
                               
                  <div class="fertilizerListColumn">
@@ -105,8 +102,8 @@
 
                 <div class="fertilizerButtons">
                     Fertilizers<br />
-                     <input class="addMoreButton" type="image" id="addFertilizerImage" onclick="fertilizerButtonClick()" src="/images/add.png"/>
-                    <input class="deleteItemsButton" type="image" id="deleteFertilizerImage" onclick="deleteFertilizerButtonClick()" src="/images/icon-delete-black.png"/> <br />
+                      <img src="/images/add.png" class="addMoreButton" onclick="fertilizerButtonClick()" alt="Add More Fertilizers" title="Add More Fertilizers">
+                      <img src="/images/icon-delete-black.png" class="deleteItemsButton" onclick="deleteFertilizerButtonClick()" alt="Delete Fertilizers" title="Delete Fertilizers Used"> <br />
                 </div>
 
                  <div class="plantingMaterialListColumn">
@@ -115,8 +112,8 @@
 
                 <div class="plantingMaterialButtons">
                     Planting Material <br />
-                    <input class="addMoreButton" type="image" id="addPlantingMaterialImage" onclick="plantingMaterialButtonClick()" src="/images/add.png"/>
-                    <input class="deleteItemsButton" type="image" id="deletePlantingMaterialImage" onclick="deletePlantingMaterialButtonClick()" src="/images/icon-delete-black.png"/> <br />
+                     <img src="/images/add.png" class="addMoreButton" onclick="plantingMaterialButtonClick()" alt="Add More Planting Material" title="Add More Planting Material">
+                     <img src="/images/icon-delete-black.png" class="deleteItemsButton" onclick="deletePlantingMaterialButtonClick()" alt="Delete Planting Material" title="Delete Planting Material Used"> <br />
                 </div>
 
                  <div class="soilAmendmentListColumn">
@@ -125,8 +122,8 @@
 
                 <div class="soilAmendmentButtons">
                     Soil Amendments <br />
-                    <input class="addMoreButton" type="image" id="addSoilAmendmentImage" onclick="soilAmendmentButtonClick()" src="/images/add.png"/>
-                    <input class="deleteItemsButton" type="image" id="deleteSoilAmendmentImage" onclick="deleteSoilAmendmentButtonClick()" src="/images/icon-delete-black.png"/> <br />
+                    <img src="/images/add.png" class="addMoreButton" onclick="soilAmendmentButtonClick()" alt="Add More Soil Amendments" title="Add More Soil Amendments">
+                    <img src="/images/icon-delete-black.png" class="deleteItemsButton" onclick="deleteSoilAmendmentButtonClick()" alt="Delete Soil Amendments" title="Delete Soil Amendments Used"> <br />
                 </div>
                
                 <div class="otherListColumn">
@@ -135,8 +132,8 @@
 
                 <div class="otherButtons">
                     Other <br />
-                    <input class="addMoreButton" type="image" id="addOtherImage" onclick="otherButtonClick()" src="/images/add.png"/>
-                    <input class="deleteItemsButton" type="image" id="deleteOtherImage" onclick="deleteOtherButtonClick()" src="/images/icon-delete-black.png"/> <br />
+                     <img src="/images/add.png" class="addMoreButton" onclick="otherButtonClick()" alt="Add More Other" title="Add Other Materials">
+                    <img src="/images/icon-delete-black.png" class="deleteItemsButton" onclick="deleteOtherButtonClick()" alt="Delete Other" title="Delete Other Materials Used"> <br />
                 </div>
 
                 <div class="labourListColumn">
@@ -145,18 +142,12 @@
 
                 <div class="labourButtons">
                     Labour <br />
-                    <input class="addMoreButton" type="image" id="addLabourImage" onclick="location.href='labour.html'" src="/images/add.png"/>
-                    <input class="deleteItemsButton" type="image" id="deleteLabourImage" onclick="location.href = 'labour.html'" src="/images/icon-delete-black.png"/> <br />
-
+                    <img src="/images/add.png" class="addMoreButton" onclick="location.href='labour.html'" alt="Add More Labour" title="Add More Labour">
+                    <img src="/images/icon-delete-black.png" class="deleteItemsButton" onclick="location.href='labour.html'" alt="Delete Labour" title="Delete Labour Used in this Cycle"> <br />
                 </div>
           
         </section>
     </div>
 
-    
-
-
-
-  
 </body>
 </html>
