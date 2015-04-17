@@ -75,6 +75,8 @@ function ViewModel() {
         //Filter by Material Type - Chemical
         myDatabase.purchaseList.getCycleList(resourceUseageObjectStoreName, "Chemical", localStorage.getItem("cropCycleId"), function (e) {
             chemicalDataList = new WinJS.Binding.List(e);
+            chemicalDataList.reverse();
+
             chemicalListView.itemDataSource = chemicalDataList.dataSource;
 
             var cCost = 0;
@@ -96,6 +98,8 @@ function ViewModel() {
         //Filter by Material Type - Fertilizer
         myDatabase.purchaseList.getCycleList(resourceUseageObjectStoreName, "Fertilizer", localStorage.getItem("cropCycleId"), function (e) {
             fertilizerDataList = new WinJS.Binding.List(e);
+            fertilizerDataList.reverse();
+
             fertilizerListView.itemDataSource = fertilizerDataList.dataSource;
 
             var fCost = 0;
@@ -118,6 +122,8 @@ function ViewModel() {
         //Filter by Material Type - Planting Material
         myDatabase.purchaseList.getCycleList(resourceUseageObjectStoreName, "Planting Material", localStorage.getItem("cropCycleId"), function (e) {
             plantingMaterialDataList = new WinJS.Binding.List(e);
+            plantingMaterialDataList.reverse();
+
             plantingMaterialListView.itemDataSource = plantingMaterialDataList.dataSource;
 
             var pCost = 0;
@@ -138,6 +144,8 @@ function ViewModel() {
         //Filter by Material Type - Soil Amendment
         myDatabase.purchaseList.getCycleList(resourceUseageObjectStoreName, "Soil Amendment", localStorage.getItem("cropCycleId"), function (e) {
             soilAmendmentDataList = new WinJS.Binding.List(e);
+            soilAmendmentDataList.reverse();
+
             soilAmendmentListView.itemDataSource = soilAmendmentDataList.dataSource;
 
             var sCost = 0;
@@ -158,6 +166,8 @@ function ViewModel() {
         //Filter by Material Type - Other
         myDatabase.purchaseList.getCycleList(resourceUseageObjectStoreName, "Other", localStorage.getItem("cropCycleId"), function (e) {
             otherDataList = new WinJS.Binding.List(e);
+            otherDataList.reverse();
+
             otherListView.itemDataSource = otherDataList.dataSource;
 
             var oCost = 0;
@@ -176,6 +186,8 @@ function ViewModel() {
 
         myDatabase.purchaseList.getLabourForEachCycle(labourObjectStoreName, localStorage.getItem("cropCycleId"), function (e) {
             labourDataList = new WinJS.Binding.List(e);
+            labourDataList.reverse();
+
             labourListView.itemDataSource = labourDataList.dataSource;
 
             var lCost = 0;
