@@ -45,10 +45,10 @@ function ViewModel() {
 
             cycleListView.selection.selectAll();
             var selectionCount = cycleListView.selection.count();
-           
+
             //put number of crop cycles in local storage
             localStorage.setItem("cropCycleCount", selectionCount);
-            
+
             if (selectionCount > 0) {
                 cycleListView.selection.getItems().then(function (items) {
                     items.forEach(function (item) { //iterate through all crop cycles
@@ -60,7 +60,7 @@ function ViewModel() {
                         cropCycleCropNamesArray.push(crop);
                     });
                 });
-              
+
                 //put list of crop cycle ids in local storage to access them in the method below
                 var cycleIds = cropCycleIdsArray;
                 localStorage.setItem('idsOfCropCycles', JSON.stringify(cycleIds));
@@ -69,58 +69,58 @@ function ViewModel() {
 
 
 
-        
+
         //do for loop to get resources used for that individual cycle
         for (var i = 0; i < localStorage.getItem("cropCycleCount") ; i++) {
             var count = 0;
-            var retrievedIdArray = JSON.parse(localStorage.getItem('idsOfCropCycles'));                
+            var retrievedIdArray = JSON.parse(localStorage.getItem('idsOfCropCycles'));
             myDatabase.purchaseList.getDataForEachCycle(resourceUseageObjectStoreName, retrievedIdArray[i], function (e) {
-                    resourcesUsedDataList = new WinJS.Binding.List(e);
+                resourcesUsedDataList = new WinJS.Binding.List(e);
 
-                    resourcesUsedListView.itemDataSource = resourcesUsedDataList.dataSource;
+                resourcesUsedListView.itemDataSource = resourcesUsedDataList.dataSource;
 
-                    resourcesUsedListView.selection.selectAll();
-                    
-                    var selectionCountRU = resourcesUsedListView.selection.count();
-                    
-                    cropCycleResourceCountArray.push(selectionCountRU);
-                    
+                resourcesUsedListView.selection.selectAll();
 
-                    //put them in array in global stores
-                    resourcesUsedListView.selection.getItems().then(function (items) {
-                        items.forEach(function (item) { //iterate through all crop cycles
-                            var purchaseID = item.data.purchaseID;
-                            var resourceType = item.data.resourceType;
-                            var resourceName = item.data.resourceName;
-                            var amountToAdd = item.data.amountToAdd;
-                            var quantifier = item.data.quantifier;
-                            var useCost = item.data.useCost;
+                var selectionCountRU = resourcesUsedListView.selection.count();
 
-                            
+                cropCycleResourceCountArray.push(selectionCountRU);
 
-                            //take purchaseID from here and get relevant details
-                            myDatabase.purchaseList.getDetailsFromPurchase(purchaseObjectStoreName, purchaseID, function (e) {
-                                //purchaseDataList = new WinJS.Binding.List(e);
-                                //purchaseListView.itemDataSource = purchaseDataList.dataSource;
 
-                                //set amountPurchased and costOfPurchase in localStorage
-                            });
+                //put them in array in global stores
+                resourcesUsedListView.selection.getItems().then(function (items) {
+                    items.forEach(function (item) { //iterate through all crop cycles
+                        var purchaseID = item.data.purchaseID;
+                        var resourceType = item.data.resourceType;
+                        var resourceName = item.data.resourceName;
+                        var amountToAdd = item.data.amountToAdd;
+                        var quantifier = item.data.quantifier;
+                        var useCost = item.data.useCost;
 
-                            var amountPurchased = localStorage.getItem("amountPurchased");
-                            var costOfPurchase = localStorage.getItem("costOfPurchase");
 
-                            
-                            //add info to array to be read in generateCsvFile
-                            resourceUseArray[count] = new resourceUsePerCycle(resourceType, resourceName, amountToAdd, quantifier, useCost, amountPurchased, costOfPurchase);
 
-                            count++;  
+                        //take purchaseID from here and get relevant details
+                        myDatabase.purchaseList.getDetailsFromPurchase(purchaseObjectStoreName, purchaseID, function (e) {
+                            //purchaseDataList = new WinJS.Binding.List(e);
+                            //purchaseListView.itemDataSource = purchaseDataList.dataSource;
+
+                            //set amountPurchased and costOfPurchase in localStorage
                         });
+
+                        var amountPurchased = localStorage.getItem("amountPurchased");
+                        var costOfPurchase = localStorage.getItem("costOfPurchase");
+
+
+                        //add info to array to be read in generateCsvFile
+                        resourceUseArray[count] = new resourceUsePerCycle(resourceType, resourceName, amountToAdd, quantifier, useCost, amountPurchased, costOfPurchase);
+
+                        count++;
                     });
-            });   
+                });
+            });
         }
 
-        
-        
+
+
         //do for loop to get resources used for that individual cycle
         for (var i = 0; i < localStorage.getItem("cropCycleCount") ; i++) {
             var countL = 0;
@@ -136,7 +136,7 @@ function ViewModel() {
 
                 var selectionCountL = labourUsedListView.selection.count(); //amount of employees for that crop cycle
                 cycleLabourCountArray.push(selectionCountL);
-                
+
 
                 //put them in array in global stores
                 labourUsedListView.selection.getItems().then(function (items) {
@@ -147,11 +147,11 @@ function ViewModel() {
                         cycleLabourArray[countL] = new labourPerCycle(employeeName, employeeCost);
                         countL++;
                     });
-                }); 
+                });
             });
             populateTextArea();
         }
-       
+
     };
 
 
@@ -189,12 +189,11 @@ function populateTextArea() {
     var position = 0;
     var lPosition = 0;
 
-   
+
 
     //Text in the file
     //for each crop cycle
     for (var i = 0; i < cropCycleNamesArray.length; i++) {
-        console.log("hi");
         csvContent = csvContent + "Cycle # " + cropCycleIdsArray[i] + " : " + cropCycleCropNamesArray[i].toUpperCase() + "\n";
         var amountOfResources = cropCycleResourceCountArray[i];
         var amountOfEmployees = cycleLabourCountArray[i];
@@ -203,7 +202,7 @@ function populateTextArea() {
 
         var LPrevPosition = lPosition;
 
-        csvContent = csvContent + "Resource                                  Quantity Used                             Cost of Use                               Amount Purchased                    Cost of Purchase: \n\n"
+        csvContent = csvContent + "Resource,Quantity Used,Cost of Use,Amount Purchased,Cost of Purchase: \n\n"
 
         var startPosition = position; //start position of each new cycle in resourceUse array
         var endPosition = startPosition + amountOfResources; //end position + 1 of each cycle in resourceUse array
@@ -247,35 +246,25 @@ function populateTextArea() {
 
 
         //   Employees hired for this cycle
-        csvContent = csvContent + "\nLabour:\n";
+        csvContent = csvContent + "\nLabour\n";
         var quantityOfEmployees = "1";
         var amountPurchasedEmployees = "1";
         for (var m = lPosition; m < amountOfEmployees + LPrevPosition; m++) {
 
-            csvContent = csvContent + cycleLabourArray[m].employeeName; //Employee Name
+            csvContent = csvContent + cycleLabourArray[m].employeeName + ","; //Employee Name
             //find amount of padding after employee name
-            var amountOfPadding = 52 - cycleLabourArray[m].employeeName.length;
-            for (var y = 0; y < amountOfPadding; y++) {
-                csvContent = csvContent + " ";
-            }
+            
 
-            csvContent = csvContent + quantityOfEmployees; //employee quantity
-            for (var y = 0; y < 51; y++) {
-                csvContent = csvContent + " ";
-            }
-
-            csvContent = csvContent + "$" + cycleLabourArray[m].employeeCost;
+            csvContent = csvContent + quantityOfEmployees + ","; //employee quantity
+            
+            csvContent = csvContent + "$" + cycleLabourArray[m].employeeCost + ",";
             var amountOfPadding = 52 - (cycleLabourArray[m].employeeCost.length + 1); //cost of use
-            for (var y = 0; y < amountOfPadding; y++) {
-                csvContent = csvContent + " ";
-            }
+            
 
-            csvContent = csvContent + amountPurchasedEmployees; //amount purchased
-            for (var y = 0; y < 51; y++) {
-                csvContent = csvContent + " ";
-            }
+            csvContent = csvContent + amountPurchasedEmployees + ","; //amount purchased
+            
 
-            csvContent = csvContent + "$" + cycleLabourArray[m].employeeCost; //cost of purchase
+            csvContent = csvContent + "$" + cycleLabourArray[m].employeeCost + ","; //cost of purchase
             csvContent = csvContent + "\n\n";
             lPosition++;
 
@@ -283,21 +272,20 @@ function populateTextArea() {
 
     }
 
- //   document.getElementById("textAreaPreview").innerHTML = csvContent;
+    //   document.getElementById("textAreaPreview").innerHTML = csvContent;
 }
 
 
-function generateCsvFile()
-{
+function generateCsvFile() {
     var todaysDate = getTodaysDate();
-    
+
     populateTextArea();
     var savePicker = new Windows.Storage.Pickers.FileSavePicker();
 
     savePicker.suggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.documentsLibrary;
-    
+
     savePicker.fileTypeChoices.insert("Excel Format", [".csv"]);
-    
+
     savePicker.suggestedFileName = "AgriExpense Report-" + todaysDate;
 
     savePicker.pickSaveFileAsync().then(function (file) {
@@ -312,10 +300,10 @@ function generateCsvFile()
                 // Completing updates may require Windows to ask for user input.
                 Windows.Storage.CachedFileManager.completeUpdatesAsync(file).done(function (updateStatus) {
                     //reset all arrays
-                    cropCycleIdsArray.length=0;
-                    cropCycleNamesArray.length=0;
-                    cropCycleCropNamesArray.length=0;
-                    cropCycleResourceCountArray.length=0;
+                    cropCycleIdsArray.length = 0;
+                    cropCycleNamesArray.length = 0;
+                    cropCycleCropNamesArray.length = 0;
+                    cropCycleResourceCountArray.length = 0;
                     resourceUseArray.length = 0;
                     cycleLabourCountArray.length = 0;
                     cycleLabourArray.length = 0;
@@ -325,7 +313,7 @@ function generateCsvFile()
         } else {
             WinJS.log && WinJS.log("Operation cancelled.", "sample", "status");
         }
-    }); 
+    });
 }
 
 //object declaration. Used to store items in resourceUseArray
@@ -349,52 +337,29 @@ function filterResourcesByType(resourceType, amountOfResources, startPosition, e
     //for each item in the crop cycle - filter by type
     for (var j = startPosition; j < endPosition; j++) {
 
-                 if (resourceUseArray[j].rType == resourceType) {
+        if (resourceUseArray[j].rType == resourceType) {
 
-                //add resource Name to csv file
-                var rNameLength = resourceUseArray[j].rName.length; //find length of "rName"
-                var paddingAmount = 52 - rNameLength; //calculate number of spaces as padding
-                csvContent = csvContent + resourceUseArray[j].rName;
-                for (var q = 0; q < paddingAmount; q++) { //add padding to name string
-                    csvContent = csvContent + " ";
-                }
+            //add name of resource
+            csvContent = csvContent + resourceUseArray[j].rName + ",";
+            
+            //add quantity and quantifier to csv file
+            csvContent = csvContent + resourceUseArray[j].rQuantity + " " + resourceUseArray[j].rQuantifier + ",";
 
-                //add quantity and quantifier to csv file
-                var rQuantityLength = resourceUseArray[j].rQuantity.length + resourceUseArray[j].rQuantifier.length + 1; //find length od quantity string
-                var paddingAmount = 52 - rQuantityLength; //calculate number of spaces to add as padding
-                csvContent = csvContent + resourceUseArray[j].rQuantity + " " + resourceUseArray[j].rQuantifier;
+            //add cost ofuse to csv file
+            csvContent = csvContent + resourceUseArray[j].rCost + ",";
 
-                for (var q = 0; q < paddingAmount; q++) { //add padding to quantity string
-                    csvContent = csvContent + " ";
-                }
+            csvContent = csvContent + resourceUseArray[j].amountPurchased + " " + resourceUseArray[j].rQuantifier+",";
+            
+
+            csvContent = csvContent + "$" + resourceUseArray[j].costOfPurchase + ",";
 
 
-                //add cost ofuse to csv file
-                var rCostOfUseLength = resourceUseArray[j].rCost.length; //find the length of the cost of use string
-                var paddingAmount = 52 - rCostOfUseLength; //calculate number of spaces to add as padding
-                csvContent = csvContent + resourceUseArray[j].rCost;
-
-                for (var q = 0; q < paddingAmount; q++) { //add padding to cost of use string
-                    csvContent = csvContent + " ";
-                }
-
-                var amountPurchasedLength = resourceUseArray[j].amountPurchased.length + resourceUseArray[j].rQuantifier.length + 1; //find the length of the amountPurchased String
-                var paddingAmount = 52 - amountPurchasedLength; //calculate number of spaces to add
-                csvContent = csvContent + resourceUseArray[j].amountPurchased + " " + resourceUseArray[j].rQuantifier; //add padding at the end of this
-                for (var q = 0; q < paddingAmount; q++) {
-                    csvContent = csvContent + " ";
-                }
-
-
-                csvContent = csvContent + "$" + resourceUseArray[j].costOfPurchase;
-
-
-                csvContent = csvContent + "\n";
-                costOfCycle = costOfCycle + parseFloat(resourceUseArray[j].rCost);
-         }
+            csvContent = csvContent + "\n";
+            costOfCycle = costOfCycle + parseFloat(resourceUseArray[j].rCost);
+        }
 
     }
-    
+
 }
 
 function countResourceTypeForEachCycle(resourceType, startPosition, endPosition) {

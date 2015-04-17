@@ -57,22 +57,73 @@ function ViewModel() {
                
                 var ind = parseInt(localStorage.getItem("cropCycleIndex"));
                 listView.selection.set(ind);
+                if (localStorage.getItem("cycleEdit") == "yes") {
+                        var
+                         anchor = document.querySelector(".toDo"),
+                         selectionCount = listView.selection.count();
 
-              /*  //check if edit OR delete
-                if (localStorage.getItem("cycleEdit" == "yes")) {
-                    // viewModel.editToDo();
-                    console.log("hi");
-               
-                    localStorage.setItem("cycleEdit", "no");
-                } */
-               
+                        if (selectionCount === 1) {
+                            listView.selection.getItems().then(function (items) {
+                                var
+                                    item = items[0],
+                                    editFlyoutElement = document.getElementById("editFlyout");
 
+                                var toDo = {
+                                    id: item.data.id,
+                                    name: item.data.name,
+                                    crop: item.data.crop,
+                                    typeOfLand: item.data.typeOfLand,
+                                    quantity: item.data.quantity,
+                                    startDate: item.data.startDate,
+                                    lvIndex: item.index
+                                };
 
+                                document.getElementById('labelCropName').innerText = "Crop : " + "(Previous: " + toDo.crop + ")";
+                                document.getElementById('labelLandType').innerText = "Land Type : " + "(Previous: " + toDo.typeOfLand + ")";
+
+                                var process = WinJS.Binding.processAll(editFlyoutElement, toDo);
+
+                                process.then(function () {
+                                    editFlyout.show(anchor, "top", "center");
+                                });
+                            });
+                        }
+
+                }
+
+                if (localStorage.getItem("cycleDelete") == "yes") {
+                        var dialog = new Windows.UI.Popups.MessageDialog("Are you sure you want to delete?");
+
+                        dialog.commands.append(new Windows.UI.Popups.UICommand("OK", function (command) {
+                            var selectionCount = listView.selection.count();
+                            if (selectionCount > 0) {
+                                listView.selection.getItems().then(function (items) {
+                                    items.forEach(function (item) {
+                                        var
+                                            dbKey = item.data.id,
+                                            lvKey = item.key;
+
+                                        myDatabase.purchaseList.remove(dbKey, cycleObjectStoreName, function () {
+                                            listView.itemDataSource.remove(lvKey);
+                                        });
+                                    });
+                                });
+                            }
+                        }));
+
+                        dialog.commands.append(new Windows.UI.Popups.UICommand("Cancel", null));
+
+                        dialog.defaultCommandIndex = 1;
+                        dialog.cancelCommandIndex = 1;
+
+                        dialog.showAsync();
+                }
+
+                localStorage.setItem("cycleEdit", "no");
+                localStorage.setItem("cycleDelete", "no");
                 localStorage.setItem("cycleSelected", "no"); //reset boolean variable
             }
-            else if (getSelection == "no") { 
-               //do nothing
-            }
+
 
         });
     };
@@ -259,3 +310,4 @@ function ViewModel() {
     };
    
 }
+
