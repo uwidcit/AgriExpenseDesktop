@@ -81,6 +81,11 @@
         width: 250px;
         padding: 10px;
         background-color: #FFFFFF;
+        background-color: #FFFFFF;
+        background-image: url("/images/pencil43.png");
+        background-size: 60px 60px;
+        background-repeat: no-repeat;
+        background-position:right;
         color:#689F38;
 
         border-style: solid;

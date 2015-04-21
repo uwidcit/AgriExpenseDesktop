@@ -228,9 +228,19 @@ function ViewModel() {
         }
     };
 
-    var selectItemLeftClick = function (e) {
+
+    //when user clicks on an item in the list of purchases
+    var isSelected = false;
+    var selectItemLeftClick = function (e) {     
         e.detail.itemPromise.then(function (item) {
-            listView.selection.set(item.index);
+            if (isSelected == false) {
+                listView.selection.set(item.index); //select the item they click on
+                isSelected = true;
+            }
+            else if (isSelected == true) {
+                listView.selection.clear(); //if they click on it again, de-select it
+                isSelected = false;
+            }
         });
     };
 

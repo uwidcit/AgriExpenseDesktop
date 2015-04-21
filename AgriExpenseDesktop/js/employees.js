@@ -56,10 +56,18 @@ function ViewModel() {
         };
     })();
 
+    //when user left click on the an item in the list of employees
+    var isSelected = false;
     var appBarOptionsLeftClick = function (e) {
         e.detail.itemPromise.then(function (item) {
-
-            listView.selection.set(item.index);
+            if (isSelected == false) {
+                listView.selection.set(item.index); //select the item they click on
+                isSelected = true;
+            }
+            else if (isSelected == true) {
+                listView.selection.clear(); //if they click on it again, de-select it
+                isSelected = false;
+            }
         });
     };
 

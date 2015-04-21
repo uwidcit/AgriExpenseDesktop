@@ -43,7 +43,7 @@
         margin-left: 120px;
         margin-right: 120px;
 
-        -ms-grid-columns: 350px 50px 200px 1fr;
+        -ms-grid-columns: 300px 10px 200px 1fr;
         -ms-grid-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
         
         display: -ms-grid;
@@ -158,6 +158,10 @@
         width: 230px;
         padding: 5px; /*padding on all sides of each individual box*/
         background-color: #FFFFFF;
+        background-image: url("/images/coin18.png");
+        background-size: 70px 70px;
+        background-repeat: no-repeat;
+        background-position:center;
         color:#689F38;
         font-size:9pt;
 

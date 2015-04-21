@@ -81,7 +81,11 @@
         height: 150px;
         width: 250px;
         padding: 10px;
-        background-color: #FFFFFF;
+        background-color: #FFFFFF; 
+        background-image: url("/images/coin18.png");
+        background-size: 120px 120px;
+        background-repeat: no-repeat;
+        background-position:center;
         color:#689F38;
 
         border-style: solid;

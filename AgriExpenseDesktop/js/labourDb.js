@@ -90,9 +90,18 @@ function ViewModel() {
         };
     })();
 
+    //when user left clicks on an item in the list of hired employees
+    var isSelected = false;
     var appBarOptionsLeftClick = function (e) {
         e.detail.itemPromise.then(function (item) {
-            labourListView.selection.set(item.index);
+            if (isSelected == false) {
+                labourListView.selection.set(item.index); //select the item they click on
+                isSelected = true;
+            }
+            else if (isSelected == true) {
+                labourListView.selection.clear(); //if they click of the item again, de-select it
+                isSelected = false;
+            }
         });
     };
 

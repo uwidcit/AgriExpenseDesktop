@@ -678,6 +678,24 @@
                 };
             }
 
+            //edit resources in resources.html
+            else if ((oStoreName == otherFertilizerObjectStoreName) || (oStoreName == otherChemicalObjectStoreName) ||
+                (oStoreName == otherPlantingMaterialObjectStoreName) || (oStoreName == otherSoilAmendmentObjectStoreName)) {
+                var
+                  transaction = myDatabase.data.db.transaction(oStoreName, "readwrite"),
+                  store = transaction.objectStore(oStoreName),
+                  request = store.put({
+                      id: parseInt(toDo.id, 10),
+                      name: toDo.name
+                  });
+
+                request.onsuccess = function () {
+                    success(toDo);
+                };
+            }
+
+
+
           
         };
 

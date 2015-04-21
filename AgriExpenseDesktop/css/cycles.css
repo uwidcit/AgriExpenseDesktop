@@ -82,6 +82,10 @@
         width: 250px;
         padding: 10px;
         background-color: #FFFFFF;
+        background-image: url("/images/budding.png");
+        background-size: 120px 120px;
+        background-repeat: no-repeat;
+        background-position:center;
         color:#689F38;
 
         border-style: solid;

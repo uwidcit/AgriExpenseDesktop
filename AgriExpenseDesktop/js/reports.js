@@ -63,7 +63,7 @@ function ViewModel() {
 
                 //put list of crop cycle ids in local storage to access them in the method below
                 var cycleIds = cropCycleIdsArray;
-                localStorage.setItem('idsOfCropCycles', JSON.stringify(cycleIds));
+                localStorage.setItem('idsOfCropCycles', JSON.stringify(cycleIds)); //store array as string
             }
         });
 
@@ -149,8 +149,19 @@ function ViewModel() {
                     });
                 });
             });
-            populateTextArea();
+           
         }
+
+        /*var todaysDate = getTodaysDate();
+
+        for (var i = 0; i < cropCycleNamesArray.length; i++) {
+            console.log("hi");
+        }
+
+        document.getElementById("reportPreviewPlaceholder").innerHTML = todaysDate;
+
+        */
+
 
     };
 
@@ -163,10 +174,9 @@ function ViewModel() {
             timer = setTimeout(callback, ms);
         };
     })();
-
-
-
 }
+
+
 
 function getTodaysDate() {
     var currentDate = new Date()
@@ -183,6 +193,7 @@ function getTodaysDate() {
 
 
 function populateTextArea() {
+    
     var todaysDate = getTodaysDate();
 
     csvContent = "";
@@ -190,11 +201,10 @@ function populateTextArea() {
     var lPosition = 0;
 
 
-
     //Text in the file
     //for each crop cycle
     for (var i = 0; i < cropCycleNamesArray.length; i++) {
-        csvContent = csvContent + "Cycle # " + cropCycleIdsArray[i] + " : " + cropCycleCropNamesArray[i].toUpperCase() + "\n";
+        csvContent = csvContent + "\nCycle # " + cropCycleIdsArray[i] + " : " + cropCycleCropNamesArray[i].toUpperCase() + "\n";
         var amountOfResources = cropCycleResourceCountArray[i];
         var amountOfEmployees = cycleLabourCountArray[i];
 
@@ -203,6 +213,7 @@ function populateTextArea() {
         var LPrevPosition = lPosition;
 
         csvContent = csvContent + "Resource,Quantity Used,Cost of Use,Amount Purchased,Cost of Purchase: \n\n"
+       
 
         var startPosition = position; //start position of each new cycle in resourceUse array
         var endPosition = startPosition + amountOfResources; //end position + 1 of each cycle in resourceUse array
@@ -247,6 +258,7 @@ function populateTextArea() {
 
         //   Employees hired for this cycle
         csvContent = csvContent + "\nLabour\n";
+
         var quantityOfEmployees = "1";
         var amountPurchasedEmployees = "1";
         for (var m = lPosition; m < amountOfEmployees + LPrevPosition; m++) {
@@ -258,21 +270,22 @@ function populateTextArea() {
             csvContent = csvContent + quantityOfEmployees + ","; //employee quantity
             
             csvContent = csvContent + "$" + cycleLabourArray[m].employeeCost + ",";
-            var amountOfPadding = 52 - (cycleLabourArray[m].employeeCost.length + 1); //cost of use
-            
-
+           
             csvContent = csvContent + amountPurchasedEmployees + ","; //amount purchased
             
 
             csvContent = csvContent + "$" + cycleLabourArray[m].employeeCost + ","; //cost of purchase
             csvContent = csvContent + "\n\n";
             lPosition++;
+          
 
         }
 
     }
 
-    //   document.getElementById("textAreaPreview").innerHTML = csvContent;
+    //document.getElementById("reportPreviewPlaceholder").innerHTML = csvContent;
+    // document.getElementById("reportPreviewPlaceholder").innerHTML = csvContent;
+   
 }
 
 
@@ -280,6 +293,7 @@ function generateCsvFile() {
     var todaysDate = getTodaysDate();
 
     populateTextArea();
+
     var savePicker = new Windows.Storage.Pickers.FileSavePicker();
 
     savePicker.suggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.documentsLibrary;

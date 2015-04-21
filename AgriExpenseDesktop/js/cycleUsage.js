@@ -95,6 +95,8 @@ function ViewModel() {
                 localStorage.setItem("totalCycleCost", p);
 
                 document.getElementById("chemicalsUsed").innerHTML = "Chemicals: $" + cCost;
+                document.getElementById("totalCycleExpenses").innerHTML = "Total Cost: $" + p;
+
             }
 
 
@@ -119,6 +121,7 @@ function ViewModel() {
                 localStorage.setItem("totalCycleCost", p);
 
                 document.getElementById("fertilizersUsed").innerHTML = "Fertilizers: $" + fCost;
+                document.getElementById("totalCycleExpenses").innerHTML = "Total Cost: $" + p;
 
             }
 
@@ -142,6 +145,7 @@ function ViewModel() {
                 localStorage.setItem("totalCycleCost", p);
 
                 document.getElementById("plantingMaterialsUsed").innerHTML = "Planting Material: $" + pCost;
+                document.getElementById("totalCycleExpenses").innerHTML = "Total Cost: $" + p;
             }
 
         });
@@ -164,6 +168,7 @@ function ViewModel() {
                 localStorage.setItem("totalCycleCost", p);
 
                 document.getElementById("soilAmendmentsUsed").innerHTML = "Soil Amendments: $" + sCost;
+                document.getElementById("totalCycleExpenses").innerHTML = "Total Cost: $" + p;
             }
 
         });
@@ -186,6 +191,7 @@ function ViewModel() {
                 localStorage.setItem("totalCycleCost", p);
 
                 document.getElementById("otherUsed").innerHTML = "Other: $" + oCost;
+                document.getElementById("totalCycleExpenses").innerHTML = "Total Cost: $" + p;
             }
         });
 
@@ -206,6 +212,7 @@ function ViewModel() {
                 localStorage.setItem("totalCycleCost", p);
 
                 document.getElementById("labourUsed").innerHTML = "Labour: $" + lCost;
+                document.getElementById("totalCycleExpenses").innerHTML = "Total Cost: $" + p;
             }
         });
 

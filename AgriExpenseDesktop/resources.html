@@ -56,6 +56,24 @@
     <div id="appBar" data-win-control="WinJS.UI.AppBar">
         <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'deleteCommand', label:'Delete', icon:'remove', section:'selection', hidden:'true', extraClass:'appBarSelection'}">
         </button>
+        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'editCommand', label:'Edit', icon:'edit', section:'selection', hidden:'true', extraClass:'appBarSelection appBarSingleSelection'}">
+        </button>
+    </div>
+
+        <div id="editFlyout" data-win-control="WinJS.UI.Flyout">
+        <form id="editForm">
+            <h2>Edit Item</h2>
+            <input type="hidden" class="id" data-win-bind="value:id" />
+            <input type="hidden" class="lvIndex" data-win-bind="value:lvIndex" />
+            
+            <label id="labelName">Name</label>
+            <input type="text" class="name input-block" data-win-bind="value:name" required />
+
+            <div>
+                <button type="submit">Save</button>
+                <button class="cancel">Cancel</button>
+            </div>
+        </form>
     </div>
     
     
