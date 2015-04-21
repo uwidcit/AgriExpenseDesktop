@@ -110,7 +110,6 @@
     <Content Include="js\employees.js" />
     <Content Include="js\globalStores.js" />
     <Content Include="js\harvest.js" />
-    <Content Include="js\jqueryForWindows8.js" />
     <Content Include="js\labourDb.js" />
     <Content Include="js\newQuantifier.js" />
     <Content Include="js\otherItemTypeKnown.js" />
