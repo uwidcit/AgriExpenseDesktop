@@ -39,6 +39,10 @@ function ViewModel() {
 
             listView.itemDataSource = dataList.dataSource;
             listView.onselectionchanged = self.selectionChanged;
+
+            WinJS.UI.setOptions(listView, {
+                oniteminvoked: selectItemLeftClick
+            });
         });
     };
 
@@ -76,6 +80,20 @@ function ViewModel() {
         }
     };
 
+    var isSelected = false;
+    var selectItemLeftClick = function (e) {
+        e.detail.itemPromise.then(function (item) {
+            if (isSelected == false) {
+                listView.selection.set(item.index); //select the item they click on
+                isSelected = true;
+            }
+            else if (isSelected == true) {
+                listView.selection.clear(); //if they click on it again, de-select it
+                isSelected = false;
+            }
+        });
+    };
+
     this.deleteToDo = function () {
         var dialog = new Windows.UI.Popups.MessageDialog("Are you sure you want to delete?");
 
@@ -88,7 +106,7 @@ function ViewModel() {
                             dbKey = item.data.id,
                             lvKey = item.key;
 
-                        myDatabase.purchaseList.remove(dbKey, historicalLabourStoreName, function () {
+                        myDatabase.purchaseList.remove(dbKey, otherQuantifierObjectStoreName, function () {
                             listView.itemDataSource.remove(lvKey);
                         });
                     });
@@ -116,7 +134,17 @@ function ViewModel() {
         myDatabase.purchaseList.add(toDo, otherQuantifierObjectStoreName, function (e) {
             dataList.push(e);
             addForm.reset();
-           
+            var dialog = new Windows.UI.Popups.MessageDialog("Item Successfully Added");
+
+            dialog.commands.append(new Windows.UI.Popups.UICommand("Okay", null));
+
+            dialog.defaultCommandIndex = 1;
+            dialog.cancelCommandIndex = 1;
+
+            dialog.showAsync();
+
+
+            window.location = "addOtherPurchase.html";           
         });
     };
 

@@ -36,6 +36,7 @@ function ViewModel() {
     this.init = function () {
         myDatabase.purchaseList.getList(historicalLabourStoreName, function (e) {
             dataList = new WinJS.Binding.List(e);
+            dataList.reverse();
 
             listView.itemDataSource = dataList.dataSource;
             listView.onselectionchanged = self.selectionChanged;
@@ -136,6 +137,15 @@ function ViewModel() {
             dataList.push(e);
 
             addForm.reset();
+            var dialog = new Windows.UI.Popups.MessageDialog("Person successfully Added");
+            dialog.commands.append(new Windows.UI.Popups.UICommand("Okay", null));
+
+            dialog.defaultCommandIndex = 1;
+            dialog.cancelCommandIndex = 1;
+
+            dialog.showAsync();
+
+            window.location="employees.html"
 
             
         });

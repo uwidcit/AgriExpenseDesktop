@@ -189,6 +189,16 @@ function ViewModel() {
                 dataListRU.push(e); //added to Resource Use Object Store
                 addMaterialFlyout.hide();
                 addMaterialForm.reset();
+
+                var dialog = new Windows.UI.Popups.MessageDialog("Item Successfully Added");
+
+                dialog.commands.append(new Windows.UI.Popups.UICommand("Okay", null));
+
+                dialog.defaultCommandIndex = 1;
+                dialog.cancelCommandIndex = 1;
+
+                dialog.showAsync();
+
                 getValuesFromObjectStore(cropCycleIdFromStorage, resourceType);
             });
 

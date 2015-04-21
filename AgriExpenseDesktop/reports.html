@@ -45,14 +45,30 @@
          <section role="main">
             <aside> 
 
-               <p id="reportPreviewPlaceholder"></p>
-                
-                 <h3 id="textAreaPreview"></h3><br /> <br />
+               
                 <form id="reportPreview">
-                     <div>
-                       
-                        <button id="generateReportButton" type="button" class="width-150px" onclick="generateCsvFile()">Generate Report</button>
+
+                    <script type="text/javascript">
+                        // Auto-Grow-TextArea script.
+                        // Script is free to use provided this copyright header is included.
+                        function AutoGrowTextArea(textField) {
+                            if (textField.clientHeight < textField.scrollHeight) {
+                                textField.style.height = textField.scrollHeight + "px";
+                                if (textField.clientHeight < textField.scrollHeight) {
+                                    textField.style.height =
+                                      (textField.scrollHeight * 2 - textField.clientHeight) + "px";
+                                }
+                            }
+                        }
+                    </script>
+
+                    <div>                      
+                        <button id="generateReportButton" type="button" class="width-150px" onclick="generateCsvFile()">Generate Report</button> <br /> <br />
+                        <button id="previewButton" type="button" class="width-150px" onclick="viewReportPreview()">View Preview</button>
                     </div>
+                    
+                    <textarea style="visibility:hidden;" id="tAPreview" cols="150" rows="20" onkeyup="AutoGrowTextArea(this)">></textarea>
+                     
                 </form>
 
                 

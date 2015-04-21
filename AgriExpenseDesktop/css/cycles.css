@@ -25,13 +25,13 @@
 
         .fragment #addNewCycleTitle {
         -ms-grid-row:2;
-        padding-left:120px;
+        padding-left:130px;
         color:black;
     }
 
     .fragment #recentCyclesTitle {
         -ms-grid-row:2;
-        padding-left: 530px;
+        padding-left: 540px;
         color:black;
     }
 
@@ -119,7 +119,7 @@
 
 
 .width-150px{
-    width: 150px;
+    width: 100%;
     display: inline-block;
 }
 

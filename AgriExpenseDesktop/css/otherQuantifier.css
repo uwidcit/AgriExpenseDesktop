@@ -53,7 +53,7 @@
    -ms-grid-column: 1;
     padding-right: 30px;
     padding-left:10px;
-    color:black;
+    color:black;  
 }
 
 .toDo aside hr {
@@ -113,7 +113,7 @@
 
 
 .width-150px{
-    width: 150px;
+    width: 230px;
     display: inline-block;
 }
 

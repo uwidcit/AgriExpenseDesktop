@@ -24,15 +24,15 @@
             color: #312C2C;
         }
 
-        .fragment #addNewCycleTitle {
+        .fragment #addNewItemTitle {
         -ms-grid-row:2;
         padding-left:120px;
         color:black;
     }
 
-    .fragment #recentCyclesTitle {
+    .fragment #recentItemsTitle {
         -ms-grid-row:2;
-        padding-left: 530px;
+        padding-left: 440px;
         color:black;
     }
 
@@ -53,7 +53,7 @@
 
 .toDo aside {
    -ms-grid-column: 1;
-   -ms-grid-row-span:11; /*aside will span all three rows*/
+   -ms-grid-row-span:6; /*aside will span all three rows*/
     padding-right: 30px;
     padding-left:10px;
     color:black;
@@ -227,5 +227,9 @@
     width:250px;
     border-color:black;
     color:black;
+    background-color:white;
+    cursor:pointer;
+    border-radius: 25px;
+    
 }
 

@@ -330,8 +330,17 @@ function ViewModel() {
 
         myDatabase.purchaseList.add(toDo, purchaseObjectStoreName, function (e) {
             dataList.push(e);//add to object store in the database
-
             addForm.reset(); //reset form
+
+            var dialog = new Windows.UI.Popups.MessageDialog("Item Successfully Added");
+
+            dialog.commands.append(new Windows.UI.Popups.UICommand("Okay", null));
+
+            dialog.defaultCommandIndex = 1;
+            dialog.cancelCommandIndex = 1;
+
+            dialog.showAsync();
+
             window.location = "purchases.html"; //refresh page
 
         });

@@ -79,6 +79,15 @@ function ViewModel() {
             myDatabase.purchaseList.add(toDo, otherFertilizerObjectStoreName, function (e) {
                 dataList.push(e);
                 addForm.reset();
+
+                var dialog = new Windows.UI.Popups.MessageDialog("Item Successfully Added");
+
+                dialog.commands.append(new Windows.UI.Popups.UICommand("Okay", null));
+
+                dialog.defaultCommandIndex = 1;
+                dialog.cancelCommandIndex = 1;
+
+                dialog.showAsync();
             });
 
         }
@@ -86,24 +95,52 @@ function ViewModel() {
             myDatabase.purchaseList.add(toDo, otherChemicalObjectStoreName, function (e) {
                 dataList.push(e);
                 addForm.reset();
+
+                var dialog = new Windows.UI.Popups.MessageDialog("Item Successfully Added");
+
+                dialog.commands.append(new Windows.UI.Popups.UICommand("Okay", null));
+
+                dialog.defaultCommandIndex = 1;
+                dialog.cancelCommandIndex = 1;
+
+                dialog.showAsync();
             });
         }
         else if (toDo.type == "Planting Material") {
             myDatabase.purchaseList.add(toDo, otherPlantingMaterialObjectStoreName, function (e) {
                 dataList.push(e);
                 addForm.reset();
+
+                var dialog = new Windows.UI.Popups.MessageDialog("Item Successfully Added");
+
+                dialog.commands.append(new Windows.UI.Popups.UICommand("Okay", null));
+
+                dialog.defaultCommandIndex = 1;
+                dialog.cancelCommandIndex = 1;
+
+                dialog.showAsync();
             });
         }
         else if (toDo.type == "Soil Amendment") {
             myDatabase.purchaseList.add(toDo, otherSoilAmendmentObjectStoreName, function (e) {
                 dataList.push(e);
                 addForm.reset();
+
+                var dialog = new Windows.UI.Popups.MessageDialog("Item Successfully Added");
+
+                dialog.commands.append(new Windows.UI.Popups.UICommand("Okay", null));
+
+                dialog.defaultCommandIndex = 1;
+                dialog.cancelCommandIndex = 1;
+
+                dialog.showAsync();
             });
         }
 
         myDatabase.purchaseList.add(toDo, otherPurchaseObjectStoreName, function (e) {
             dataList.push(e);
             addForm.reset();
+
             window.location = "resources.html";
         });
 

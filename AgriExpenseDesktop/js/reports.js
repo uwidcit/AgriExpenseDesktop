@@ -152,15 +152,6 @@ function ViewModel() {
            
         }
 
-        /*var todaysDate = getTodaysDate();
-
-        for (var i = 0; i < cropCycleNamesArray.length; i++) {
-            console.log("hi");
-        }
-
-        document.getElementById("reportPreviewPlaceholder").innerHTML = todaysDate;
-
-        */
 
 
     };
@@ -283,9 +274,118 @@ function populateTextArea() {
 
     }
 
-    //document.getElementById("reportPreviewPlaceholder").innerHTML = csvContent;
-    // document.getElementById("reportPreviewPlaceholder").innerHTML = csvContent;
    
+
+   
+}
+
+function populateTextAreaPreview() {
+    var todaysDate = getTodaysDate();
+
+    csvContent = "";
+    var position = 0;
+    var lPosition = 0;
+
+
+
+    //Text in the file
+    //for each crop cycle
+    for (var i = 0; i < cropCycleNamesArray.length; i++) {
+        csvContent = csvContent + "Cycle # " + cropCycleIdsArray[i] + " : " + cropCycleCropNamesArray[i].toUpperCase() + "\n";
+        var amountOfResources = cropCycleResourceCountArray[i];
+        var amountOfEmployees = cycleLabourCountArray[i];
+
+        costOfCycle = 0;
+
+        var LPrevPosition = lPosition;
+
+        csvContent = csvContent + "Resource                                  Quantity Used                             Cost of Use                               Amount Purchased                    Cost of Purchase: \n\n"
+
+        var startPosition = position; //start position of each new cycle in resourceUse array
+        var endPosition = startPosition + amountOfResources; //end position + 1 of each cycle in resourceUse array
+
+
+
+        var fertilizerCount = countResourceTypeForEachCycle("Fertilizer", startPosition, endPosition);
+        var chemicalCount = countResourceTypeForEachCycle("Chemical", startPosition, endPosition);
+        var plantingMaterialCount = countResourceTypeForEachCycle("Planting Material", startPosition, endPosition);
+        var soilAmendmentCount = countResourceTypeForEachCycle("Soil Amendment", startPosition, endPosition);
+        var otherCount = countResourceTypeForEachCycle("Other", startPosition, endPosition);
+
+
+        //get each different type of material
+        if (fertilizerCount > 0) {
+            csvContent = csvContent + "Fertilizers\n";
+            filterResourcesByTypeForPreview("Fertilizer", amountOfResources, startPosition, endPosition);
+        }
+
+        if (chemicalCount > 0) {
+            csvContent = csvContent + "\nChemicals:\n";
+            filterResourcesByTypeForPreview("Chemical", amountOfResources, startPosition, endPosition);
+        }
+
+        if (plantingMaterialCount > 0) {
+            csvContent = csvContent + "\nPlanting Materials:\n";
+            filterResourcesByTypeForPreview("Planting Material", amountOfResources, startPosition, endPosition);
+        }
+
+        if (soilAmendmentCount > 0) {
+            csvContent = csvContent + "\nSoil Amendments:\n";
+            filterResourcesByTypeForPreview("Soil Amendment", amountOfResources, startPosition, endPosition);
+        }
+
+        if (otherCount > 0) {
+            csvContent = csvContent + "\nOther:\n";
+            filterResourcesByTypeForPreview("Other", amountOfResources, startPosition, endPosition);
+        }
+
+        position = endPosition;
+
+
+        //   Employees hired for this cycle
+        csvContent = csvContent + "\nLabour:\n";
+        var quantityOfEmployees = "1";
+        var amountPurchasedEmployees = "1";
+        for (var m = lPosition; m < amountOfEmployees + LPrevPosition; m++) {
+
+            csvContent = csvContent + cycleLabourArray[m].employeeName; //Employee Name
+            //find amount of padding after employee name
+            var amountOfPadding = 52 - cycleLabourArray[m].employeeName.length;
+            for (var y = 0; y < amountOfPadding; y++) {
+                csvContent = csvContent + " ";
+            }
+
+            csvContent = csvContent + quantityOfEmployees; //employee quantity
+            for (var y = 0; y < 51; y++) {
+                csvContent = csvContent + " ";
+            }
+
+            csvContent = csvContent + "$" + cycleLabourArray[m].employeeCost;
+            var amountOfPadding = 52 - (cycleLabourArray[m].employeeCost.length + 1); //cost of use
+            for (var y = 0; y < amountOfPadding; y++) {
+                csvContent = csvContent + " ";
+            }
+
+            csvContent = csvContent + amountPurchasedEmployees; //amount purchased
+            for (var y = 0; y < 51; y++) {
+                csvContent = csvContent + " ";
+            }
+
+            csvContent = csvContent + "$" + cycleLabourArray[m].employeeCost; //cost of purchase
+            csvContent = csvContent + "\n\n";
+            lPosition++;
+
+        }
+
+    }
+
+    //document.getElementById("textAreaPreview").innerHTML = csvContent;
+    document.getElementById("tAPreview").style.visibility = "visible";
+    document.getElementById("tAPreview").value = csvContent;
+}
+
+function viewReportPreview() {
+    populateTextAreaPreview();
 }
 
 
@@ -294,6 +394,7 @@ function generateCsvFile() {
 
     populateTextArea();
 
+    
     var savePicker = new Windows.Storage.Pickers.FileSavePicker();
 
     savePicker.suggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.documentsLibrary;
@@ -327,7 +428,7 @@ function generateCsvFile() {
         } else {
             WinJS.log && WinJS.log("Operation cancelled.", "sample", "status");
         }
-    });
+    }); 
 }
 
 //object declaration. Used to store items in resourceUseArray
@@ -384,4 +485,56 @@ function countResourceTypeForEachCycle(resourceType, startPosition, endPosition)
         }
     }
     return count;
+}
+
+function filterResourcesByTypeForPreview(resourceType, amountOfResources, startPosition, endPosition) {
+    //for each item in the crop cycle - filter by type
+    for (var j = startPosition; j < endPosition; j++) {
+
+        if (resourceUseArray[j].rType == resourceType) {
+
+            //add resource Name to csv file
+            var rNameLength = resourceUseArray[j].rName.length; //find length of "rName"
+            var paddingAmount = 52 - rNameLength; //calculate number of spaces as padding
+            csvContent = csvContent + resourceUseArray[j].rName;
+            for (var q = 0; q < paddingAmount; q++) { //add padding to name string
+                csvContent = csvContent + " ";
+            }
+
+            //add quantity and quantifier to csv file
+            var rQuantityLength = resourceUseArray[j].rQuantity.length + resourceUseArray[j].rQuantifier.length + 1; //find length od quantity string
+            var paddingAmount = 52 - rQuantityLength; //calculate number of spaces to add as padding
+            csvContent = csvContent + resourceUseArray[j].rQuantity + " " + resourceUseArray[j].rQuantifier;
+
+            for (var q = 0; q < paddingAmount; q++) { //add padding to quantity string
+                csvContent = csvContent + " ";
+            }
+
+
+            //add cost ofuse to csv file
+            var rCostOfUseLength = resourceUseArray[j].rCost.length; //find the length of the cost of use string
+            var paddingAmount = 52 - rCostOfUseLength; //calculate number of spaces to add as padding
+            csvContent = csvContent + resourceUseArray[j].rCost;
+
+            for (var q = 0; q < paddingAmount; q++) { //add padding to cost of use string
+                csvContent = csvContent + " ";
+            }
+
+            var amountPurchasedLength = resourceUseArray[j].amountPurchased.length + resourceUseArray[j].rQuantifier.length + 1; //find the length of the amountPurchased String
+            var paddingAmount = 52 - amountPurchasedLength; //calculate number of spaces to add
+            csvContent = csvContent + resourceUseArray[j].amountPurchased + " " + resourceUseArray[j].rQuantifier; //add padding at the end of this
+            for (var q = 0; q < paddingAmount; q++) {
+                csvContent = csvContent + " ";
+            }
+
+
+            csvContent = csvContent + "$" + resourceUseArray[j].costOfPurchase;
+
+
+            csvContent = csvContent + "\n";
+            costOfCycle = costOfCycle + parseFloat(resourceUseArray[j].rCost);
+        }
+
+    }
+
 }

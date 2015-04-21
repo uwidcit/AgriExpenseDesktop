@@ -1,18 +1,17 @@
-﻿body { 
-   background-image: -ms-linear-gradient(top left, #FFFFFF 0%, #0B8F14 100%);
+﻿body {
+     background-image: -ms-linear-gradient(top left, #FFFFFF 0%, #0B8F14 100%);
 }
 
-.fragment {
-    /* Define a grid with rows for a banner and a body */
+.fragment {  
     -ms-grid-columns: 1fr;
     -ms-grid-rows: 128px 50px 500px 1fr;
     display: -ms-grid;
     height: 100%;
     width: 100%;
-}
+} 
 
     .fragment header[role=banner] {
-        -ms-grid-columns: 120px 1fr;
+        -ms-grid-columns: 120px 1fr; /*The 120px is padding on the left*/
         -ms-grid-rows: 1fr;
         display: -ms-grid;
     }
@@ -20,39 +19,37 @@
         .fragment header[role=banner] h2 {
             -ms-grid-column: 2;
             margin-top: 37px;
-            color: #312C2C;
+            color:#312C2C; /*The word "Purchases" at the top*/
         }
 
-        .fragment #addNewEmployeeTitle {
+    .fragment #addNewPurchaseTitle {
         -ms-grid-row:2;
-        padding-left:120px;
+        padding-left:500px;
         color:black;
     }
 
-    .fragment #pastEmployeesTitle {
-        -ms-grid-row:2;
-        padding-left: 530px;
-        color:black;
-    }
+
+
 
     .fragment section[role=main] {
         -ms-grid-row: 3;
+        -ms-grid-column-span:2;
         height: 100%;
         width: 100%;
-        margin-left: 120px;
-        margin-right: 120px;
-
-        -ms-grid-columns: 350px 50px 1fr;
-        -ms-grid-rows: 1fr;
+    
+        -ms-grid-columns: 1fr 1fr 1fr;
+        -ms-grid-rows: 500px, 1fr;
         display: -ms-grid;
     }
 
 
 
 .toDo aside {
-   -ms-grid-column: 1;
-    padding-right: 30px;
-    padding-left:10px;
+    -ms-grid-column: 2;
+    -ms-grid-row:1;
+    padding-left:75px;
+    border-color:black;
+    border-style:double;   
     color:black;
 }
 
@@ -62,28 +59,32 @@
 }
 
 .toDo .displayListColumn {
-   -ms-grid-column:3;    /*3rd column*/
-   
+    -ms-grid-column:3;    /*3rd column*/
+    
     padding-right: 30px;
     padding-left:30px;
 }
 
-
-
 .toDo .purchaseList {
-    -ms-grid-column: 3;
+    -ms-grid-column: 2;
     height: 100%;
     width: 100%;
 }
 
-    .toDo .purchaseList .item {
-        height: 60px;
-        width: 170px;
+
+    .toDo .purchaseList .item { /*Boxes in List View*/
+        height: 150px;
+        width: 250px;
         padding: 10px;
-        background-color: #FFFFFF;
+        background-color: #FFFFFF; 
+        background-image: url("/images/coin18.png");
+        background-size: 120px 120px;
+        background-repeat: no-repeat;
+        background-position:center;
         color:#689F38;
+
         border-style: solid;
-        border-color: #689F38;
+        border-color: #07570C;
     }
 
         .toDo .purchaseList .item .item-title {
@@ -92,7 +93,6 @@
         }
 
         .toDo .purchaseList .item .item-sub {
-            overflow: hidden;
             margin-left: 15px;
         }
 
@@ -106,14 +106,12 @@
 .input-block {
     display: block;
     width: 100%;
-    padding-right: 0;
-    padding-left: 0;
-    box-sizing: border-box;
 }
 
 
+/*Used for buttons*/
 .width-150px{
-    width: 150px;
+    width: 280px;
     display: inline-block;
 }
-
+    

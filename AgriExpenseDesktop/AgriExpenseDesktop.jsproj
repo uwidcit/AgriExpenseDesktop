@@ -72,6 +72,8 @@
     <Content Include="css\harvest.css" />
     <Content Include="css\home.css" />
     <Content Include="css\labour.css" />
+    <Content Include="css\otherItemTypeKnown.css" />
+    <Content Include="css\otherQuantifier.css" />
     <Content Include="css\purchases.css" />
     <Content Include="css\reports.css" />
     <Content Include="css\resources.css" />

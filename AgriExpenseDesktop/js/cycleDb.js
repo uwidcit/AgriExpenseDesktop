@@ -254,6 +254,15 @@ function ViewModel() {
             dataList.push(e);
 
             addForm.reset();
+
+            var dialog = new Windows.UI.Popups.MessageDialog("Cycle Successfully Added");
+
+            dialog.commands.append(new Windows.UI.Popups.UICommand("Okay", null));
+
+            dialog.defaultCommandIndex = 1;
+            dialog.cancelCommandIndex = 1;
+
+            dialog.showAsync();
             window.location = "cycles.html"; //refresh page
         });
     };

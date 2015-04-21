@@ -23,15 +23,15 @@
             color: #312C2C;
         }
 
-        .fragment #addNewCycleTitle {
+        .fragment #addNewLabourTitle {
         -ms-grid-row:2;
-        padding-left:120px;
+        padding-left:130px;
         color:black;
     }
 
-    .fragment #recentCyclesTitle {
+    .fragment #recentLabourTitle {
         -ms-grid-row:2;
-        padding-left: 530px;
+        padding-left: 540px;
         color:black;
     }
 
@@ -53,7 +53,8 @@
    -ms-grid-column: 1;
     padding-right: 30px;
     padding-left:10px;
-   background-image: -ms-linear-gradient(top, #CFFFBA 0%, #689F38 100%);
+   /*background-image: -ms-linear-gradient(top, #CFFFBA 0%, #689F38 100%);*/
+   color:black;
 }
 
 .toDo aside hr {
@@ -120,7 +121,17 @@
 
 
 .width-150px{
-    width: 150px;
+    width: 100%;
     display: inline-block;
 }
+
+.manageEmployeesButton{
+    width: 100%;
+    display: inline-block;
+    border-color:black;
+    color:black;
+    border-radius:25px;
+    cursor:pointer;
+}
+
 

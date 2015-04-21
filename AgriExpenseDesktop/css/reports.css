@@ -73,9 +73,10 @@
 
 
 .width-150px{
-    width: 150px;
+    width: 250px;
     display: inline-block;
     border: 2px solid black;
     color:black;
+    border-radius:25px;
 }
 
