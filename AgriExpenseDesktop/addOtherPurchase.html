@@ -63,8 +63,6 @@
 
                     <label>Quantifier</label>
                     <select class="quantifier input-block" id="selectOtherPurchaseQuantifier" onchange="navigateOrNot()" required> </select>
-              
-
 
 
                     <label>Quantity</label>
@@ -92,43 +90,6 @@
         </section>
     </div> 
 
-
-
-
-
-
-    <div id="appBar" data-win-control="WinJS.UI.AppBar">
-        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'deleteCommand', label:'Delete', icon:'remove', section:'selection', hidden:'true', extraClass:'appBarSelection'}">
-        </button>
-        <button data-win-control="WinJS.UI.AppBarCommand" data-win-options="{id:'editCommand', label:'Edit', icon:'edit', section:'selection', hidden:'true', extraClass:'appBarSelection appBarSingleSelection'}">
-        </button>
-    </div>
-    <div id="editFlyout" data-win-control="WinJS.UI.Flyout">
-        <form id="editForm">
-            <h2>Edit Purchase</h2>
-            <input type="hidden" class="id" data-win-bind="value:id" />
-            <input type="hidden" class="lvIndex" data-win-bind="value:lvIndex" />
-            
-       
-         
-            <label>Name</label>
-            <input type="text" class="name input-block" data-win-bind="value:name" required />
-
-            <label>Quantifier</label>
-            <input type="text" class="quantifier input-block" data-win-bind="value:quantifier" required />
-
-            <label>Quantity</label>
-            <input type="number" class="quantity input-block" data-win-bind="value:quantity" required />
-
-            <label>Cost</label>
-            <input type="number" class="cost input-block" data-win-bind="value:cost" required />
-
-            <div>
-                <button type="submit">Save</button>
-                <button class="cancel">Cancel</button>
-            </div>
-        </form>
-    </div>
 
 </body>
 </html>

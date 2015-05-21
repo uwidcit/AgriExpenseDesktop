@@ -23,7 +23,7 @@
             request.onupgradeneeded = function (e) { //runs only when a new instance of the db is created
                 var db = e.target.result;
 
-                //This deletion section is for testing purposes ONLY. It must be removed in the final product.
+               //This deletion section is for testing purposes ONLY. It must be removed in the final product.
                 db.deleteObjectStore(purchaseObjectStoreName);
                 db.deleteObjectStore(cycleObjectStoreName);
                 db.deleteObjectStore(resourceUseageObjectStoreName);
@@ -35,7 +35,7 @@
                 db.deleteObjectStore(otherPlantingMaterialObjectStoreName);
                 db.deleteObjectStore(otherSoilAmendmentObjectStoreName);
                 db.deleteObjectStore(otherQuantifierObjectStoreName);
-                db.deleteObjectStore(harvestObjectStoreName);
+                db.deleteObjectStore(harvestObjectStoreName);  
                 
                 //create all object stores
                 var purchaseStore = db.createObjectStore(purchaseObjectStoreName, {
@@ -526,7 +526,8 @@
                         name: toDo.name,
                         quantifier: toDo.quantifier,
                         quantity: toDo.quantity,
-                        cost: toDo.cost
+                        cost: toDo.cost,
+                        amountRemaining: toDo.amountRemaining
                     });
             }
 

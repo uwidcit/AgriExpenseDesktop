@@ -100,12 +100,13 @@ function ViewModel() {
                 addForm.reset();
             });
         }
-
-        myDatabase.purchaseList.add(toDo, otherPurchaseObjectStoreName, function (e) {
-            dataList.push(e);
-            addForm.reset();
-            window.location = "purchases.html";
-        });
+        else if(toDo.type == "Other"){
+            myDatabase.purchaseList.add(toDo, otherPurchaseObjectStoreName, function (e) {
+                dataList.push(e);
+                addForm.reset();
+                window.location = "purchases.html";
+            });
+        }
 
     };
 

@@ -32,6 +32,7 @@ function ViewModel() {
         appBar = document.getElementById("appBar").winControl,
         self = this,
         employeeList,
+        labourDataList,
         dataList;
 
     this.init = function () {
@@ -41,8 +42,9 @@ function ViewModel() {
         });
 
         myDatabase.purchaseList.getList(labourObjectStoreName, function (e) {
-            dataList = new WinJS.Binding.List(e);
-            labourListView.itemDataSource = dataList.dataSource;
+            labourDataList = new WinJS.Binding.List(e);
+            labourListView.itemDataSource = labourDataList.dataSource;
+            labourDataList.reverse();
 
             labourListView.onselectionchanged = self.selectionChanged;
 
@@ -184,7 +186,7 @@ function ViewModel() {
             var dialog = new Windows.UI.Popups.MessageDialog("Are you sure you want to hire " + toDo.personName + " for many crop cycles?");
             dialog.commands.append(new Windows.UI.Popups.UICommand("Yes", function (command) {
                 myDatabase.purchaseList.add(toDo, labourObjectStoreName, function (e) {
-                    dataList.push(e);
+                    labourDataList.push(e);
                     addForm.reset();
                     window.location = "labour.html";
                 });

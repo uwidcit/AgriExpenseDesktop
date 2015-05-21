@@ -39,7 +39,7 @@ var chemicalQuantifierArray = ["L", "g", "kg", "ml", "oz"];
 var plantingMaterialQuantifierArray = ["Heades", "Seeds", "Seedlings", "Slips", "Sticks", "Tubes"];
 var soilAmendmentQuantifierArray = ["Bag", "Truck"];
 
-var combinedQuantifierArray = ["Bag", "g", "kg", "lb", "L", "ml", "oz", "Heades", "Seeds", "Seedlings", "Slips", "Sticks", "Tubes", "Bag", "Truck"];
+var combinedQuantifierArray = ["Bag", "g", "kg", "lb", "L", "ml", "oz", "Heades", "Seeds", "Seedlings", "Slips", "Sticks", "Tubes", "Truck"];
 var totalQuantifierArray = [];
 
 

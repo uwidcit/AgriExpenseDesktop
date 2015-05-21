@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="30555ShivaniBhagaloo.AgriExpenseDesktopTest1" Version="1.0.0.2" Publisher="CN=FA5F2A7B-ED3B-4A20-89E8-E44C77A4D955" />
+  <Identity Name="30555ShivaniBhagaloo.AgriExpenseDesktopTest1" Version="1.0.0.5" Publisher="CN=FA5F2A7B-ED3B-4A20-89E8-E44C77A4D955" />
   <Properties>
     <DisplayName>AgriExpenseDesktopTest1</DisplayName>
     <PublisherDisplayName>ShivaniBhagaloo</PublisherDisplayName>

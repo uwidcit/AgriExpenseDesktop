@@ -145,9 +145,7 @@ function ViewModel() {
 
             dialog.showAsync();
 
-            window.location="employees.html"
-
-            
+            window.location = "employees.html";           
         });
     };
 

@@ -19,13 +19,14 @@
 </head>
 <body onload="onLabourPageLoad()">
     
- <div id="purchasesItemTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
+ <div id="labourItemTemplate" data-win-control="WinJS.Binding.Template" style="display: none">
         <div class="item">
 
              <p> <span data-win-bind="textContent: personName" class="item-title"></span></p>
              <p hidden="hidden">Id: <span data-win-bind="textContent: id" class="item-sub"></span></p>
              <p>Payment Plan: <span data-win-bind="textContent: paymentPlan" class="item-sub"></span></p>
              <p>Cost: <span data-win-bind="textContent: cost" class="item-sub"></span></p>
+            
         </div>
     </div>
     <div class="fragment toDo">
@@ -79,8 +80,6 @@
                             select.appendChild(el);
                         }
                     </script>
-                    
-
 
                     <label>Amount of Time</label>
                     <input type="number" class="time input-block" required />
@@ -99,9 +98,9 @@
                 
             </aside>
             <div class="displayListColumn">
-                 <div id="labourList" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
-                <div id="cycleList" style="display: none;" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
-                <div id="employeeList" style="display: none;" class="employeeList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#purchasesItemTemplate') }"></div>
+                 <div id="labourList" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#labourItemTemplate') }"></div>
+                <div id="cycleList" style="display: none;" class="cycleList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#labourItemTemplate') }"></div>
+                <div id="employeeList" style="display: none;" class="employeeList" data-win-control="WinJS.UI.ListView" data-win-options="{ itemTemplate: select('#labourItemTemplate') }"></div>
             </div>
         </section>
     </div>
