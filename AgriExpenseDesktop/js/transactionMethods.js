@@ -226,9 +226,7 @@
                     else {
                         success(list);
                 };
-
             }
-
         };
 
         //used in addPurchases.js to get list of fertilizres, list of chemicals etc.
@@ -265,12 +263,8 @@
                     else {
                         success(list);
                     };
-
                 }
-
-
             }
-
         };
 
         //used in deleteItemUsed.js to get list of fertilizres, list of chemicals etc.

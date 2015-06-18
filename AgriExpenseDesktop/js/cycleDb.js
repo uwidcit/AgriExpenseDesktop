@@ -1,6 +1,6 @@
 ﻿
 
-function onCyclesPageLoad() {
+function onCyclesPageLoad() { //call this each time the page loads
     WinJS.UI.processAll().then(function () {
         initializeDb().done(function () {
             initializeCycleUI();
@@ -30,22 +30,26 @@ function initializeCycleUI() {
 
 function ViewModel() {
     var
-        listView = document.getElementById("cycleList").winControl,
-        appBar = document.getElementById("appBar").winControl,
-        editFlyout = document.getElementById("editFlyout").winControl,
-        addForm = document.getElementById("addForm"),
-        editForm = document.getElementById("editForm"),
+        listView = document.getElementById("cycleList").winControl, //list of all cycles
+        resourcesUsedListView = document.getElementById("resourcesUsedList").winControl, //list of all resouces used in that cycle
+        appBar = document.getElementById("appBar").winControl, //bar at the bottom with edit and delete
+        editFlyout = document.getElementById("editFlyout").winControl, //edit form flyout
+        addForm = document.getElementById("addForm"), //add new cycle form
+        editForm = document.getElementById("editForm"), //edit cycle form
         self = this,
-        dataList;
+        resourcesUsedDataList, //resources used in this cycle. Need a reference for this because we need to cascade the deletes if a cycle is deleted.
+        dataList; //reference to crop cycles listview
 
-    this.init = function () {
+        this.init = function () {
+
+        
+
         myDatabase.purchaseList.getList(cycleObjectStoreName, function (e) {
             dataList = new WinJS.Binding.List(e);
-            dataList.reverse();
+            dataList.reverse(); //put most recent cycle first
 
             listView.itemDataSource = dataList.dataSource;
             listView.onselectionchanged = self.selectionChanged;
-        
 
             //left click on a crop cycle
             WinJS.UI.setOptions(listView, {
@@ -95,7 +99,7 @@ function ViewModel() {
                 }
 
                 //cycle was selected to be deleted
-                if (localStorage.getItem("cycleDelete") == "yes") {
+                else if (localStorage.getItem("cycleDelete") == "yes") {
                         var dialog = new Windows.UI.Popups.MessageDialog("Are you sure you want to delete?");
 
                         dialog.commands.append(new Windows.UI.Popups.UICommand("OK", function (command) {
@@ -104,11 +108,32 @@ function ViewModel() {
                                 listView.selection.getItems().then(function (items) {
                                     items.forEach(function (item) {
                                         var
-                                            dbKey = item.data.id,
+                                            dbKey = item.data.id, //crop cycle id
                                             lvKey = item.key;
 
                                         myDatabase.purchaseList.remove(dbKey, cycleObjectStoreName, function () {
                                             listView.itemDataSource.remove(lvKey);
+
+                                            //Also delete resources used for that cycle from resourceObjectStore
+                                            myDatabase.purchaseList.getDataForEachCycle(resourceUseageObjectStoreName, dbKey, function (e) { //get list of all items used in this crop cycle, pass in crop cycle ID
+                                                resourcesUsedDataList = new WinJS.Binding.List(e);
+                                                resourcesUsedListView.itemDataSource = resourcesUsedDataList.dataSource;
+
+                                                resourcesUsedListView.selection.selectAll();
+                                                resourcesUsedListView.selection.getItems().then(function (items) {
+                                                    items.forEach(function (item) {
+                                                        var
+                                                            idOfItem = item.data.id,
+                                                            lvKey2 = item.key; //key for resources Used
+
+                                                        myDatabase.purchaseList.remove(idOfItem, resourceUseageObjectStoreName, function () {
+                                                            resourcesUsedListView.itemDataSource.remove(lvKey2);
+                                                        })
+                                                    })
+                                                })
+
+                                            });
+
                                         });
                                     });
                                 });
